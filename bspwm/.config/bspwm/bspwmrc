@@ -1,0 +1,56 @@
+#!/bin/sh
+
+if [[ -n $(xrandr | grep "eDP-1") ]]; then
+	# LAPTOP CONFIG
+	bspc monitor -d 1 2 3 4 5 6 7
+else
+	# DESKTOP CONFIG
+	### WORKSPACES ###
+	bspc monitor DP-4 -d nvim obs util
+	bspc monitor HDMI-0 -d web term extra
+	bspc monitor DP-1 -d draw
+
+	### CONFIGURATION ###
+	bspc config remove_disabled_monitors true
+	bspc config remove_unplugged_monitors true
+
+
+	xrandr --output DP-4 --mode 1920x1080 --rate 143 --pos 0x0 --primary --output HDMI-0 --mode 1920x1080 --left-of DP-4 --output DP-1 --mode 1920x1080 --right-of DP-4
+fi
+
+bspc config border_width         2
+bspc config window_gap           4
+bspc config split_ratio          0.52
+bspc config borderless_monocle   true
+bspc config gapless_monocle      true
+bspc config normal_border_color "#353a65"
+bspc config focused_border_color "#46898f"
+
+### AUTOSTART ###
+pgrep -x sxhkd > /dev/null || sxhkd &
+killall -q dunst
+dunst &
+killall -q picom 
+picom &
+# Set wallpaper
+# Launch polybar
+$HOME/.config/polybar/launch.sh
+
+
+# remove unwanted Desktop
+bspc desktop Desktop --remove
+
+if [[ -n $(xrandr | grep "eDP-1") ]]; then
+	feh --bg-fill ~/m/media/pic/walls/neon_city.png
+	bspc rule -a firefox desktop=^4
+	bspc rule -a obsidian desktop=^5
+else
+	feh --bg-fill ~/m/media/pic/walls/cthulu_portal.jpg
+	### RULES ###
+	bspc rule -a pavucontrol state=floating
+	bspc rule -a discord state=floating
+	bspc rule -a yad-calendar state=floating
+	bspc rule -a firefox desktop=web
+	bspc rule -a Spotify desktop=extra
+	bspc rule -a obsidian desktop=obs
+fi

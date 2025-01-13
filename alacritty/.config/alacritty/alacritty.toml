@@ -1,0 +1,52 @@
+[env]
+TERM="xterm-256color"
+[window]
+padding = {x = 1, y = 1}
+opacity = 0.78
+
+[font]
+normal.family = "IosevkaTerm Nerd Font Mono"
+size = 11
+
+[colors.primary]
+foreground = "#aedbf0"
+background = "#101010"
+
+[colors]
+cursor = { text = "#101010", cursor = "#93e952"}
+vi_mode_cursor = { text = "#8180b2", cursor = "#93e952"}
+
+[colors.normal]
+black = "#25283d"
+red = "#6f42e0"
+green = "#1fff75"
+yellow = "#f5ff9b"
+blue = "#36abff"
+magenta = "#e358ff"
+cyan = "#01ffc4"
+white = "#23eae0"
+
+[colors.bright]
+black = "#2d315d"
+red = "#b058f7"
+green = "#3ff57f"
+yellow = "#f8fba3"
+blue = "#55b0f6"
+magenta = "#e766f8"
+cyan = "#25f4c0"
+white = "#3fe7dc"
+
+[colors.dim]
+black = "#262334"
+red = "#b058f7"
+green = "#21d6a0"
+yellow = "#e1ec83"
+blue = "#3095e8"
+magenta = "#c849eb"
+cyan = "#16c6a6"
+white = "#28a2cb"
+
+[[keyboard.bindings]]
+key = "Back"
+mods = "Control"
+chars = "\u0015"
