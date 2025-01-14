@@ -45,7 +45,7 @@ if [[ -n $(xrandr | grep "eDP-1") ]]; then
 	bspc rule -a firefox desktop=^4
 	bspc rule -a obsidian desktop=^5
 else
-	feh --bg-fill ~/m/media/pic/walls/cthulu_portal.jpg
+	feh --bg-fill ~/m/media/pic/walls/sci-fi-pastel.jpg
 	### RULES ###
 	bspc rule -a pavucontrol state=floating
 	bspc rule -a discord state=floating
