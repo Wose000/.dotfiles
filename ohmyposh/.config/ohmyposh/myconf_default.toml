@@ -4,10 +4,10 @@ final_space = true
 
 [palette]
   black = '#262B44'
-  blue = '#36abff'
-  green = '#23eae0'
-  orange = '#6f42e0'
-  red = '#e358ff'
+  blue = '#4a9ae6'
+  green = '#00ada6'
+  orange = '#9289d7'
+  red = '#ab7dd7'
   white = '#aedbf0'
   yellow = '#04cb8b'
 
