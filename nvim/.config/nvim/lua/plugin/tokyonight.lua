@@ -8,7 +8,13 @@ return {
     priority = 1000, -- Make sure to load this before all the other start plugins.
     init = function()
       require('tokyonight').setup {
+        style = 'night',
         transparent = true,
+        on_colors = function(colors)
+          colors.red = '#36abff'
+          colors.purple = '#8578ff'
+          colors.magenta = '#f16bd7'
+        end,
       }
       -- Load the colorscheme here.
       -- Like many other themes, this one has different styles, and you could load

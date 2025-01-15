@@ -5,25 +5,25 @@ local specs = {
   duskfox = {
     syntax = {
       bracket = 'blue.light',
-      builtin0 = 'pink', -- returns
-      builtin1 = 'cyan',
+      builtin0 = 'magenta', -- returns this
+      builtin1 = 'black',
       builtin2 = 'red.dim',
       -- commment
       conditional = 'pink',
-      const = 'yellow.bright',
+      const = 'yellow.dim',
       -- dep
-      dep = 'black',
+      dep = 'magenta',
       field = 'blue.bright',
-      func = 'red',
+      func = 'pink.light',
       ident = 'pink.bright',
       keyword = 'pink.light',
-      number = 'yellow.light',
+      number = 'yellow.dim',
       operator = 'pink.bright',
       preproc = 'magenta.dim',
       -- regex
       statement = 'red.bright',
       string = 'white',
-      type = 'black.light',
+      type = 'pink.dim',
       variable = 'cyan.light',
     },
   },
@@ -63,7 +63,6 @@ return {
       require('nightfox').setup {
         options = options,
         palettes = palettes,
-        specs = specs,
       }
     end,
   },

@@ -35,7 +35,7 @@ final_space = true
 	[[blocks.segments]]
     template = ' {{ if .SSHSession }} {{ end }}<b>{{ .UserName }}</> '
     foreground = 'p:orange'
-    background = 'p:yellow'
+    background = 'p:green'
     type = 'session'
     style = 'diamond'
 		leading_diamond= ""
