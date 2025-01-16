@@ -10,6 +10,8 @@ source /home/wose/.config/zsh/fzf-tab/fzf-tab.plugin.zsh
 source /home/wose/.config/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /home/wose/.config/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
+# Functions
+source $HOME/bin/fun.sh
 # vi style bindings
 bindkey -v
 bindkey '^p' history-search-backward
