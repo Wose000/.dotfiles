@@ -2,13 +2,13 @@
 eval "$(oh-my-posh init zsh --config $HOME/.config/ohmyposh/myconf.toml)"
 
 export EDITOR=nvim
-export PATH="/home/wose/.scripts/bin:$PATH"
+export PATH="$HOME/.scripts/bin:$PATH"
 # PLUGINGS
 autoload -Uz compinit && compinit
-fpath=(/home/wose/.config/zsh/zsh-completions/src/ $fpath)
-source /home/wose/.config/zsh/fzf-tab/fzf-tab.plugin.zsh
-source /home/wose/.config/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-source /home/wose/.config/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fpath=($HOME/.config/zsh/zsh-completions/src/ $fpath)
+source $HOME/.config/zsh/fzf-tab/fzf-tab.plugin.zsh
+source $HOME/.config/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+source $HOME/.config/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # Functions
 source $HOME/bin/fun.sh
@@ -16,7 +16,7 @@ source $HOME/bin/fun.sh
 bindkey -v
 bindkey '^p' history-search-backward
 bindkey '^n' history-search-forward
-bindkey -s '^f' '/home/wose/bin/ssel/ssel\n'
+bindkey -s '^f' '$HOME/bin/ssel/ssel\n'
 
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
@@ -40,8 +40,9 @@ zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 # ALIASES
 alias ls='eza' # Colored ls output
 alias lt='eza --tree --icons=always' # Tree ls output
-alias l='eza -lah --icons=always' # Colored ls output
-
+alias l='eza -lah --icons=always --group-directories-first --smart-group' # Colored ls output
+alias stowd='stow --dotfiles'
+alias gs='git status'
 # Shell integrations
 eval "$(fzf --zsh)"
 eval "$(zoxide init --cmd cd zsh)"
