@@ -1,0 +1,28 @@
+#!/bin/bash
+sessions_list='/home/wose/bin/ssel/tmux_sessions/'
+
+fzf_exec() {
+    local fd_options fzf_options target
+
+    fd_options=(
+        --hidden
+    )
+
+    fzf_options=(
+        --bind=ctrl-space:toggle-preview
+        --exit-0
+    )
+# TODO: understand what does this shit do.
+    target="$(fd . "${1:-.}" "${fd_options[@]}" | fzf "${fzf_options[@]}")"
+
+    exec $target || return 1
+}
+
+fzf_exec $sessions_list
+
+session_launcher(){
+	focused_window_pid=$(xdotool getwindowpid `xdotool getactivewindow`)
+ 	if [[ $(ps -p "$focused_window_pid" -o comm= | awk '{print $1}') == "wezterm-gui" ]]; then
+ 		fzf_exec /home/wose/.scripts/tmux_sessions/
+ 	fi
+}
