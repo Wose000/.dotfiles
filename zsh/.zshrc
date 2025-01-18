@@ -1,3 +1,4 @@
+export PATH="$HOME/.local/bin/:$PATH"
 # To customize prompt.
 eval "$(oh-my-posh init zsh --config $HOME/.config/ohmyposh/myconf.toml)"
 

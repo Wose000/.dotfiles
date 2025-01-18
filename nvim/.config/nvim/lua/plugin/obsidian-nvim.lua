@@ -69,6 +69,7 @@ return {
       -- Optional, if you want to automatically insert a template from your template directory like 'daily.md'
       template = nil,
     },
+    ui = { enable = false },
     completion = {
       -- Set to false to disable completion.
       nvim_cmp = true,
