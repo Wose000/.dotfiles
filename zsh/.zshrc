@@ -2,7 +2,8 @@
 eval "$(oh-my-posh init zsh --config $HOME/.config/ohmyposh/myconf.toml)"
 
 export EDITOR=nvim
-export PATH="$HOME/.scripts/bin:$PATH"
+export PATH="$HOME/bin:$PATH"
+export PATH="$HOME/.dotnet/tools:$PATH"
 # PLUGINGS
 autoload -Uz compinit && compinit
 fpath=($HOME/.config/zsh/zsh-completions/src/ $fpath)

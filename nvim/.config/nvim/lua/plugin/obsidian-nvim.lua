@@ -54,6 +54,9 @@ return {
         path = get_vault_path(),
       },
     },
+    follow_url_func = function(url)
+      vim.fn.jobstart { 'xdg-open', url }
+    end,
     daily_notes = {
       -- Optional, if you keep daily notes in a separate directory.
       folder = 'Life/Journal',
