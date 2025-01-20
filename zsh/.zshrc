@@ -1,10 +1,23 @@
-export PATH="$HOME/.local/bin/:$PATH"
 # To customize prompt.
+export PATH="$HOME/.local/bin/:$PATH"
 eval "$(oh-my-posh init zsh --config $HOME/.config/ohmyposh/myconf.toml)"
 
 export EDITOR=nvim
 export PATH="$HOME/bin:$PATH"
+export PATH="/bin:$PATH"
+#
+# .NET SDK Configuration
+export DOTNET_ROOT="/usr/share/dotnet"
+export DOTNET_CLI_TELEMETRY_OPTOUT=1 # Disable analytics
+export DOTNET_ROLL_FORWARD_TO_PRERELEASE=1
+
+# Add the .NET SDK to the system paths so we can use the `dotnet` tool.
+export PATH="$DOTNET_ROOT:$PATH"
+export PATH="$DOTNET_ROOT/sdk:$PATH"
 export PATH="$HOME/.dotnet/tools:$PATH"
+# Run this if you ever run into errors while doing a `dotnet restore`
+alias nugetclean="dotnet nuget locals --clear all"
+
 # PLUGINGS
 autoload -Uz compinit && compinit
 fpath=($HOME/.config/zsh/zsh-completions/src/ $fpath)
@@ -14,11 +27,13 @@ source $HOME/.config/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # Functions
 source $HOME/bin/fun.sh
-# vi style bindings
 bindkey -v
+# navigating prompt history
+bindkey '^o' clear-screen
 bindkey '^p' history-search-backward
 bindkey '^n' history-search-forward
-bindkey -s '^f' '$HOME/bin/ssel/ssel\n'
+# Tmux sessions finder
+bindkey -s '^f' "ssel^M"
 
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
@@ -38,6 +53,25 @@ zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 zstyle ':completion:*' menu no
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
 zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
+# disable sort when completing `git checkout`
+zstyle ':completion:*:git-checkout:*' sort false
+# set descriptions format to enable group support
+# NOTE: don't use escape sequences (like '%F{red}%d%f') here, fzf-tab will ignore them
+zstyle ':completion:*:descriptions' format '[%d]'
+# set list-colors to enable filename colorizing
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+# force zsh not to show completion menu, which allows fzf-tab to capture the unambiguous prefix
+zstyle ':completion:*' menu no
+# preview directory's content with eza when completing cd
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
+# custom fzf flags
+# NOTE: fzf-tab does not follow FZF_DEFAULT_OPTS by default
+zstyle ':fzf-tab:*' fzf-flags --color=fg:1,fg+:2 --bind=tab:accept
+# To make fzf-tab follow FZF_DEFAULT_OPTS.
+# NOTE: This may lead to unexpected behavior since some flags break this plugin. See Aloxaf/fzf-tab#455.
+zstyle ':fzf-tab:*' use-fzf-default-opts yes
+# switch group using `<` and `>`
+zstyle ':fzf-tab:*' switch-group '<' '>'
 
 # ALIASES
 alias ls='eza' # Colored ls output
@@ -48,3 +82,5 @@ alias gs='git status'
 # Shell integrations
 eval "$(fzf --zsh)"
 eval "$(zoxide init --cmd cd zsh)"
+
+bindkey '^y' fzf-completion

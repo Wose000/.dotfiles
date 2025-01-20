@@ -1,7 +1,8 @@
 #!/bin/env bash
 
 # PORTS
-ACTIVE_PORT=$(pactl list sinks | grep "Active Port" | cut -d: -f2- | xargs)
+
+ACTIVE_PORT=$(pactl list sinks | grep "Active Port: analog-output"| cut -d: -f2- | xargs)
 PORT_HEADPHONES="analog-output-headphones"
 PORT_SPEAKERS="analog-output-lineout"
 
@@ -21,15 +22,14 @@ set_correct_sink() {
 }
 
 set_correct_icon() {
-	if [[ $ACTIVE_PORT == "$PORT_HEADPHONES" ]]; then
+	if [ "$ACTIVE_PORT" == "$PORT_HEADPHONES" ]; then
 		echo $HEADPHONES
-	elif [[ $ACTIVE_PORT == "$PORT_SPEAKERS" ]]; then
+	elif [ "$ACTIVE_PORT" == "$PORT_SPEAKERS" ]; then
 		echo $SPEAKERS
 	fi 
 }
 
 set_correct_sink
-
 
 case "$1" in
 --toggle)

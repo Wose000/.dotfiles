@@ -1,0 +1,15 @@
+#!/bin/env bash
+
+source /home/wose/bin/tmux_sessions/tmux_scripts_function.sh
+SESSION="dotfiles"
+WINDOW=${SESSION}:0
+PANE=${WINDOW}.0
+path='/home/wose/.dotfiles/'
+
+tmux has-session -t $SESSION 2>/dev/null
+
+if [ $? != 0 ]; then
+	tmux new-session -d -s $SESSION -c $path -n 'Nvim'&&
+	tmux send-keys -t "$PANE" 'nvim' C-m
+fi
+	attach_or_switch $SESSION

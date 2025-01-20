@@ -10,10 +10,10 @@ local function get_hostname()
 end
 
 local function get_vault_path()
-  if get_hostname() == 'woselaptop' then
-    return '/home/wose/m/doc/note/'
+  if get_hostname() == 'arch-laptop' then
+    return '/home/wose/m/doc/note'
   else
-    return '/home/wose/m/doc/note/'
+    return '/home/wose/m/doc/note'
   end
 end
 
@@ -22,12 +22,6 @@ return {
   version = '*', -- recommended, use latest release instead of latest commit
   lazy = true,
   ft = 'markdown',
-  event = {
-    --   -- If you want to use the home shortcut '~' here you need to call 'vim.fn.expand'.
-    --   -- E.g. "BufReadPre " .. vim.fn.expand "~" .. "/my-vault/*.md"
-    'BufReadPre path/to/my-vault/*.md',
-    'BufNewFile path/to/my-vault/*.md',
-  },
   dependencies = {
     -- Required.
     'nvim-lua/plenary.nvim',
