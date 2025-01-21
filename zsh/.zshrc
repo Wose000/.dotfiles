@@ -5,18 +5,22 @@ eval "$(oh-my-posh init zsh --config $HOME/.config/ohmyposh/myconf.toml)"
 export EDITOR=nvim
 export PATH="$HOME/bin:$PATH"
 export PATH="/bin:$PATH"
-#
+
+# Add the .NET SDK to the system paths so we can use the `dotnet` tool.
 # .NET SDK Configuration
 export DOTNET_ROOT="/usr/share/dotnet"
 export DOTNET_CLI_TELEMETRY_OPTOUT=1 # Disable analytics
 export DOTNET_ROLL_FORWARD_TO_PRERELEASE=1
 
-# Add the .NET SDK to the system paths so we can use the `dotnet` tool.
 export PATH="$DOTNET_ROOT:$PATH"
 export PATH="$DOTNET_ROOT/sdk:$PATH"
 export PATH="$HOME/.dotnet/tools:$PATH"
 # Run this if you ever run into errors while doing a `dotnet restore`
 alias nugetclean="dotnet nuget locals --clear all"
+
+# Java environment
+JAVA_HOME="/usr/lib/jvm/java-21-openjdk"  
+export PATH="$JAVA_HOME/bin:$PATH"
 
 # PLUGINGS
 autoload -Uz compinit && compinit
