@@ -4,7 +4,7 @@ source /home/wose/bin/tmux_sessions/tmux_scripts_function.sh
 SESSION="dnd_charsheet"
 WINDOW=${SESSION}:0
 PANE=${WINDOW}.0
-path='/home/wose/m/prj/dnd-charsheet/src/'
+path='/home/wose/m/prj/dnd-charsheet/'
 
 tmux has-session -t $SESSION 2>/dev/null
 
