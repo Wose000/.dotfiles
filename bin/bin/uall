@@ -1,0 +1,9 @@
+#!/bin/env bash
+
+note_path=$HOME/m/doc/note/
+dot_path=$HOME/.dotfiles/
+
+cd "$note_path"
+git pull origin main
+cd "$dot_path"
+git pull origin main
