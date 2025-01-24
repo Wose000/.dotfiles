@@ -39,6 +39,7 @@ bindkey '^n' history-search-forward
 # Tmux sessions finder
 bindkey -s '^f' "ssel^M"
 
+
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
 HISTSIZE=5000
