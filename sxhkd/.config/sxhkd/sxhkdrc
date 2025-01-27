@@ -127,6 +127,10 @@ super + {Left,Down,Up,Right}
 hyper + d
 	rofi -show run
 
+# opne clipboard menu
+hyper + c
+	rofi -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}'
+
 # Rotate tree
 super + shift + {d,a}
 	bspc node @/ -C {forward,backward}
