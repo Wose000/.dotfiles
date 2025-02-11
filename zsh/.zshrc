@@ -88,4 +88,6 @@ alias gs='git status'
 eval "$(fzf --zsh)"
 eval "$(zoxide init --cmd cd zsh)"
 
+alias onedrive='rclone --vfs-cache-mode writes mount "onedrive": ~/mnt/onedrive/'
+
 bindkey '^y' fzf-completion
