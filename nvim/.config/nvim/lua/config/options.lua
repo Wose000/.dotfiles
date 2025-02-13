@@ -71,4 +71,7 @@ vim.cmd.colorscheme 'tokyonight'
 -- used by obsidian.nvim
 vim.o.conceallevel = 2
 
+-- to make sure filetype and highlighting work correctly after a session is restored.
+vim.o.sessionoptions = 'blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions'
+
 -- vim: ts=2 sts=2 sw=2 et

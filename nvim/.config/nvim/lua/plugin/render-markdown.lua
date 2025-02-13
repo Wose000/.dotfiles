@@ -6,4 +6,15 @@ return {
   ---@module 'render-markdown'
   ---@type render.md.UserConfig
   opts = {},
+  config = function()
+    require('render-markdown').setup {
+      latex = {
+        enabled = true,
+        converter = 'latex2text',
+        highlight = 'RenderMarkdownMath',
+        top_pad = 0,
+        bottom_pad = 0,
+      },
+    }
+  end,
 }

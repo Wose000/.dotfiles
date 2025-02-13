@@ -5,6 +5,7 @@ eval "$(oh-my-posh init zsh --config $HOME/.config/ohmyposh/myconf.toml)"
 export EDITOR=nvim
 export PATH="$HOME/bin:$PATH"
 export PATH="/bin:$PATH"
+export PATH="/usr/lib/node_modules:$PATH"
 
 # Add the .NET SDK to the system paths so we can use the `dotnet` tool.
 # .NET SDK Configuration

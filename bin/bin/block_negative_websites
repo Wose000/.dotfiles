@@ -1,0 +1,32 @@
+#!/bin/env bash
+
+HOST_FILE="/etc/hosts"
+
+BLOKED_SITES=(
+"facebook.com"
+"youtube.com"
+"youtube.it"
+"download.battle.net/en-us/desktop"
+"download.battle.net"
+"reddit.com"
+"reddit.com"
+"porn-hub.com"
+"it.pornhub.com"
+"pornhub.com"
+"xvideos.com"
+)
+
+# check for root permission
+if [[ $EUID -ne 0 ]]; then
+	echo "This script must be run as root"
+	exit 1
+fi
+
+for SITE in "${BLOKED_SITES[@]}"; do
+	echo $SITE
+	if ! grep -q "$SITE" "$HOST_FILE"; then
+		echo "127.0.0.1 $SITE" >> "$HOST_FILE"
+		echo "127.0.0.1 www.$SITE" >> "$HOST_FILE"
+		echo "$SITE has been blocked."
+	fi
+done
