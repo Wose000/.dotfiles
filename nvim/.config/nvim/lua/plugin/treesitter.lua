@@ -17,6 +17,7 @@ return {
         'vim',
         'vimdoc',
         'vimdoc',
+        'latex',
       },
       -- Autoinstall languages that are not installed
       auto_install = true,
