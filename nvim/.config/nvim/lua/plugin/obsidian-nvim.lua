@@ -29,6 +29,12 @@ return {
         path = '/home/wose/m/doc/note',
       },
     },
+    templates = {
+      folder = 'z_template',
+      date_format = '%Y-%m-%d',
+      time_format = '%H:%M',
+      substitutions = {},
+    },
     follow_url_func = function(url)
       vim.fn.jobstart { 'xdg-open', url }
     end,

@@ -8,6 +8,13 @@ return {
   opts = {},
   config = function()
     require('render-markdown').setup {
+      checkbox = {
+        checked = { scope_highlight = '@markup.strikethrough' },
+        custom = {
+          important = { raw = '[!]', rendered = ' ', highlight = 'DiagnosticWarn' },
+          wait = { raw = '[>]', rendered = '󰥔 ', highlight = 'DiagnosticWarn' },
+        },
+      },
       latex = {
         enabled = true,
         converter = 'latex2text',
