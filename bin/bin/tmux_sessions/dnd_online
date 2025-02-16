@@ -1,0 +1,17 @@
+#!/bin/env bash
+
+source /home/wose/bin/tmux_sessions/tmux_scripts_function.sh
+SESSION="dnd_serverclient"
+WINDOW=${SESSION}:0
+PANE=${WINDOW}.0
+path='/home/wose/m/src/python/srvclnt/src/'
+
+tmux has-session -t $SESSION 2>/dev/null
+
+if [ $? != 0 ]; then
+	tmux new-session -d -s $SESSION -c $path -n 'Nvim'&&
+	tmux send-keys -t "$PANE" 'source .venv/bin/activate' C-m
+	tmux send-keys -t "$PANE" 'nvim' C-m
+fi
+	attach_or_switch $SESSION
+
