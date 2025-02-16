@@ -38,10 +38,8 @@ killall -q dunst
 dunst &
 killall -q picom 
 picom &
-# Set wallpaper
 # Launch polybar
 $HOME/.config/polybar/launch.sh
-$HOME/bin/pen_display_setup.sh &
 
 
 # remove unwanted Desktop
@@ -52,6 +50,7 @@ if [[ -n $(xrandr | grep "eDP-1") ]]; then
 	bspc rule -a firefox desktop=^4
 	bspc rule -a obsidian desktop=^5
 else
+	$HOME/bin/pen_display_setup.sh &
 	feh --bg-fill ~/m/media/pic/black_white_skeletons_war.jpg
 	### RULES ###
 	bspc rule -a pavucontrol state=floating
