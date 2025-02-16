@@ -41,6 +41,7 @@ picom &
 # Set wallpaper
 # Launch polybar
 $HOME/.config/polybar/launch.sh
+$HOME/bin/pen_display_setup.sh &
 
 
 # remove unwanted Desktop
