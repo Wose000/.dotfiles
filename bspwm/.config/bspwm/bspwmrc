@@ -51,7 +51,8 @@ if [[ -n $(xrandr | grep "eDP-1") ]]; then
 	bspc rule -a obsidian desktop=^5
 else
 	$HOME/bin/pen_display_setup.sh &
-	feh --bg-fill ~/m/media/pic/walls/NeonTokyo.jpg
+	feh --bg-fill ~/m/media/pic/walls/punishing.jpg
+
 	### RULES ###
 	bspc rule -a pavucontrol state=floating
 	bspc rule -a discord state=floating
