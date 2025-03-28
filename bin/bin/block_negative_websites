@@ -8,8 +8,6 @@ BLOKED_SITES=(
 "youtube.it"
 "download.battle.net/en-us/desktop"
 "download.battle.net"
-"reddit.com"
-"reddit.com"
 "porn-hub.com"
 "it.pornhub.com"
 "bato.to"
@@ -19,7 +17,6 @@ BLOKED_SITES=(
 "it.youporn.com"
 "youporn.com"
 "deadshot.io"
-"discord.com"
 )
 
 # check for root permission
