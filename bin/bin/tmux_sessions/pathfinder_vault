@@ -1,7 +1,7 @@
 #!/bin/env bash
 
 source /home/wose/bin/tmux_sessions/tmux_scripts_function.sh
-SESSION="pathfinder obsidian"
+SESSION="pathfinder_obsidian"
 WINDOW=${SESSION}:0
 PANE=${WINDOW}.0
 path='/home/wose/m/doc/pathfinder/pathfinder_vault/'
