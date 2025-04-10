@@ -4,7 +4,7 @@ source /home/wose/bin/tmux_sessions/tmux_scripts_function.sh
 SESSION="pathfinder_obsidian"
 WINDOW=${SESSION}:0
 PANE=${WINDOW}.0
-path='/home/wose/m/doc/pathfinder/pathfinder_vault/'
+path='/home/wose/m/pathfinder/pathfinder_vault/'
 
 tmux has-session -t $SESSION 2>/dev/null
 
