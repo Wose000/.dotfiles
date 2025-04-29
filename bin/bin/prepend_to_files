@@ -1,0 +1,17 @@
+#!/bin/bash
+
+FOLDER=${1:-.}
+
+echo "$FOLDER"
+
+STRING_TO_PREPEND="package org.lab8;"
+
+for file in "$FOLDER"/*; do
+	if [ -f "$file" ]; then
+		echo "processing $file ..."
+		tmpfile=$(mktemp)
+		echo "$STRING_TO_PREPEND" > "$tmpfile"
+		cat "$file" >> "$tmpfile"
+		mv "$tmpfile" "$file"
+	fi
+done
