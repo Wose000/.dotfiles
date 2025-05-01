@@ -38,6 +38,8 @@ killall -q dunst
 dunst &
 killall -q picom 
 picom &
+killall -q greenclip
+greenclip daemon &
 # Launch polybar
 $HOME/.config/polybar/launch.sh
 
@@ -51,7 +53,7 @@ if [[ -n $(xrandr | grep "eDP-1") ]]; then
 	bspc rule -a obsidian desktop=^5
 else
 	$HOME/bin/pen_display_setup.sh &
-	feh --bg-fill ~/m/media/pic/walls/hero-party.jpg
+	feh --bg-fill ~/m/media/pic/walls/NierAutomata.jpg
 
 	### RULES ###
 	bspc rule -a pavucontrol state=floating
