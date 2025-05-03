@@ -4,12 +4,12 @@ final_space = true
 
 [palette]
   black = '#262B44'
-  blue = '#36abff'
-  green = '#41a6b5'
-  orange = '#6f42e0'
-  red = '#e358ff'
+  blue = '#1d9ec1'
+  green = '#6ae458'
+  orange = '#a874ce'
+  red = '#f265b5'
   white = '#aedbf0'
-  yellow = '#04cb8b'
+  yellow = '#03b6b0'
 
 [secondary_prompt]
   template = '<p:yellow,transparent></><p:yellow> > </><p:yellow,transparent></> '
