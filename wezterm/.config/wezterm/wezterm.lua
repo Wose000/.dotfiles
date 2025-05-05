@@ -30,7 +30,7 @@ config.colors = {
 		"#03b6b0", -- white
 	},
 	brights = {
-		"#25283d", -- black
+		"#11151c", -- black
 		"#a874ce", -- red
 		"#6ae458", -- green
 		"#fb9893", -- yellow
