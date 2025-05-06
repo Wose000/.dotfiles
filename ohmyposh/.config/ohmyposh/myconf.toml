@@ -4,6 +4,8 @@ final_space = true
 
 [palette]
   black = '#262B44'
+	black_dark = '#25283d'
+	grey = "#1c1f31"
   blue = '#1d9ec1'
   green = '#6ae458'
   orange = '#a874ce'
@@ -33,12 +35,12 @@ final_space = true
 
 # User block
 	[[blocks.segments]]
-    template = '{{ if .SSHSession }} {{ end }}󰣇 <b><p:black>{{ .UserName }}</> '
-    foreground = 'p:orange'
-    background = 'p:yellow'
+    template = '{{ if .SSHSession }} {{ end }} 󰣇 <b><p:green,p:grey> {{ .UserName }} </>'
+    foreground = 'p:green'
+    background = 'p:black'
     type = 'session'
     style = 'diamond'
-		leading_diamond= ""
+		leading_diamond= ""
 		trailing_diamond = ""
 
 # Git block
@@ -60,9 +62,9 @@ final_space = true
 	[[blocks.segments]]
 		type = 'path'
 		style = "diamond"
-		leading_diamond= ""
-		trailing_diamond = ""
-		background = 'p:orange'
+		leading_diamond= " "
+		trailing_diamond = " "
+		background = 'p:black_dark'
 		foreground = 'p:white'
 		template = ' <b><p:white>{{ .Path }}</b></> '
 
@@ -70,7 +72,7 @@ final_space = true
 [[blocks]]
   type = 'rprompt'
   [[blocks.segments]]
-    template = ' {{ if gt .Code 0 }}<p:red> </>{{ else }}<p:green> </>{{ end }}'
+    template = ' {{ if gt .Code 0 }}<p:red> </> {{.Code}}{{ else }}<p:green> </>{{ end }}'
     foreground = 'p:white'
     background = 'transparent'
     type = 'status'
@@ -92,7 +94,7 @@ final_space = true
       fetch_virtual_env = true
 
   [[blocks.segments]]
-    template = ' <p:blue><b>{{ .Name }}</b></> '
+    template = ' <p:green><b>{{ .Name }}</b></> '
     foreground = 'p:white'
     background = 'transparent'
     type = 'shell'
