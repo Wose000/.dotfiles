@@ -1,6 +1,6 @@
 # To customize prompt.
 export PATH="$HOME/.local/bin/:$PATH"
-eval "$(oh-my-posh init zsh --config $HOME/.config/ohmyposh/myconf.toml)"
+eval "$(oh-my-posh init zsh --config $HOME/.config/ohmyposh/base.json)"
 
 export EDITOR=nvim
 export PATH="$HOME/bin:$PATH"

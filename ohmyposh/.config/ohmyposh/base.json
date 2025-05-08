@@ -1,13 +1,17 @@
 {
   "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
   "palette": {
-    "black": "#262B44",
-    "blue": "#4B95E9",
-    "green": "#59C9A5",
-    "orange": "#F07623",
-    "red": "#D81E5B",
-    "white": "#E0DEF4",
-    "yellow": "#F3AE35"
+    "bright-black": "#30344f",
+    "black": "#25283d",
+    "dark-black": "#1d1f2f",
+    "gray": "#44496f",
+    "blue": "#2490c2",
+    "green": "#08ce81",
+    "purple": "#a874ce",
+    "orange": "#fb9893",
+    "red": "#f265b5",
+    "white": "#aedbf0",
+    "yellow": "#6ae458"
   },
   "secondary_prompt": {
     "template": "<p:yellow,transparent></><,p:yellow> > </><p:yellow,transparent></> ",
@@ -15,11 +19,11 @@
     "background": "transparent"
   },
   "transient_prompt": {
-    "template": "<p:yellow,transparent></><,p:yellow> {{ .Folder }} </><p:yellow,transparent></> ",
-    "foreground": "p:black",
+    "template": " {{.Folder}}   ",
+    "foreground": "p:yellow",
     "background": "transparent"
   },
-  "console_title_template": "{{ .Shell }} in {{ .Folder }}",
+  "console_title_template": "  {{ .Shell }} in {{ .Folder }}",
   "upgrade": {
     "source": "cdn",
     "interval": "168h",
@@ -32,11 +36,11 @@
       "alignment": "left",
       "segments": [
         {
-          "leading_diamond": "",
-          "trailing_diamond": "",
-          "template": " {{ if .SSHSession }} {{ end }}{{ .UserName }} ",
-          "foreground": "p:black",
-          "background": "p:yellow",
+          "leading_diamond": "",
+          "trailing_diamond": "<p:black></>",
+          "template": " {{ if .SSHSession }} {{ end }}<p:white,p:dark-black>󰣇 </><p:black,p:dark-black></><,p:black> {{ .UserName }} ",
+          "foreground": "p:yellow",
+          "background": "p:dark-black",
           "type": "session",
           "style": "diamond"
         },
@@ -44,12 +48,13 @@
           "properties": {
             "style": "folder"
           },
-          "template": "  {{ path .Path .Location }} ",
+          "leading_diamond": "",
+          "trailing_diamond": "<p:gray></>",
+          "template": "   {{ path .Path .Location }} ",
           "foreground": "p:white",
-          "powerline_symbol": "",
-          "background": "p:orange",
+          "background": "p:gray",
           "type": "path",
-          "style": "powerline"
+          "style": "diamond"
         },
         {
           "properties": {
@@ -87,15 +92,15 @@
           "properties": {
             "always_enabled": true
           },
-          "leading_diamond": "<transparent,background></>",
-          "trailing_diamond": "",
-          "template": " {{ if gt .Code 0 }}{{ else }}{{ end }} ",
+          "leading_diamond": "",
+          "trailing_diamond": "",
+          "template": " {{ if gt .Code 0 }}<></>{{ else }}<></>{{ end }} ",
           "foreground": "p:white",
-          "background": "p:blue",
+          "background": "p:green",
           "type": "status",
           "style": "diamond",
           "background_templates": [
-            "{{ if gt .Code 0 }}p:red{{ end }}"
+            "{{ if gt .Code 0 }}p:purple{{ end }}"
           ]
         }
       ]
