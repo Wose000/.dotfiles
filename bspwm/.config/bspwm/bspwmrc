@@ -48,7 +48,7 @@ $HOME/.config/polybar/launch.sh
 bspc desktop Desktop --remove
 
 if [[ -n $(xrandr | grep "eDP-1") ]]; then
-	feh --bg-fill ~/m/media/pic/walls/priestes.jpg
+	feh --bg-fill ~/m/media/pic/walls/katanas.jpg
 	bspc rule -a firefox desktop=^4
 	bspc rule -a obsidian desktop=^5
 else
