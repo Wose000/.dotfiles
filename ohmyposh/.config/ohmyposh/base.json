@@ -14,8 +14,8 @@
     "yellow": "#6ae458"
   },
   "secondary_prompt": {
-    "template": "<p:yellow,transparent></><,p:yellow> > </><p:yellow,transparent></> ",
-    "foreground": "p:black",
+    "template": " 󰇘 ",
+    "foreground": "p:green",
     "background": "transparent"
   },
   "transient_prompt": {
@@ -100,8 +100,11 @@
           "background": "p:green",
           "type": "status",
           "style": "diamond",
+          "foreground_templates": [
+            "{{ if gt .Code 0 }}p:orange{{ end }}"
+          ],
           "background_templates": [
-            "{{ if gt .Code 0 }}p:purple{{ end }}"
+            "{{ if gt .Code 0 }}p:gray{{ end }}"
           ]
         }
       ]
@@ -144,7 +147,7 @@
           "style": "plain"
         },
         {
-          "template": "in <p:blue><b>{{ .Name }}</b></> ",
+          "template": " <p:blue><b>{{ .Name }}</b></> ",
           "foreground": "p:white",
           "background": "transparent",
           "type": "shell",
