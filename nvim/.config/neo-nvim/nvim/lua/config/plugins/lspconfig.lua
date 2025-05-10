@@ -17,8 +17,6 @@ return {
 
 				map("grn", vim.lsp.buf.rename, "[R]e[n]ame")
 				map("gca", vim.lsp.buf.code_action, "[G]o [C]ode [A]ction")
-				map("gd", vim.lsp.buf.definition, "[G]o to [D]efinition")
-				map("gr", vim.lsp.buf.references, "[G]o to [R]references")
 				map("K", vim.lsp.buf.hover, "Hover")
 
 				-- The following two autocommands are used to highlight references of the
@@ -27,14 +25,18 @@ return {
 				--
 				-- When you move your cursor, the highlights will be cleared (the second autocommand).
 				local client = vim.lsp.get_client_by_id(event.data.client_id)
-				if client then
-					local highlight_augroup = vim.api.nvim_create_augroup("kickstart-lsp-highlight", { clear = false })
+				if
+					client
+					and client:supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight, event.buf)
+				then
+					local highlight_augroup = vim.api.nvim_create_augroup("wose_nvim_lsp_highlight", { clear = false })
+					--  Highlight refereces of the word under cursor
 					vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
 						buffer = event.buf,
 						group = highlight_augroup,
 						callback = vim.lsp.buf.document_highlight,
 					})
-
+					-- clear highlight
 					vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
 						buffer = event.buf,
 						group = highlight_augroup,
@@ -42,10 +44,10 @@ return {
 					})
 
 					vim.api.nvim_create_autocmd("LspDetach", {
-						group = vim.api.nvim_create_augroup("kickstart-lsp-detach", { clear = true }),
+						group = vim.api.nvim_create_augroup("wose_nvim_lsp_detach", { clear = true }),
 						callback = function(event2)
 							vim.lsp.buf.clear_references()
-							vim.api.nvim_clear_autocmds({ group = "kickstart-lsp-highlight", buffer = event2.buf })
+							vim.api.nvim_clear_autocmds({ group = "wose_nvim_lsp_highlight", buffer = event2.buf })
 						end,
 					})
 				end
@@ -54,7 +56,7 @@ return {
 				-- code, if the language server you are using supports them
 				--
 				-- This may be unwanted, since they displace some of your code
-				if client then
+				if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint, event.buf) then
 					map("<leader>th", function()
 						vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
 					end, "[T]oggle Inlay [H]ints")
@@ -91,27 +93,18 @@ return {
 		})
 		local capabilities = require("blink.cmp").get_lsp_capabilities()
 		local servers = {
-			lua_ls = {
-				settings = {
-					Lua = {
-						completion = {
-							callSnippet = "Replace",
-						},
-					},
-				},
-			},
+			lua_ls = require("config.plugins.settings.lspservers.luals"),
 		}
 		local ensure_installed = vim.tbl_keys(servers or {})
+
 		vim.list_extend(ensure_installed, {
 			"stylua", -- Used to format Lua code
 		})
 		require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
 		require("mason-lspconfig").setup({
+			ensure_installed = {}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
 			automatic_enable = true,
-			ensure_installed = {
-				"lua_ls",
-			}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
 			automatic_installation = false,
 			handlers = {
 				function(server_name)
@@ -123,3 +116,4 @@ return {
 		})
 	end,
 }
+-- vim: ts=2 sts=2 sw=2 et
