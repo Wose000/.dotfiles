@@ -10,9 +10,9 @@ local gears = require("gears")
 local awful = require("awful")
 require("awful.autofocus")
 -- set monitors
-if is_desktop then
-	awful.spawn.with_shell("/home/wose/bin/screens_setup.sh")
-end
+-- if is_desktop then
+-- 	awful.spawn.with_shell("/home/wose/bin/scripts/screens_setup.sh")
+-- end
 -- launch starting applications
 awful.spawn.with_shell("/home/wose/.config/awesome/autorun.sh")
 -- Widget and layout library
@@ -195,6 +195,11 @@ end
 -- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
 screen.connect_signal("property::geometry", set_wallpaper)
 
+local volume_widget = require("awesome-wm-widgets.pactl-widget.volume")({
+	widget_type = "horizontal_bar",
+	with_icon = true,
+	tooltip = true,
+})
 awful.screen.connect_for_each_screen(function(s)
 	-- Wallpaper
 	set_wallpaper(s)
@@ -283,7 +288,7 @@ awful.screen.connect_for_each_screen(function(s)
 			s.mytaglist,
 			s.mypromptbox,
 		},
-		nil,
+		{ layout = wibox.layout.fixed.horizontal, volume_widget },
 		{ -- Right widgets
 			layout = wibox.layout.fixed.horizontal,
 			spacing = 5,
