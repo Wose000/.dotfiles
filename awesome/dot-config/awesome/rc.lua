@@ -11,10 +11,10 @@ local awful = require("awful")
 require("awful.autofocus")
 -- set monitors
 if is_desktop then
-	awful.spawn.once("/home/wose/bin/screens_setup.sh")
+	awful.spawn.with_shell("/home/wose/bin/screens_setup.sh")
 end
 -- launch starting applications
-awful.spawn.once("./autorun.sh")
+awful.spawn.with_shell("/home/wose/.config/awesome/autorun.sh")
 -- Widget and layout library
 local wibox = require("wibox")
 -- Theme handling library
