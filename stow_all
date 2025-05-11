@@ -1,0 +1,15 @@
+#!/bin/bash
+
+stow --dotfiles --restow awesome
+stow --dotfiles --restow rofi
+stow --dotfiles --restow bin
+stow --dotfiles --restow gtk
+stow --dotfiles nvim
+stow --dotfiles --restow ohmyposh
+stow --dotfiles --restow picom
+stow --dotfiles --restow rofi
+stow --dotfiles --restow tmux
+stow --dotfiles --restow wezterm
+stow --dotfiles --restow xorg
+stow --dotfiles --restow zathura
+stow --dotfiles --restow zsh
