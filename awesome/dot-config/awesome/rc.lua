@@ -1,13 +1,18 @@
 -- If LuaRocks is installed, make sure that packages installed through it are
 -- found (e.g. lgi). If LuaRocks is not installed, do nothing.
 pcall(require, "luarocks.loader")
+
+local is_desktop = os.getenv("HOSTNAME") == "arch-pc"
+local is_laptop = os.getenv("HOSTNAME") == "arch-laptop"
 -- Add the module directory to the Lua search path
 -- Standard awesome library
 local gears = require("gears")
 local awful = require("awful")
 require("awful.autofocus")
 -- set monitors
-awful.spawn.once("/home/wose/bin/screens_setup.sh")
+if is_desktop then
+	awful.spawn.once("/home/wose/bin/screens_setup.sh")
+end
 -- launch starting applications
 awful.spawn.once("./autorun.sh")
 -- Widget and layout library
@@ -21,9 +26,6 @@ local hotkeys_popup = require("awful.hotkeys_popup")
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
-
-local is_desktop = os.getenv("HOSTNAME") == "arch-pc"
-local is_laptop = os.getenv("HOSTNAME") == "arch-laptop"
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
