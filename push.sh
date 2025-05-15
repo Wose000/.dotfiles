@@ -3,12 +3,12 @@
 MAIN_DIR=$(pwd)
 echo $MAIN_DIR
 
-cd ./nvim/.config/nvim/
+cd  $HOME/.dotfiles/nvim/dot-config/nvim/
 git add .
 git commit -m "fast update"
 git push origin main
 
-cd "$MAIN_DIR"
+cd $HOME/.dotfiles
 
 git add .
 git commit -m "fast update"
