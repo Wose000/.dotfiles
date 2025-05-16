@@ -2,8 +2,11 @@
 
 note_path=$HOME/m/doc/note/
 dot_path=$HOME/.dotfiles/
+nvim_path=$HOME/.dotfiles/nvim/dot-config/nvim/
 
 cd "$note_path"
+git pull origin main
+cd "$nvim_path"
 git pull origin main
 cd "$dot_path"
 git pull origin main
