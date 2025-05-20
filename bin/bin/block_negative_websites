@@ -4,6 +4,12 @@ HOST_FILE="/etc/hosts"
 
 BLOKED_SITES=(
 "facebook.com"
+"youporn.com"
+"it.youporn.com"
+"toongod.org"
+"manhwabuddy.com"
+"redtube.com"
+"it.redtube.com"
 "youtube.com"
 "youtube.it"
 "download.battle.net/en-us/desktop"
