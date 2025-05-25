@@ -234,6 +234,13 @@ awful.screen.connect_for_each_screen(function(s)
 		buttons = taglist_buttons,
 	})
 
+	s.mysystray = wibox.widget.systray({
+		base_size = 13,
+	})
+
+	local battery_widget = require("awesome-wm-widgets.battery-widget.battery")
+
+	local centered_systray = wibox.container.margin(s.mysystray, 0, 0, 6, 6)
 	-- Create a tasklist widget
 	s.mytasklist = awful.widget.tasklist({
 		screen = s,
@@ -272,12 +279,32 @@ awful.screen.connect_for_each_screen(function(s)
 		},
 	})
 
+	local function get_right_widgets(headphones, keyboard, tray, data, tiles, battery)
+		if is_desktop then
+			return {
+				layout = wibox.layout.fixed.horizontal,
+				spacing = 5,
+				headphones,
+				keyboard,
+				tray,
+				data,
+				tiles,
+			}
+		end
+		return {
+			layout = wibox.layout.fixed.horizontal,
+			spacing = 5,
+			headphones,
+			keyboard,
+			battery,
+			tray,
+			data,
+			tiles,
+		}
+	end
+
 	-- Create the wibox
 	s.mywibox = awful.wibar({ position = "top", screen = s })
-
-	s.mysystray = wibox.widget.systray()
-	s.mysystray.base_size = 13
-	local centered_systray = wibox.container.margin(s.mysystray, 0, 0, 6, 6)
 
 	if s == screen.primary then
 		-- Add widgets to the wibox
