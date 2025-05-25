@@ -279,26 +279,44 @@ awful.screen.connect_for_each_screen(function(s)
 	s.mysystray.base_size = 13
 	local centered_systray = wibox.container.margin(s.mysystray, 0, 0, 6, 6)
 
-	-- Add widgets to the wibox
-	s.mywibox:setup({
-		layout = wibox.layout.align.horizontal,
-		{ -- Left widgets
-			layout = wibox.layout.fixed.horizontal,
-			-- mylauncher,
-			s.mytaglist,
-			s.mypromptbox,
-		},
-		{ layout = wibox.layout.fixed.horizontal, volume_widget },
-		{ -- Right widgets
-			layout = wibox.layout.fixed.horizontal,
-			spacing = 5,
-			s.audio_widget,
-			mykeyboardlayout,
-			centered_systray,
-			mytextclock,
-			s.mylayoutbox,
-		},
-	})
+	if s == screen.primary then
+		-- Add widgets to the wibox
+		s.mywibox:setup({
+			layout = wibox.layout.align.horizontal,
+			{ -- Left widgets
+				layout = wibox.layout.fixed.horizontal,
+				-- mylauncher,
+				s.mytaglist,
+				s.mypromptbox,
+			},
+			{ layout = wibox.layout.fixed.horizontal, volume_widget },
+			{ -- Right widgets
+				layout = wibox.layout.fixed.horizontal,
+				spacing = 5,
+				s.audio_widget,
+				mykeyboardlayout,
+				centered_systray,
+				mytextclock,
+				s.mylayoutbox,
+			},
+		})
+	else
+		s.mywibox:setup({
+			layout = wibox.layout.align.horizontal,
+			{ -- Left widgets
+				layout = wibox.layout.fixed.horizontal,
+				-- mylauncher,
+				s.mytaglist,
+				s.mypromptbox,
+			},
+			nil,
+			{ -- Right widgets
+				layout = wibox.layout.fixed.horizontal,
+				spacing = 5,
+				mytextclock,
+			},
+		})
+	end
 
 	s.witasks = awful.wibar({ position = "bottom", screen = s })
 	s.witasks:setup({
