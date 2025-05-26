@@ -16,27 +16,27 @@ config.font_size = 10
 
 -- colors
 config.colors = {
-	foreground = "#aedbf0",
-	background = "#101010",
+	foreground = "#abc3d7",
+	background = "#101213",
 
 	ansi = {
 		"#25283d", -- black
 		"#a874ce", -- red
-		"#08ce81", -- green
-		"#fb9893", -- yellow
-		"#8a7ede", -- blue
+		"#44b2c1", -- green
+		"#ce73ce", -- yellow
+		"#7481d1", -- blue
 		"#f265b5", -- magenta
-		"#1d9ec1", -- cyan
+		"#5fe3c2", -- cyan
 		"#03b6b0", -- white
 	},
 	brights = {
-		"#434e4e", -- black
-		"#a874ce", -- red
-		"#6ae458", -- green
-		"#fb9893", -- yellow
-		"#8a7ede", -- blue
+		"#8c9297", -- black
+		"#b1a8f9", -- red
+		"#71d075", -- green
+		"#3fc7e7", -- yellow
+		"#44b2c1", -- blue
 		"#f265b5", -- magenta
-		"#1d9ec1", -- cyan
+		"#5fe3c2", -- cyan
 		"#03b6b0", -- white
 	},
 }
