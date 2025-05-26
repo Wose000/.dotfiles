@@ -292,7 +292,7 @@ awful.screen.connect_for_each_screen(function(s)
 			}
 		end
 		return {
-			layout = wibox.layout.fixed.horizontal,
+			layout = require("wibox").layout.fixed.horizontal,
 			spacing = 5,
 			headphones,
 			keyboard,
@@ -317,15 +317,14 @@ awful.screen.connect_for_each_screen(function(s)
 				s.mypromptbox,
 			},
 			{ layout = wibox.layout.fixed.horizontal, volume_widget },
-			{ -- Right widgets
-				layout = wibox.layout.fixed.horizontal,
-				spacing = 5,
+			get_right_widgets(
 				s.audio_widget,
 				mykeyboardlayout,
 				centered_systray,
 				mytextclock,
 				s.mylayoutbox,
-			},
+				battery_widget
+			),
 		})
 	else
 		s.mywibox:setup({
