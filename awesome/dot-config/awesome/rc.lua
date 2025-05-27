@@ -296,7 +296,7 @@ awful.screen.connect_for_each_screen(function(s)
 			spacing = 5,
 			headphones,
 			keyboard,
-			battery,
+			battery(),
 			tray,
 			data,
 			tiles,
