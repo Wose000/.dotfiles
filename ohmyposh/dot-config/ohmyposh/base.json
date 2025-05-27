@@ -5,13 +5,13 @@
     "black": "#25283d",
     "dark-black": "#1d1f2f",
     "gray": "#44496f",
-    "blue": "#2490c2",
-    "green": "#08ce81",
-    "purple": "#a874ce",
+    "blue": "#3fc7e7",
+    "green": "#5fe3c2",
+    "purple": "#b1a8f9",
     "orange": "#fb9893",
     "red": "#f265b5",
-    "white": "#aedbf0",
-    "yellow": "#6ae458"
+    "white": "#abc3d7",
+    "yellow": "#27d877"
   },
   "secondary_prompt": {
     "template": " 󰇘 ",
