@@ -10,6 +10,8 @@ config.enable_tab_bar = false
 -- background
 config.window_background_opacity = 0.85
 
+config.warn_about_missing_glyphs = false
+
 -- font
 config.font = wezterm.font("JetBrains Mono")
 config.font_size = 10
