@@ -34,11 +34,11 @@ echo "$session_folder"
 session_name="$(get_folder_name "$session_folder")"
 
 echo "$session_name"
-#tmux has-session -t $session_name 2>/dev/null
-#
-#if [ $? != 0 ]; then
-#	tmux new-session -d -s $session_name -c $session_folder -n 'Nvim'
-#fi
-#
-#attach_or_switch "$session_name"
+tmux has-session -t $session_name 2>/dev/null
+
+if [ $? != 0 ]; then
+	tmux new-session -d -s $session_name -c $session_folder -n 'Nvim'
+fi
+
+attach_or_switch "$session_name"
 
