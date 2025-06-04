@@ -38,7 +38,7 @@ bindkey '^o' clear-screen
 bindkey '^p' history-search-backward
 bindkey '^n' history-search-forward
 # Tmux sessions finder
-bindkey -s '^f' "ssel^M"
+bindkey -s ^f "tmux_session_launcher.sh\n"
 
 
 # Lines configured by zsh-newuser-install

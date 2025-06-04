@@ -9,7 +9,6 @@ fzf_exec() {
     )
 
     fzf_options=(
-        --bind=ctrl-space:toggle-preview
         --exit-0
     )
 # TODO: understand what does this shit do.
