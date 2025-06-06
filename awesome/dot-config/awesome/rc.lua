@@ -14,6 +14,7 @@ require("awful.autofocus")
 -- 	awful.spawn.with_shell("/home/wose/bin/scripts/screens_setup.sh")
 -- end
 -- launch starting applications
+
 awful.spawn.with_shell("/home/wose/.config/awesome/autorun.sh")
 if is_desktop then
 	awful.spawn.with_shell("/home/wose/bin/pen_display_setup.sh")
@@ -203,6 +204,8 @@ local volume_widget = require("awesome-wm-widgets.pactl-widget.volume")({
 	with_icon = true,
 	tooltip = true,
 })
+
+local habit_tracker = require("modules.habit_tracker.ui")
 awful.screen.connect_for_each_screen(function(s)
 	-- Wallpaper
 	set_wallpaper(s)
@@ -287,6 +290,7 @@ awful.screen.connect_for_each_screen(function(s)
 			return {
 				layout = wibox.layout.fixed.horizontal,
 				spacing = 5,
+				habit_tracker,
 				headphones,
 				keyboard,
 				tray,

@@ -1,0 +1,16 @@
+[
+  {
+    "title": "work out everyday",
+    "current_streak": 10,
+    "best_streak": 15,
+    "commitments": 40,
+    "fails": 20
+  },
+  {
+    "title": "drink water",
+    "current_streak": 40,
+    "best_streak": 40,
+    "commitments": 40,
+    "fails": 0
+  }
+]
