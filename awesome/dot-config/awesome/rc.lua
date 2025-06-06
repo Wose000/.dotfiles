@@ -15,6 +15,9 @@ require("awful.autofocus")
 -- end
 -- launch starting applications
 awful.spawn.with_shell("/home/wose/.config/awesome/autorun.sh")
+if is_desktop then
+	awful.spawn.with_shell("/home/wose/bin/pen_display_setup.sh")
+end
 -- Widget and layout library
 local wibox = require("wibox")
 -- Theme handling library
