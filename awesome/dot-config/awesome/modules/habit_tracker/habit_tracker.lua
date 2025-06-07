@@ -50,6 +50,40 @@ local function edit_habit_by_id(id, what_to_change)
 	end
 end
 
+local promptbox = wibox.widget.textbox()
+
+local function ask_for_habit_title(callback)
+	awful.prompt.run({
+		prompt = "New Habit Title: ",
+		textbox = promptbox,
+		exe_callback = function(input)
+			if input and input ~= "" then
+				callback(input)
+			end
+		end,
+		history_path = awful.util.get_cache_dir() .. "/habit_add_history",
+	})
+end
+
+local add_habit_button = wibox.widget({
+	{
+		text = "New Habit",
+		widget = wibox.widget.textbox,
+	},
+	widget = wibox.container.background,
+	bg = beautiful.bg_normal,
+	fg = beautiful.bg_focus,
+	shape = gears.shape.rounded_rect,
+	forced_height = 30,
+	forced_width = 100,
+})
+
+add_habit_button:buttons(gears.table.join(awful.button({}, 1, function()
+	ask_for_habit_title(function(title)
+		print("New habit: " .. title)
+	end)
+end)))
+
 ---@param data table
 ---@param id integer
 ---@param update_callback function
@@ -57,26 +91,33 @@ local function build_habit_widget(data, id, update_callback)
 	local succes_rate = data.successes / (data.successes + data.fails)
 	return wibox.widget({
 		{
-			text = data.title,
-			widget = wibox.widget.textbox,
+			{
+				text = data.title,
+				widget = wibox.widget.textbox,
+			},
+			{
+				value = succes_rate,
+				forced_height = 10,
+				forced_width = 100,
+				color = beautiful.bg_focus,
+				background_color = beautiful.bg_normal,
+				widget = wibox.widget.progressbar,
+			},
+			{
+				icon_button("V", function()
+					edit_habit_by_id(id, "success")
+					update_callback()
+				end),
+				icon_button("X", function()
+					edit_habit_by_id(id, "fail")
+					update_callback()
+				end),
+				layout = wibox.layout.fixed.horizontal,
+			},
+			layout = wibox.layout.fixed.vertical,
 		},
-		{
-			value = succes_rate,
-			forced_height = 10,
-			forced_width = 100,
-			color = beautiful.bg_focus,
-			background_color = beautiful.bg_normal,
-			widget = wibox.widget.progressbar,
-		},
-		icon_button("X", function()
-			edit_habit_by_id(id, "success")
-			update_callback()
-		end),
-		icon_button("V", function()
-			edit_habit_by_id(id, "fail")
-			update_callback()
-		end),
-		layout = wibox.layout.fixed.vertical,
+		widget = wibox.container.margin,
+		margin = 20,
 	})
 end
 
@@ -86,6 +127,9 @@ function M.get_habits_widgets(callback)
 	for id, habit in ipairs(habits) do
 		layout:add(build_habit_widget(habit, id, callback))
 	end
+	layout:add(promptbox)
+	layout:add(add_habit_button)
+	layout.forced_width = 300
 	return layout
 end
 

@@ -1,29 +1,33 @@
 [
   {
-    "title": "work out everyday",
+    "title": "Code everyday",
     "current_streak": 10,
     "best_streak": 15,
+    "last_check_date": "",
     "successes": 40,
     "fails": 20
   },
   {
-    "title": "cazzo fritto",
+    "title": "work out",
     "current_streak": 10,
     "best_streak": 15,
+    "last_check_date": "",
     "successes": 40,
     "fails": 20
   },
   {
-    "title": "work out everyday",
+    "title": "meditate",
     "current_streak": 10,
     "best_streak": 15,
+    "last_check_date": "",
     "successes": 40,
     "fails": 20
   },
   {
-    "title": "work out everyday",
+    "title": "read a book",
     "current_streak": 10,
     "best_streak": 15,
+    "last_check_date": "",
     "successes": 40,
     "fails": 20
   },
@@ -31,6 +35,7 @@
     "title": "drink water",
     "current_streak": 40,
     "best_streak": 40,
+    "last_check_date": "",
     "successes": 40,
     "fails": 0
   }

@@ -1,6 +1,7 @@
 local wibox = require("wibox.init")
 local awful = require("awful")
 local gears = require("gears")
+local beautiful = require("beautiful")
 
 local habits_fun = require("modules.habit_tracker.habit_tracker")
 
