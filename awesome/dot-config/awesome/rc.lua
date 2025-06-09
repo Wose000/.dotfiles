@@ -205,7 +205,7 @@ local volume_widget = require("awesome-wm-widgets.pactl-widget.volume")({
 	tooltip = true,
 })
 
-local habit_tracker = require("modules.habit_tracker.ui")
+local habit_tracker = require("modules.habit_tracker.habit_tracker")
 awful.screen.connect_for_each_screen(function(s)
 	-- Wallpaper
 	set_wallpaper(s)

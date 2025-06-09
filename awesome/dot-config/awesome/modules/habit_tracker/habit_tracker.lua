@@ -19,9 +19,21 @@ local function get_habits_data()
 	return data
 end
 
+local function save_data(data)
+	local data_as_json = json.encode(data, { indent = true })
+	local file = io.open("/home/wose/.dotfiles/awesome/dot-config/awesome/modules/habit_tracker/data/habits.json", "w")
+	if file then
+		file:write(data_as_json)
+		file:close()
+	else
+		print("Error: could not open file fro writing")
+	end
+end
+
+---@param already_checked boolean
 ---@param icon string
 ---@param callback function
-local function icon_button(icon, callback)
+local function icon_button(already_checked, icon, callback)
 	local button = wibox.widget({
 		{ text = icon, align = "center", valign = "center", widget = wibox.widget.textbox },
 		forced_height = 30,
@@ -29,13 +41,26 @@ local function icon_button(icon, callback)
 		widget = wibox.widget.background,
 	})
 	button:connect_signal("mouse::enter", function()
-		button.bg = "#555555"
+		if not already_checked then
+			button.bg = "#555555"
+			button.fg = "#ffffff"
+		end
 	end)
 
-	button:connect_signal("mouse::enter", function()
+	button:connect_signal("mouse::leave", function()
 		button.bg = nil
+		button.fg = nil
 	end)
-	button:buttons(gears.table.join(awful.button({}, 1, nil, callback)))
+
+	if already_checked then
+		button.fg = "#131313"
+
+		button:buttons(gears.table.join(awful.button({}, 1, nil, function()
+			return nil
+		end)))
+	else
+		button:buttons(gears.table.join(awful.button({}, 1, nil, callback)))
+	end
 
 	return button
 end
@@ -43,27 +68,124 @@ end
 local function edit_habit_by_id(id, what_to_change)
 	if what_to_change == "success" then
 		habits[id].successes = habits[id].successes + 1
+		habits[id].last_check_date = os.date("%Y-%m-%d")
+		-- in case last check was succes increase streak and check if new best streak
+		if habits[id].last_check == "success" then
+			habits[id].current_streak = habits[id].current_streak + 1
+			if habits[id].current_streak >= habits[id].best_streak then
+				habits[id].best_streak = habits[id].current_streak
+			end
+		-- in case last check was fail start a new streak
+		elseif habits[id].last_check == "fail" then
+			habits[id].current_streak = 1
+			if habits[id].current_streak >= habits[id].best_streak then
+				habits[id].best_streak = habits[id].current_streak
+			end
+		-- last check was empty this should be happen only on new habits
+		else
+			habits[id].current_streak = 1
+			habits[id].best_streak = habits[id].current_streak
+		end
+		habits[id].last_check = "success"
 	end
 
 	if what_to_change == "fail" then
 		habits[id].fails = habits[id].fails + 1
+		habits[id].last_check_date = os.date("%Y-%m-%d")
+		-- in case last check was succes break the streak
+		if habits[id].last_check == "success" then
+			habits[id].current_streak = 0
+		end
+		habits[id].last_check = "fail"
 	end
+	save_data(habits)
 end
 
 local promptbox = wibox.widget.textbox()
 
-local function ask_for_habit_title(callback)
+local function ask_for_habit_title(callback, update_callback)
 	awful.prompt.run({
-		prompt = "New Habit Title: ",
+		prompt = "Title: ",
 		textbox = promptbox,
 		exe_callback = function(input)
 			if input and input ~= "" then
-				callback(input)
+				callback(input, update_callback)
 			end
 		end,
 		history_path = awful.util.get_cache_dir() .. "/habit_add_history",
 	})
 end
+
+---@param habit table
+---@param id integer
+---@param update_callback function
+local function build_habit_widget(habit, id, update_callback)
+	local succes_rate = habit.successes / (habit.successes + habit.fails)
+	local function already_checked()
+		local today_date = os.date("%Y-%m-%d")
+		if habit.last_check_date == today_date then
+			return true
+		end
+		return false
+	end
+	return wibox.widget({
+		{
+			{
+				{
+					{
+						{
+							{
+								text = habit.title,
+								widget = wibox.widget.textbox,
+							},
+							{
+								icon_button(already_checked(), "󰸞", function()
+									edit_habit_by_id(id, "success")
+									update_callback()
+								end),
+								icon_button(already_checked(), "", function()
+									edit_habit_by_id(id, "fail")
+									update_callback()
+								end),
+								layout = wibox.layout.fixed.horizontal,
+							},
+							layout = wibox.layout.fixed.horizontal,
+						},
+						{
+							value = succes_rate,
+							forced_height = 10,
+							forced_width = 100,
+							color = beautiful.bg_focus,
+							background_color = beautiful.bg_minimize,
+							widget = wibox.widget.progressbar,
+						},
+						{
+							text = "Current streak: " .. habit.current_streak,
+							widget = wibox.widget.textbox,
+						},
+						layout = wibox.layout.fixed.vertical,
+					},
+					widget = wibox.container.margin,
+					top = 0,
+					left = 5,
+					right = 5,
+					bottom = 4,
+				},
+				widget = wibox.container.background,
+				shape = gears.shape.rounded_rect,
+				bg = beautiful.bg_normal,
+			},
+			widget = wibox.container.margin,
+			left = 10,
+			right = 10,
+			bottom = 10,
+		},
+		widget = wibox.container.background,
+		bg = beautiful.border_normal,
+	})
+end
+
+habits = get_habits_data()
 
 local add_habit_button = wibox.widget({
 	{
@@ -78,51 +200,22 @@ local add_habit_button = wibox.widget({
 	forced_width = 100,
 })
 
-add_habit_button:buttons(gears.table.join(awful.button({}, 1, function()
-	ask_for_habit_title(function(title)
-		print("New habit: " .. title)
-	end)
-end)))
-
----@param data table
----@param id integer
----@param update_callback function
-local function build_habit_widget(data, id, update_callback)
-	local succes_rate = data.successes / (data.successes + data.fails)
-	return wibox.widget({
-		{
-			{
-				text = data.title,
-				widget = wibox.widget.textbox,
-			},
-			{
-				value = succes_rate,
-				forced_height = 10,
-				forced_width = 100,
-				color = beautiful.bg_focus,
-				background_color = beautiful.bg_normal,
-				widget = wibox.widget.progressbar,
-			},
-			{
-				icon_button("V", function()
-					edit_habit_by_id(id, "success")
-					update_callback()
-				end),
-				icon_button("X", function()
-					edit_habit_by_id(id, "fail")
-					update_callback()
-				end),
-				layout = wibox.layout.fixed.horizontal,
-			},
-			layout = wibox.layout.fixed.vertical,
-		},
-		widget = wibox.container.margin,
-		margin = 20,
-	})
+local function add_new_habit(title, update_callback)
+	local habit = {
+		title = title,
+		current_streak = 0,
+		best_streak = 0,
+		last_check_date = "",
+		last_check = "",
+		successes = 0,
+		fails = 0,
+	}
+	table.insert(habits, habit)
+	save_data(habits)
+	update_callback()
 end
 
-habits = get_habits_data()
-function M.get_habits_widgets(callback)
+local function get_habits_widgets(callback)
 	local layout = wibox.layout.fixed.vertical()
 	for id, habit in ipairs(habits) do
 		layout:add(build_habit_widget(habit, id, callback))
@@ -133,4 +226,35 @@ function M.get_habits_widgets(callback)
 	return layout
 end
 
-return M
+local bar_icon = wibox.widget({
+	widget = wibox.widget.textbox,
+	text = "H",
+	align = "center",
+	valign = "center",
+})
+
+local popup = awful.popup({
+	screen = screen[1],
+	widget = get_habits_widgets(),
+	border_color = "#000000",
+	border_width = 2,
+	ontop = true,
+	visible = false,
+	shape = gears.shape.rounded_rect,
+	hide_on_right_click = false,
+})
+
+local function update_popup()
+	popup.widget = get_habits_widgets(update_popup)
+end
+
+bar_icon:buttons(awful.button({}, 1, function()
+	popup.widget = get_habits_widgets(update_popup)
+	popup.visible = not popup.visible
+end))
+
+add_habit_button:buttons(gears.table.join(awful.button({}, 1, function()
+	ask_for_habit_title(add_new_habit, update_popup)
+end)))
+
+return bar_icon

@@ -1,42 +1,81 @@
-[
-  {
-    "title": "Code everyday",
-    "current_streak": 10,
-    "best_streak": 15,
-    "last_check_date": "",
-    "successes": 40,
-    "fails": 20
-  },
-  {
-    "title": "work out",
-    "current_streak": 10,
-    "best_streak": 15,
-    "last_check_date": "",
-    "successes": 40,
-    "fails": 20
-  },
-  {
-    "title": "meditate",
-    "current_streak": 10,
-    "best_streak": 15,
-    "last_check_date": "",
-    "successes": 40,
-    "fails": 20
-  },
-  {
-    "title": "read a book",
-    "current_streak": 10,
-    "best_streak": 15,
-    "last_check_date": "",
-    "successes": 40,
-    "fails": 20
-  },
-  {
-    "title": "drink water",
-    "current_streak": 40,
-    "best_streak": 40,
-    "last_check_date": "",
-    "successes": 40,
-    "fails": 0
-  }
-]
+[{
+    "best_streak":15,
+    "title":"Code everyday",
+    "last_check_date":"2025-06-08",
+    "successes":59,
+    "last_check":"fail",
+    "fails":40,
+    "current_streak":0
+  },{
+    "best_streak":15,
+    "title":"work out",
+    "last_check_date":"2025-06-08",
+    "successes":42,
+    "last_check":"fail",
+    "fails":26,
+    "current_streak":0
+  },{
+    "best_streak":15,
+    "title":"meditate",
+    "last_check_date":"2025-06-09",
+    "successes":42,
+    "last_check":"success",
+    "fails":21,
+    "current_streak":2
+  },{
+    "best_streak":15,
+    "title":"read a book",
+    "last_check_date":"2025-06-09",
+    "successes":49,
+    "last_check":"success",
+    "fails":23,
+    "current_streak":1
+  },{
+    "best_streak":40,
+    "title":"drink water",
+    "last_check_date":"2025-06-09",
+    "successes":45,
+    "last_check":"success",
+    "fails":2,
+    "current_streak":5
+  },{
+    "best_streak":2,
+    "title":"Stay clean",
+    "last_check_date":"2025-06-08",
+    "successes":2,
+    "last_check":"fail",
+    "fails":1,
+    "current_streak":0
+  },{
+    "best_streak":9,
+    "title":"porco dio",
+    "last_check_date":"2025-06-08",
+    "successes":9,
+    "last_check":"success",
+    "fails":0,
+    "current_streak":9
+  },{
+    "best_streak":3,
+    "title":"new habit",
+    "last_check_date":"2025-06-08",
+    "successes":3,
+    "last_check":"success",
+    "fails":1,
+    "current_streak":3
+  },{
+    "best_streak":3,
+    "title":"new habit",
+    "last_check_date":"2025-06-08",
+    "successes":3,
+    "last_check":"fail",
+    "fails":1,
+    "current_streak":0
+  },{
+    "best_streak":1,
+    "title":"questo habit",
+    "last_check_date":"2025-06-08",
+    "successes":1,
+    "last_check":"success",
+    "fails":0,
+    "current_streak":1
+  }]

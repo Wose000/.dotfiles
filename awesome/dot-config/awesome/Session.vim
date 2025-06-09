@@ -13,10 +13,11 @@ if &shortmess =~ 'A'
 else
   set shortmess=aoO
 endif
-badd +118 ~/.dotfiles/awesome/dot-config/awesome/modules/habit_tracker/habit_tracker.lua
-badd +71 ~/.dotfiles/awesome/dot-config/awesome/modules/habit_tracker/ui.lua
-badd +27 ~/.dotfiles/awesome/dot-config/awesome/modules/habit_tracker/data/habits.json
-badd +0 ~/.dotfiles/awesome/dot-config/awesome/themes/neon/theme.lua
+badd +1 ~/.dotfiles/awesome/dot-config/awesome/modules/habit_tracker/habit_tracker.lua
+badd +8 ~/.dotfiles/awesome/dot-config/awesome/modules/habit_tracker/ui.lua
+badd +12 ~/.dotfiles/awesome/dot-config/awesome/modules/habit_tracker/data/habits.json
+badd +1 ~/.dotfiles/awesome/dot-config/awesome/themes/neon/theme.lua
+badd +208 ~/.dotfiles/awesome/dot-config/awesome/rc.lua
 argglobal
 %argdel
 set stal=2
@@ -52,19 +53,19 @@ setlocal foldnestmax=20
 setlocal foldenable
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 120 - ((35 * winheight(0) + 25) / 51)
+let s:l = 46 - ((15 * winheight(0) + 25) / 51)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 120
-normal! 016|
+keepjumps 46
+normal! 05|
 wincmd w
 argglobal
-if bufexists(fnamemodify("~/.dotfiles/awesome/dot-config/awesome/modules/habit_tracker/ui.lua", ":p")) | buffer ~/.dotfiles/awesome/dot-config/awesome/modules/habit_tracker/ui.lua | else | edit ~/.dotfiles/awesome/dot-config/awesome/modules/habit_tracker/ui.lua | endif
+if bufexists(fnamemodify("~/.dotfiles/awesome/dot-config/awesome/rc.lua", ":p")) | buffer ~/.dotfiles/awesome/dot-config/awesome/rc.lua | else | edit ~/.dotfiles/awesome/dot-config/awesome/rc.lua | endif
 if &buftype ==# 'terminal'
-  silent file ~/.dotfiles/awesome/dot-config/awesome/modules/habit_tracker/ui.lua
+  silent file ~/.dotfiles/awesome/dot-config/awesome/rc.lua
 endif
-balt ~/.dotfiles/awesome/dot-config/awesome/modules/habit_tracker/habit_tracker.lua
+balt ~/.dotfiles/awesome/dot-config/awesome/modules/habit_tracker/ui.lua
 setlocal foldmethod=manual
 setlocal foldexpr=v:lua.vim.treesitter.foldexpr()
 setlocal foldmarker={{{,}}}
@@ -75,59 +76,19 @@ setlocal foldnestmax=20
 setlocal foldenable
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 17 - ((16 * winheight(0) + 25) / 51)
+let s:l = 246 - ((27 * winheight(0) + 25) / 51)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 17
-normal! 043|
+keepjumps 246
+normal! 0
 wincmd w
-2wincmd w
 exe 'vert 1resize ' . ((&columns * 118 + 118) / 236)
 exe 'vert 2resize ' . ((&columns * 117 + 118) / 236)
 tabnext
-edit ~/.dotfiles/awesome/dot-config/awesome/modules/habit_tracker/data/habits.json
-let s:save_splitbelow = &splitbelow
-let s:save_splitright = &splitright
-set splitbelow splitright
-wincmd _ | wincmd |
-vsplit
-1wincmd h
-wincmd w
-let &splitbelow = s:save_splitbelow
-let &splitright = s:save_splitright
-wincmd t
-let s:save_winminheight = &winminheight
-let s:save_winminwidth = &winminwidth
-set winminheight=0
-set winheight=1
-set winminwidth=0
-set winwidth=1
-exe 'vert 1resize ' . ((&columns * 117 + 118) / 236)
-exe 'vert 2resize ' . ((&columns * 118 + 118) / 236)
+edit ~/.dotfiles/awesome/dot-config/awesome/themes/neon/theme.lua
 argglobal
-setlocal foldmethod=manual
-setlocal foldexpr=0
-setlocal foldmarker={{{,}}}
-setlocal foldignore=#
-setlocal foldlevel=0
-setlocal foldminlines=1
-setlocal foldnestmax=20
-setlocal foldenable
-silent! normal! zE
-let &fdl = &fdl
-let s:l = 33 - ((32 * winheight(0) + 25) / 51)
-if s:l < 1 | let s:l = 1 | endif
-keepjumps exe s:l
-normal! zt
-keepjumps 33
-normal! 04|
-wincmd w
-argglobal
-if bufexists(fnamemodify("~/.dotfiles/awesome/dot-config/awesome/themes/neon/theme.lua", ":p")) | buffer ~/.dotfiles/awesome/dot-config/awesome/themes/neon/theme.lua | else | edit ~/.dotfiles/awesome/dot-config/awesome/themes/neon/theme.lua | endif
-if &buftype ==# 'terminal'
-  silent file ~/.dotfiles/awesome/dot-config/awesome/themes/neon/theme.lua
-endif
+balt ~/.dotfiles/awesome/dot-config/awesome/modules/habit_tracker/data/habits.json
 setlocal foldmethod=manual
 setlocal foldexpr=v:lua.vim.treesitter.foldexpr()
 setlocal foldmarker={{{,}}}
@@ -138,15 +99,12 @@ setlocal foldnestmax=20
 setlocal foldenable
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 3 - ((2 * winheight(0) + 25) / 51)
+let s:l = 15 - ((8 * winheight(0) + 25) / 51)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 3
-normal! 0
-wincmd w
-exe 'vert 1resize ' . ((&columns * 117 + 118) / 236)
-exe 'vert 2resize ' . ((&columns * 118 + 118) / 236)
+keepjumps 15
+normal! 027|
 tabnext 1
 set stal=1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
@@ -155,8 +113,6 @@ endif
 unlet! s:wipebuf
 set winheight=1 winwidth=20
 let &shortmess = s:shortmess_save
-let &winminheight = s:save_winminheight
-let &winminwidth = s:save_winminwidth
 let s:sx = expand("<sfile>:p:r")."x.vim"
 if filereadable(s:sx)
   exe "source " . fnameescape(s:sx)
