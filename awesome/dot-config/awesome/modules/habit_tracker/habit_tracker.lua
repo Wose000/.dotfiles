@@ -34,32 +34,30 @@ end
 ---@param icon string
 ---@param callback function
 local function icon_button(already_checked, icon, callback)
-	local button = wibox.widget({
-		{ text = icon, align = "center", valign = "center", widget = wibox.widget.textbox },
-		forced_height = 30,
-		forced_width = 30,
-		widget = wibox.widget.background,
-	})
-	button:connect_signal("mouse::enter", function()
-		if not already_checked then
+	local button = {}
+	if not already_checked then
+		button = wibox.widget({
+			{ text = icon, align = "center", valign = "center", widget = wibox.widget.textbox },
+			forced_height = 30,
+			forced_width = 30,
+			widget = wibox.widget.background,
+		})
+		button:connect_signal("mouse::enter", function()
 			button.bg = "#555555"
 			button.fg = "#ffffff"
-		end
-	end)
-
-	button:connect_signal("mouse::leave", function()
-		button.bg = nil
-		button.fg = nil
-	end)
-
-	if already_checked then
-		button.fg = "#131313"
-
-		button:buttons(gears.table.join(awful.button({}, 1, nil, function()
-			return nil
-		end)))
-	else
+		end)
+		button:connect_signal("mouse::leave", function()
+			button.bg = nil
+			button.fg = nil
+		end)
 		button:buttons(gears.table.join(awful.button({}, 1, nil, callback)))
+	else
+		button = wibox.widget({
+			{ text = "", align = "center", valign = "center", widget = wibox.widget.textbox },
+			forced_height = 30,
+			forced_width = 30,
+			widget = wibox.widget.background,
+		})
 	end
 
 	return button
@@ -237,7 +235,7 @@ local popup = awful.popup({
 	screen = screen[1],
 	widget = get_habits_widgets(),
 	border_color = "#000000",
-	border_width = 2,
+	border_width = 0,
 	ontop = true,
 	visible = false,
 	shape = gears.shape.rounded_rect,
