@@ -56,10 +56,10 @@
     "title":"No video-games"
   },{
     "fails":0,
-    "successes":0,
-    "last_check":"",
-    "current_streak":0,
-    "last_check_date":"",
-    "best_streak":0,
+    "successes":1,
+    "last_check":"success",
+    "current_streak":1,
+    "last_check_date":"2025-06-11",
+    "best_streak":1,
     "title":"Code everyday"
   }]
