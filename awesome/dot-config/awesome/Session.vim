@@ -13,7 +13,7 @@ if &shortmess =~ 'A'
 else
   set shortmess=aoO
 endif
-badd +238 ~/.dotfiles/awesome/dot-config/awesome/modules/habit_tracker/habit_tracker.lua
+badd +177 ~/.dotfiles/awesome/dot-config/awesome/modules/habit_tracker/habit_tracker.lua
 badd +8 ~/.dotfiles/awesome/dot-config/awesome/modules/habit_tracker/ui.lua
 badd +12 ~/.dotfiles/awesome/dot-config/awesome/modules/habit_tracker/data/habits.json
 badd +1 ~/.dotfiles/awesome/dot-config/awesome/themes/neon/theme.lua
@@ -53,12 +53,12 @@ setlocal foldnestmax=20
 setlocal foldenable
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 245 - ((28 * winheight(0) + 25) / 51)
+let s:l = 177 - ((19 * winheight(0) + 25) / 51)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 245
-normal! 029|
+keepjumps 177
+normal! 016|
 wincmd w
 argglobal
 if bufexists(fnamemodify("~/.dotfiles/awesome/dot-config/awesome/rc.lua", ":p")) | buffer ~/.dotfiles/awesome/dot-config/awesome/rc.lua | else | edit ~/.dotfiles/awesome/dot-config/awesome/rc.lua | endif
@@ -83,7 +83,6 @@ normal! zt
 keepjumps 237
 normal! 027|
 wincmd w
-2wincmd w
 exe 'vert 1resize ' . ((&columns * 118 + 118) / 236)
 exe 'vert 2resize ' . ((&columns * 117 + 118) / 236)
 tabnext
