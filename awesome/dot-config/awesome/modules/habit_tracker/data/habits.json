@@ -1,81 +1,65 @@
 [{
-    "fails":40,
-    "successes":59,
-    "best_streak":15,
-    "last_check":"fail",
-    "last_check_date":"2025-06-08",
-    "current_streak":0,
-    "title":"Code everyday"
-  },{
-    "fails":26,
-    "successes":42,
-    "best_streak":15,
-    "last_check":"fail",
-    "last_check_date":"2025-06-08",
-    "current_streak":0,
-    "title":"work out"
-  },{
-    "fails":21,
-    "successes":43,
-    "best_streak":15,
-    "last_check":"success",
-    "last_check_date":"2025-06-10",
-    "current_streak":3,
-    "title":"meditate"
-  },{
-    "fails":23,
-    "successes":50,
-    "best_streak":15,
-    "last_check":"success",
-    "last_check_date":"2025-06-10",
-    "current_streak":2,
-    "title":"read a book"
-  },{
-    "fails":3,
-    "successes":45,
-    "best_streak":40,
-    "last_check":"fail",
-    "last_check_date":"2025-06-10",
-    "current_streak":0,
-    "title":"drink water"
-  },{
-    "fails":1,
-    "successes":2,
-    "best_streak":2,
-    "last_check":"fail",
-    "last_check_date":"2025-06-08",
-    "current_streak":0,
-    "title":"Stay clean"
-  },{
     "fails":0,
-    "successes":9,
-    "best_streak":9,
-    "last_check":"success",
-    "last_check_date":"2025-06-08",
-    "current_streak":9,
-    "title":"porco dio"
-  },{
-    "fails":1,
-    "successes":3,
-    "best_streak":3,
-    "last_check":"success",
-    "last_check_date":"2025-06-08",
-    "current_streak":3,
-    "title":"new habit"
-  },{
-    "fails":1,
-    "successes":3,
-    "best_streak":3,
-    "last_check":"fail",
-    "last_check_date":"2025-06-08",
+    "successes":0,
+    "last_check":"",
     "current_streak":0,
-    "title":"new habit"
+    "last_check_date":"",
+    "best_streak":0,
+    "title":"Work out everyday"
   },{
     "fails":0,
     "successes":1,
-    "best_streak":1,
     "last_check":"success",
-    "last_check_date":"2025-06-08",
     "current_streak":1,
-    "title":"questo habit"
+    "last_check_date":"2025-06-11",
+    "best_streak":1,
+    "title":"Do breathing exercise"
+  },{
+    "fails":0,
+    "successes":0,
+    "last_check":"",
+    "current_streak":0,
+    "last_check_date":"",
+    "best_streak":0,
+    "title":"Meditate"
+  },{
+    "fails":0,
+    "successes":0,
+    "last_check":"",
+    "current_streak":0,
+    "last_check_date":"",
+    "best_streak":0,
+    "title":"Eat healthy"
+  },{
+    "fails":0,
+    "successes":0,
+    "last_check":"",
+    "current_streak":0,
+    "last_check_date":"",
+    "best_streak":0,
+    "title":"Don't do drugs"
+  },{
+    "fails":0,
+    "successes":0,
+    "last_check":"",
+    "current_streak":0,
+    "last_check_date":"",
+    "best_streak":0,
+    "title":"Don't masturbate"
+  },{
+    "fails":0,
+    "successes":0,
+    "last_check":"",
+    "current_streak":0,
+    "last_check_date":"",
+    "best_streak":0,
+    "title":"No video-games"
+  },{
+    "fails":0,
+    "successes":0,
+    "last_check":"",
+    "current_streak":0,
+    "last_check_date":"",
+    "best_streak":0,
+    "title":"Code everyday"
   }]
