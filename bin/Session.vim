@@ -13,11 +13,13 @@ if &shortmess =~ 'A'
 else
   set shortmess=aoO
 endif
-badd +13 ~/.dotfiles/bin/bin/pen_display_setup.sh
+badd +17 ~/.dotfiles/bin/bin/pen_display_setup.sh
+badd +48 ~/.dotfiles/bin/bin/tmux_session_launcher.sh
 argglobal
 %argdel
-edit ~/.dotfiles/bin/bin/pen_display_setup.sh
+edit ~/.dotfiles/bin/bin/tmux_session_launcher.sh
 argglobal
+balt ~/.dotfiles/bin/bin/pen_display_setup.sh
 setlocal foldmethod=manual
 setlocal foldexpr=0
 setlocal foldmarker={{{,}}}
@@ -28,11 +30,11 @@ setlocal foldnestmax=20
 setlocal foldenable
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 17 - ((16 * winheight(0) + 26) / 52)
+let s:l = 43 - ((34 * winheight(0) + 26) / 52)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 17
+keepjumps 43
 normal! 04|
 tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
