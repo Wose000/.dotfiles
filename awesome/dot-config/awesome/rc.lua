@@ -207,6 +207,7 @@ local volume_widget = require("awesome-wm-widgets.pactl-widget.volume")({
 })
 
 local habit_tracker = require("modules.habit_tracker.habit_tracker")
+
 awful.screen.connect_for_each_screen(function(s)
 	-- Wallpaper
 	set_wallpaper(s)
@@ -238,6 +239,9 @@ awful.screen.connect_for_each_screen(function(s)
 	s.mytaglist = awful.widget.taglist({
 		screen = s,
 		filter = awful.widget.taglist.filter.all,
+		style = {
+			shape = gears.shape.rounded_rect,
+		},
 		buttons = taglist_buttons,
 	})
 
@@ -289,12 +293,11 @@ awful.screen.connect_for_each_screen(function(s)
 		if is_desktop then
 			return {
 				layout = wibox.layout.fixed.horizontal,
-				spacing = 1,
+				spacing = 5,
 				tray,
 				habit_tracker,
 				headphones,
 				data,
-				tiles,
 			}
 		end
 		return {
@@ -319,6 +322,7 @@ awful.screen.connect_for_each_screen(function(s)
 			layout = wibox.layout.align.horizontal,
 			{ -- Left widgets
 				layout = wibox.layout.fixed.horizontal,
+				s.mylayoutbox,
 				-- mylauncher,
 				s.mytaglist,
 				s.mypromptbox,

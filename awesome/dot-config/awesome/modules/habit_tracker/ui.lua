@@ -7,7 +7,7 @@ local habits_fun = require("modules.habit_tracker.habit_tracker")
 
 local bar_icon = wibox.widget({
 	widget = wibox.widget.textbox,
-	text = "",
+	text = "M",
 	align = "center",
 	valign = "center",
 })

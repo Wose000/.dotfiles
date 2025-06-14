@@ -227,7 +227,8 @@ end
 
 local bar_icon = wibox.widget({
 	widget = wibox.widget.textbox,
-	text = "H",
+	text = "",
+	font = "Jet Brains Mono Nerd Font Mono 17",
 	align = "center",
 	valign = "center",
 })
