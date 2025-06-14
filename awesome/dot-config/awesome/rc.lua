@@ -253,42 +253,6 @@ awful.screen.connect_for_each_screen(function(s)
 
 	local centered_systray = wibox.container.margin(s.mysystray, 0, 0, 6, 6)
 
-	-- Create a tasklist widget
-	s.mytasklist = awful.widget.tasklist({
-		screen = s,
-		filter = awful.widget.tasklist.filter.currenttags,
-		buttons = tasklist_buttons,
-		style = {
-			border_width = 1,
-			border_color = "#777777",
-			shape = gears.shape.rectangle,
-		},
-		layout = {
-			spacing = 10,
-			layout = wibox.layout.fixed.horizontal,
-		},
-		widget_template = {
-			{
-				{
-					{
-						{
-							id = "icon_role",
-							widget = wibox.widget.imagebox,
-						},
-						margins = 2,
-						widget = wibox.container.margin,
-					},
-					layout = wibox.layout.fixed.horizontal,
-				},
-				left = 2,
-				right = 2,
-				widget = wibox.container.margin,
-			},
-			id = "background_role",
-			widget = wibox.container.background,
-		},
-	})
-
 	local function get_right_widgets(headphones, keyboard, tray, data, tiles, battery)
 		if is_desktop then
 			return {
@@ -355,6 +319,42 @@ awful.screen.connect_for_each_screen(function(s)
 		})
 	end
 
+	-- Create a tasklist widget
+	s.mytasklist = awful.widget.tasklist({
+		screen = s,
+		filter = awful.widget.tasklist.filter.currenttags,
+		buttons = tasklist_buttons,
+		style = {
+			border_width = 1,
+			border_color = "#777777",
+			shape = gears.shape.rectangle,
+		},
+		layout = {
+			spacing = 10,
+			layout = wibox.layout.fixed.horizontal,
+		},
+		widget_template = {
+			{
+				{
+					{
+						{
+							id = "icon_role",
+							widget = wibox.widget.imagebox,
+						},
+						margins = 2,
+						widget = wibox.container.margin,
+					},
+					layout = wibox.layout.fixed.horizontal,
+				},
+				left = 2,
+				right = 2,
+				widget = wibox.container.margin,
+			},
+			id = "background_role",
+			widget = wibox.container.background,
+		},
+	})
+
 	s.witasks = awful.wibar({ position = "bottom", screen = s })
 	s.witasks:setup({
 		layout = wibox.layout.align.horizontal,
@@ -363,6 +363,7 @@ awful.screen.connect_for_each_screen(function(s)
 		nil,
 	})
 end)
+
 -- }}}
 
 -- {{{ Mouse bindings

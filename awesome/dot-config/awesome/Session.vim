@@ -13,7 +13,7 @@ if &shortmess =~ 'A'
 else
   set shortmess=aoO
 endif
-badd +177 ~/.dotfiles/awesome/dot-config/awesome/modules/habit_tracker/habit_tracker.lua
+badd +187 ~/.dotfiles/awesome/dot-config/awesome/modules/habit_tracker/habit_tracker.lua
 badd +8 ~/.dotfiles/awesome/dot-config/awesome/modules/habit_tracker/ui.lua
 badd +12 ~/.dotfiles/awesome/dot-config/awesome/modules/habit_tracker/data/habits.json
 badd +1 ~/.dotfiles/awesome/dot-config/awesome/themes/neon/theme.lua
@@ -40,8 +40,8 @@ set winminheight=0
 set winheight=1
 set winminwidth=0
 set winwidth=1
-exe 'vert 1resize ' . ((&columns * 118 + 118) / 236)
-exe 'vert 2resize ' . ((&columns * 117 + 118) / 236)
+exe 'vert 1resize ' . ((&columns * 57 + 58) / 116)
+exe 'vert 2resize ' . ((&columns * 58 + 58) / 116)
 argglobal
 setlocal foldmethod=manual
 setlocal foldexpr=v:lua.vim.treesitter.foldexpr()
@@ -53,11 +53,11 @@ setlocal foldnestmax=20
 setlocal foldenable
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 177 - ((19 * winheight(0) + 25) / 51)
+let s:l = 187 - ((29 * winheight(0) + 25) / 51)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 177
+keepjumps 187
 normal! 016|
 wincmd w
 argglobal
@@ -81,10 +81,10 @@ if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
 keepjumps 237
-normal! 027|
+normal! 04|
 wincmd w
-exe 'vert 1resize ' . ((&columns * 118 + 118) / 236)
-exe 'vert 2resize ' . ((&columns * 117 + 118) / 236)
+exe 'vert 1resize ' . ((&columns * 57 + 58) / 116)
+exe 'vert 2resize ' . ((&columns * 58 + 58) / 116)
 tabnext
 edit ~/.dotfiles/awesome/dot-config/awesome/themes/neon/theme.lua
 argglobal

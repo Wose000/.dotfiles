@@ -1,0 +1,25 @@
+{
+  "runtime": {
+    "version": "LuaJIT"
+  },
+  "diagnostics": {
+    "globals": [
+      "client",
+      "screen",
+      "awesome",
+      "root",
+      "mouse",
+      "tag",
+      "require",
+      "gears",
+      "awful",
+      "beautiful",
+      "naughty"
+    ]
+  },
+  "workspace": {
+    "library": [
+      "/usr/share/awesome/lib"
+    ]
+  }
+}
