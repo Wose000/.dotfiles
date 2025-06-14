@@ -7,7 +7,7 @@ local habits_fun = require("modules.habit_tracker.habit_tracker")
 
 local bar_icon = wibox.widget({
 	widget = wibox.widget.textbox,
-	text = "H",
+	text = "",
 	align = "center",
 	valign = "center",
 })
@@ -16,7 +16,7 @@ local popup = awful.popup({
 	screen = screen[1],
 	widget = habits_fun.get_habits_widgets(),
 	border_color = "#000000",
-	border_width = 2,
+	border_width = 0,
 	ontop = true,
 	visible = false,
 	shape = gears.shape.rounded_rect,

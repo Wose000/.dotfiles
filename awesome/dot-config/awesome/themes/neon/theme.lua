@@ -12,13 +12,13 @@ local theme = {}
 
 theme.font = "JetBrainsMono Nerd Font Mono 10"
 
-theme.bg_normal = "#222222"
+theme.bg_normal = "#202a2d"
 theme.bg_focus = "#03b6b0"
-theme.bg_urgent = "#ff0000"
+theme.bg_urgent = "#f265b5"
 theme.bg_minimize = "#444444"
 theme.bg_systray = theme.bg_normal
 
-theme.fg_normal = "#aaaaaa"
+theme.fg_normal = "#abc3d7"
 theme.fg_focus = "#ffffff"
 theme.fg_urgent = "#ffffff"
 theme.fg_minimize = "#ffffff"
@@ -27,7 +27,7 @@ theme.useless_gap = dpi(3)
 theme.border_width = dpi(2)
 theme.border_normal = "#000000"
 theme.border_focus = "#03b6b0"
-theme.border_marked = "#91231c"
+theme.border_marked = "#f265b5"
 
 -- There are other variable sets
 -- overriding the default one when

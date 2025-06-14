@@ -140,6 +140,7 @@ local mykeyboardlayout = awful.widget.keyboardlayout()
 local mytextclock = wibox.widget.textclock()
 local month_calendar = awful.widget.calendar_popup.month()
 month_calendar:attach(mytextclock, "tr")
+mytextclock.format = "%a %d %b, %H:%M"
 
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
@@ -247,6 +248,7 @@ awful.screen.connect_for_each_screen(function(s)
 	local battery_widget = require("awesome-wm-widgets.battery-widget.battery")
 
 	local centered_systray = wibox.container.margin(s.mysystray, 0, 0, 6, 6)
+
 	-- Create a tasklist widget
 	s.mytasklist = awful.widget.tasklist({
 		screen = s,
@@ -261,8 +263,6 @@ awful.screen.connect_for_each_screen(function(s)
 			spacing = 10,
 			layout = wibox.layout.fixed.horizontal,
 		},
-		-- Notice that there is *NO* wibox.wibox prefix, it is a template,
-		-- not a widget instance.
 		widget_template = {
 			{
 				{
@@ -289,11 +289,10 @@ awful.screen.connect_for_each_screen(function(s)
 		if is_desktop then
 			return {
 				layout = wibox.layout.fixed.horizontal,
-				spacing = 5,
+				spacing = 1,
+				tray,
 				habit_tracker,
 				headphones,
-				keyboard,
-				tray,
 				data,
 				tiles,
 			}
@@ -301,11 +300,11 @@ awful.screen.connect_for_each_screen(function(s)
 		return {
 			layout = require("wibox").layout.fixed.horizontal,
 			spacing = 5,
+			tray,
 			headphones,
 			habit_tracker,
 			keyboard,
 			battery(),
-			tray,
 			data,
 			tiles,
 		}
