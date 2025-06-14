@@ -1,65 +1,65 @@
 [{
-    "last_check":"success",
-    "successes":4,
     "current_streak":4,
     "fails":0,
-    "best_streak":4,
     "last_check_date":"2025-06-14",
-    "title":"Work out everyday"
-  },{
     "last_check":"success",
-    "successes":4,
+    "title":"Work out everyday",
+    "best_streak":4,
+    "successes":4
+  },{
     "current_streak":4,
     "fails":0,
-    "best_streak":4,
     "last_check_date":"2025-06-14",
-    "title":"Do breathing exercise"
-  },{
     "last_check":"success",
-    "successes":3,
+    "title":"Do breathing exercise",
+    "best_streak":4,
+    "successes":4
+  },{
     "current_streak":3,
     "fails":0,
-    "best_streak":3,
     "last_check_date":"2025-06-13",
-    "title":"Meditate"
-  },{
     "last_check":"success",
-    "successes":2,
+    "title":"Meditate",
+    "best_streak":3,
+    "successes":3
+  },{
     "current_streak":1,
     "fails":1,
+    "last_check_date":"2025-06-13",
+    "last_check":"success",
+    "title":"Eat healthy",
     "best_streak":1,
-    "last_check_date":"2025-06-13",
-    "title":"Eat healthy"
+    "successes":2
   },{
-    "last_check":"success",
-    "successes":3,
     "current_streak":3,
     "fails":0,
-    "best_streak":3,
     "last_check_date":"2025-06-13",
-    "title":"Don't do drugs"
-  },{
     "last_check":"success",
-    "successes":3,
+    "title":"Don't do drugs",
+    "best_streak":3,
+    "successes":3
+  },{
     "current_streak":3,
     "fails":0,
-    "best_streak":3,
     "last_check_date":"2025-06-13",
-    "title":"Don't masturbate"
-  },{
     "last_check":"success",
-    "successes":3,
-    "current_streak":3,
-    "fails":0,
+    "title":"Don't masturbate",
     "best_streak":3,
-    "last_check_date":"2025-06-13",
-    "title":"No video-games"
+    "successes":3
   },{
-    "last_check":"success",
-    "successes":4,
     "current_streak":4,
     "fails":0,
-    "best_streak":4,
     "last_check_date":"2025-06-14",
-    "title":"Code everyday"
+    "last_check":"success",
+    "title":"No video-games",
+    "best_streak":4,
+    "successes":4
+  },{
+    "current_streak":4,
+    "fails":0,
+    "last_check_date":"2025-06-14",
+    "last_check":"success",
+    "title":"Code everyday",
+    "best_streak":4,
+    "successes":4
   }]

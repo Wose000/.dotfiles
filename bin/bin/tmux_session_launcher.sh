@@ -16,12 +16,14 @@ get_folder_name() {
     echo "${basename//./}"
 }
 
-sessions_folders=(
-    "$HOME/m/prj/"
-    "$HOME/m/src/"
-    "$HOME/.dotfiles/"
+# array with folders to search associated to their needed --exact-depth for fd.
+declare -A folder_depths=(
+    ["$HOME/m/prj/"]=1
+    ["$HOME/m/src/"]=1
+    ["$HOME/.dotfiles/"]=3
 )
 
+# array of paths to add singularly without the need of fd
 sessions_path=(
     "$HOME"
     "$HOME/m/doc/note/"
@@ -29,7 +31,20 @@ sessions_path=(
     "$HOME/m/pathfinder/pathfinder_vault/"
 )
 
-selected_folder="$( { fd -d 1 -t d . "${sessions_folders[@]}"; printf '%s\n' "${sessions_path[@]}"; }| fzf)"
+# array to fill with all the paths to select from
+all_paths=()
+
+# populate all_paths
+for folder in "${!folder_depths[@]}"; do
+    depth="${folder_depths[$folder]}"
+    while IFS= read -r path; do
+        all_paths+=("$path")
+    done < <(fd --exact-depth "$depth" -t d . "$folder")
+done
+
+all_paths+=("${sessions_path[@]}")
+
+selected_folder="$(printf '%s\n' "${all_paths[@]}" | fzf)"
 
 if [[ -z $selected_folder ]]; then
     echo "No solection"
