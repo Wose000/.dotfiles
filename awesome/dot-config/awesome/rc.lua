@@ -166,25 +166,6 @@ local taglist_buttons = gears.table.join(
 	end)
 )
 
-local tasklist_buttons = gears.table.join(
-	awful.button({}, 1, function(c)
-		if c == client.focus then
-			c.minimized = true
-		else
-			c:emit_signal("request::activate", "tasklist", { raise = true })
-		end
-	end),
-	awful.button({}, 3, function()
-		awful.menu.client_list({ theme = { width = 250 } })
-	end),
-	awful.button({}, 4, function()
-		awful.client.focus.byidx(1)
-	end),
-	awful.button({}, 5, function()
-		awful.client.focus.byidx(-1)
-	end)
-)
-
 local function set_wallpaper(s)
 	-- Wallpaper
 	if beautiful.wallpaper then
@@ -239,9 +220,49 @@ awful.screen.connect_for_each_screen(function(s)
 	s.mytaglist = awful.widget.taglist({
 		screen = s,
 		filter = awful.widget.taglist.filter.all,
-		style = {
-			shape = gears.shape.rounded_rect,
+		layout = { spacing = 5, layout = wibox.layout.fixed.horizontal },
+		widget_template = {
+			{
+				{
+					{
+						{
+							id = "index_role",
+							widget = wibox.widget.textbox,
+						},
+						margins = 0,
+						widget = wibox.container.margin,
+					},
+					{
+						id = "text_role",
+						widget = wibox.widget.textbox,
+					},
+					layout = wibox.layout.fixed.horizontal,
+				},
+				left = 8,
+				right = 8,
+				widget = wibox.container.margin,
+			},
+			id = "background_role",
+			widget = wibox.container.background,
+			-- Add support for hover colors and an index label
+			create_callback = function(self, c3, index, objects) --luacheck: no unused args
+				self:connect_signal("mouse::enter", function()
+					if self.bg ~= "#ff0000" then
+						self.backup = self.bg
+						self.has_backup = true
+					end
+					self.bg = beautiful.bg_urgent
+				end)
+				self:connect_signal("mouse::leave", function()
+					if self.has_backup then
+						self.bg = self.backup
+					end
+				end)
+			end,
+			update_callback = function(self, c3, index, objects) --luacheck: no unused args
+			end,
 		},
+
 		buttons = taglist_buttons,
 	})
 
@@ -286,7 +307,6 @@ awful.screen.connect_for_each_screen(function(s)
 			layout = wibox.layout.align.horizontal,
 			{ -- Left widgets
 				layout = wibox.layout.fixed.horizontal,
-				s.mylayoutbox,
 				-- mylauncher,
 				s.mytaglist,
 				s.mypromptbox,
@@ -318,6 +338,25 @@ awful.screen.connect_for_each_screen(function(s)
 			},
 		})
 	end
+
+	local tasklist_buttons = gears.table.join(
+		awful.button({}, 1, function(c)
+			if c == client.focus then
+				c.minimized = true
+			else
+				c:emit_signal("request::activate", "tasklist", { raise = true })
+			end
+		end),
+		awful.button({}, 3, function()
+			awful.menu.client_list({ theme = { width = 250 } })
+		end),
+		awful.button({}, 4, function()
+			awful.client.focus.byidx(1)
+		end),
+		awful.button({}, 5, function()
+			awful.client.focus.byidx(-1)
+		end)
+	)
 
 	-- Create a tasklist widget
 	s.mytasklist = awful.widget.tasklist({
