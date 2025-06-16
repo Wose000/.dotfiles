@@ -380,7 +380,7 @@ awful.screen.connect_for_each_screen(function(s)
 							id = "icon_role",
 							widget = wibox.widget.imagebox,
 						},
-						margins = 2,
+						margins = 10,
 						widget = wibox.container.margin,
 					},
 					layout = wibox.layout.fixed.horizontal,
@@ -591,7 +591,7 @@ clientkeys = gears.table.join(
 	end, { description = "(un)maximize vertically", group = "client" }),
 
 	awful.key({ modkey }, "d", function()
-		awful.spawn("rofi -show drun")
+		awful.spawn.with_shell("rofi -show drun")
 	end, { description = "launch rofi", group = "launcher" }),
 
 	awful.key({ modkey, "Shift" }, "m", function(c)
@@ -727,6 +727,15 @@ awful.rules.rules = {
 	-- Set Firefox to always map on the tag named "2" on screen 1.
 	{
 		rule = { class = "firefox" },
+		properties = {
+			titlebars_enabled = false,
+			floating = false,
+			screen = screen_sel(3),
+			tag = "1",
+		},
+	},
+	{
+		rule = { class = "qutebrowser" },
 		properties = {
 			titlebars_enabled = false,
 			floating = false,
