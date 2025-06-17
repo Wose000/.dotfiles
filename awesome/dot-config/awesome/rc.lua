@@ -527,7 +527,16 @@ if is_desktop then
 		-- third screen is the one on the left
 		awful.key({ modkey, "Mod3" }, "1", function()
 			awful.screen.focus(3)
-		end, { description = "focus screen three", group = "screen" })
+		end, { description = "focus screen three", group = "screen" }),
+
+		awful.key({ "Mod3" }, "e", function()
+			awful.spawn.with_shell("firefox --new-window https://www.excalidraw.com")
+			local function move_firefox(c)
+				c:move_to_screen(2)
+				client.disconnect_signal("manage", move_firefox)
+			end
+			client.connect_signal("manage", move_firefox)
+		end, { description = "launch excalidraw", group = "launcher" })
 	)
 end
 
