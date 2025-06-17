@@ -2,31 +2,25 @@
 -- found (e.g. lgi). If LuaRocks is not installed, do nothing.
 pcall(require, "luarocks.loader")
 
-local is_desktop = os.getenv("HOSTNAME") == "arch-pc"
-local is_laptop = os.getenv("HOSTNAME") == "arch-laptop"
 -- Add the module directory to the Lua search path
 -- Standard awesome library
 local gears = require("gears")
 local awful = require("awful")
+local wibox = require("wibox")
+local beautiful = require("beautiful")
+local naughty = require("naughty")
+local menubar = require("menubar")
+local hotkeys_popup = require("awful.hotkeys_popup")
 require("awful.autofocus")
--- set monitors
--- if is_desktop then
--- 	awful.spawn.with_shell("/home/wose/bin/scripts/screens_setup.sh")
--- end
--- launch starting applications
 
+local is_desktop = os.getenv("HOSTNAME") == "arch-pc"
+local is_laptop = os.getenv("HOSTNAME") == "arch-laptop"
+
+-- launch starting applications
 awful.spawn.with_shell("/home/wose/.config/awesome/autorun.sh")
 if is_desktop then
 	awful.spawn.with_shell("/home/wose/bin/pen_display_setup.sh")
 end
--- Widget and layout library
-local wibox = require("wibox")
--- Theme handling library
-local beautiful = require("beautiful")
--- Notification library
-local naughty = require("naughty")
-local menubar = require("menubar")
-local hotkeys_popup = require("awful.hotkeys_popup")
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
 require("awful.hotkeys_popup.keys")
@@ -65,17 +59,11 @@ end
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
 beautiful.init("/home/wose/.config/awesome/themes/neon/" .. "theme.lua")
-
--- This is used later as the default terminal and editor to run.
 terminal = "wezterm"
 editor = os.getenv("EDITOR") or "nvim"
 editor_cmd = terminal .. " -e " .. editor
 
 -- Default modkey.
--- Usually, Mod4 is the key with a logo between Control and Alt.
--- If you do not like this or do not have such a key,
--- I suggest you to remap Mod4 to another key using xmodmap or other tools.
--- However, you can use another modifier like Mod1, but it may interact with others.
 modkey = "Mod4"
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
@@ -238,6 +226,8 @@ awful.screen.connect_for_each_screen(function(s)
 					},
 					layout = wibox.layout.fixed.horizontal,
 				},
+				top = 2,
+				bottom = 2,
 				left = 8,
 				right = 8,
 				widget = wibox.container.margin,
@@ -380,7 +370,7 @@ awful.screen.connect_for_each_screen(function(s)
 							id = "icon_role",
 							widget = wibox.widget.imagebox,
 						},
-						margins = 10,
+						margins = 2,
 						widget = wibox.container.margin,
 					},
 					layout = wibox.layout.fixed.horizontal,
