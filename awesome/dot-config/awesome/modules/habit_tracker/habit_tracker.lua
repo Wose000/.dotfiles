@@ -3,8 +3,7 @@ local wibox = require("wibox.init")
 local beautiful = require("beautiful")
 local gears = require("gears")
 local awful = require("awful")
-
-local M = {}
+local date = require("date")
 
 local habits = {}
 
