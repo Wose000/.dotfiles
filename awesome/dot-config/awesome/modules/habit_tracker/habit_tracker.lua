@@ -62,38 +62,45 @@ local function icon_button(already_checked, icon, callback)
 	return button
 end
 
-local function edit_habit_by_id(id, what_to_change)
+local function get_new_date(last_update_date)
+	local correct_format_date = string.gsub(last_update_date, "-", " ")
+	local curr_date = date(correct_format_date)
+	curr_date:adddays(1)
+	return curr_date:fmt("%Y-%m-%d")
+end
+
+local function edit_habit_by_id(habit, what_to_change)
 	if what_to_change == "success" then
-		habits[id].successes = habits[id].successes + 1
-		habits[id].last_check_date = os.date("%Y-%m-%d")
+		habit.successes = habit.successes + 1
+		habit.last_check_date = get_new_date(habit.last_check_date)
 		-- in case last check was succes increase streak and check if new best streak
-		if habits[id].last_check == "success" then
-			habits[id].current_streak = habits[id].current_streak + 1
-			if habits[id].current_streak >= habits[id].best_streak then
-				habits[id].best_streak = habits[id].current_streak
+		if habit.last_check == "success" then
+			habit.current_streak = habit.current_streak + 1
+			if habit.current_streak >= habit.best_streak then
+				habit.best_streak = habit.current_streak
 			end
 		-- in case last check was fail start a new streak
-		elseif habits[id].last_check == "fail" then
-			habits[id].current_streak = 1
-			if habits[id].current_streak >= habits[id].best_streak then
-				habits[id].best_streak = habits[id].current_streak
+		elseif habit.last_check == "fail" then
+			habit.current_streak = 1
+			if habit.current_streak >= habit.best_streak then
+				habit.best_streak = habit.current_streak
 			end
 		-- last check was empty this should be happen only on new habits
 		else
-			habits[id].current_streak = 1
-			habits[id].best_streak = habits[id].current_streak
+			habit.current_streak = 1
+			habit.best_streak = habit.current_streak
 		end
-		habits[id].last_check = "success"
+		habit.last_check = "success"
 	end
 
 	if what_to_change == "fail" then
-		habits[id].fails = habits[id].fails + 1
-		habits[id].last_check_date = os.date("%Y-%m-%d")
+		habit.fails = habit.fails + 1
+		habit.last_check_date = get_new_date(os.date("%Y-%m-%d"))
 		-- in case last check was succes break the streak
-		if habits[id].last_check == "success" then
-			habits[id].current_streak = 0
+		if habit.last_check == "success" then
+			habit.current_streak = 0
 		end
-		habits[id].last_check = "fail"
+		habit.last_check = "fail"
 	end
 	save_data(habits)
 end
@@ -137,11 +144,11 @@ local function build_habit_widget(habit, id, update_callback)
 							},
 							{
 								icon_button(already_checked(), "󰸞", function()
-									edit_habit_by_id(id, "success")
+									edit_habit_by_id(habit, "success")
 									update_callback()
 								end),
 								icon_button(already_checked(), "", function()
-									edit_habit_by_id(id, "fail")
+									edit_habit_by_id(habit, "fail")
 									update_callback()
 								end),
 								layout = wibox.layout.fixed.horizontal,
@@ -169,7 +176,7 @@ local function build_habit_widget(habit, id, update_callback)
 					bottom = 4,
 				},
 				widget = wibox.container.background,
-				shape = gears.shape.rounded_rect,
+				shape = gears.shape.rectangle,
 				bg = beautiful.bg_normal,
 			},
 			widget = wibox.container.margin,

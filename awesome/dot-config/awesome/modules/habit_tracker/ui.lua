@@ -1,35 +1,17 @@
-local wibox = require("wibox.init")
-local awful = require("awful")
-local gears = require("gears")
-local beautiful = require("beautiful")
+date = require("date")
 
-local habits_fun = require("modules.habit_tracker.habit_tracker")
+today = os.date("%d %m %Y")
 
-local bar_icon = wibox.widget({
-	widget = wibox.widget.textbox,
-	text = "M",
-	align = "center",
-	valign = "center",
-})
+d = date(os.date())
 
-local popup = awful.popup({
-	screen = screen[1],
-	widget = habits_fun.get_habits_widgets(),
-	border_color = "#000000",
-	border_width = 0,
-	ontop = true,
-	visible = false,
-	shape = gears.shape.rounded_rect,
-	hide_on_right_click = false,
-})
+assert(d:getday() == 21)
+d:adddays(1)
+assert(d:getday() == 22)
 
-local function update_popup()
-	popup.widget = habits_fun.get_habits_widgets(update_popup)
-end
+d:adddays(9)
+print(d:getday())
 
-bar_icon:buttons(awful.button({}, 1, function()
-	popup.widget = habits_fun.get_habits_widgets(update_popup)
-	popup.visible = not popup.visible
-end))
-
-return bar_icon
+date_with_bars = os.date("%Y-%m-%d")
+assert(date_with_bars == "2025-06-21")
+date_bars_removed = string.gsub(date_with_bars, "-", " ")
+assert(date_bars_removed == "2025 06 21")
