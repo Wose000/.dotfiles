@@ -7,6 +7,15 @@ local date = require("date")
 
 local habits = {}
 
+local function log(msg)
+	local file = io.open("/home/wose/.dotfiles/awesome/dot-config/awesome/modules/habit_tracker/data/log.txt", "a")
+	if not file then
+		return
+	end
+	file:write(msg .. "\n")
+	file:close()
+end
+
 local function get_habits_data()
 	local file = io.open("/home/wose/.dotfiles/awesome/dot-config/awesome/modules/habit_tracker/data/habits.json", "r")
 	local habits_table = {}
@@ -63,6 +72,9 @@ local function icon_button(already_checked, icon, callback)
 end
 
 local function get_new_date(last_update_date)
+	if last_update_date == "" then
+		return os.date("%Y-%m-%d")
+	end
 	local correct_format_date = string.gsub(last_update_date, "-", " ")
 	local curr_date = date(correct_format_date)
 	curr_date:adddays(1)
@@ -95,7 +107,7 @@ local function edit_habit_by_id(habit, what_to_change)
 
 	if what_to_change == "fail" then
 		habit.fails = habit.fails + 1
-		habit.last_check_date = get_new_date(os.date("%Y-%m-%d"))
+		habit.last_check_date = get_new_date(habit.last_check_date)
 		-- in case last check was succes break the streak
 		if habit.last_check == "success" then
 			habit.current_streak = 0
@@ -128,8 +140,11 @@ local function build_habit_widget(habit, id, update_callback)
 	local function already_checked()
 		local today_date = os.date("%Y-%m-%d")
 		if habit.last_check_date == today_date then
+			log(habit.last_check_date .. " testd against " .. os.date("%Y-%m-%d") .. " output true.")
 			return true
 		end
+
+		log(habit.last_check_date .. " testd against " .. os.date("%Y-%m-%d") .. " output false.")
 		return false
 	end
 	return wibox.widget({
