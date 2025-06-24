@@ -133,18 +133,14 @@ local function ask_for_habit_title(callback, update_callback)
 end
 
 ---@param habit table
----@param id integer
 ---@param update_callback function
-local function build_habit_widget(habit, id, update_callback)
+local function build_habit_widget(habit, update_callback)
 	local succes_rate = habit.successes / (habit.successes + habit.fails)
 	local function already_checked()
 		local today_date = os.date("%Y-%m-%d")
 		if habit.last_check_date == today_date then
-			log(habit.last_check_date .. " testd against " .. os.date("%Y-%m-%d") .. " output true.")
 			return true
 		end
-
-		log(habit.last_check_date .. " testd against " .. os.date("%Y-%m-%d") .. " output false.")
 		return false
 	end
 	return wibox.widget({
@@ -237,8 +233,8 @@ end
 
 local function get_habits_widgets(callback)
 	local layout = wibox.layout.fixed.vertical()
-	for id, habit in ipairs(habits) do
-		layout:add(build_habit_widget(habit, id, callback))
+	for _, habit in ipairs(habits) do
+		layout:add(build_habit_widget(habit, callback))
 	end
 	layout:add(promptbox)
 	layout:add(add_habit_button)
