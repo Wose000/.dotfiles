@@ -46,8 +46,8 @@ local function icon_button(already_checked, icon, callback)
 	if not already_checked then
 		button = wibox.widget({
 			{ text = icon, align = "center", valign = "center", widget = wibox.widget.textbox },
-			forced_height = 30,
-			forced_width = 30,
+			forced_height = 20,
+			forced_width = 20,
 			widget = wibox.widget.background,
 		})
 		button:connect_signal("mouse::enter", function()
@@ -62,8 +62,8 @@ local function icon_button(already_checked, icon, callback)
 	else
 		button = wibox.widget({
 			{ text = "", align = "center", valign = "center", widget = wibox.widget.textbox },
-			forced_height = 30,
-			forced_width = 30,
+			forced_height = 20,
+			forced_width = 20,
 			widget = wibox.widget.background,
 		})
 	end
@@ -132,6 +132,25 @@ local function ask_for_habit_title(callback, update_callback)
 	})
 end
 
+local function missing_checks_icon(last_check_date)
+	local fmt_date = string.gsub(last_check_date, "-", " ")
+	local d = date.diff(date(), date(fmt_date))
+	local checks_needed = math.floor(d:spandays())
+	local text = checks_needed > 0 and "x" .. checks_needed .. " 󰀦" or ""
+	return wibox.widget({
+		text = text,
+		widget = wibox.widget.textbox,
+	})
+end
+
+local function status_icon(last_check)
+	local text = last_check == "success" and "󰁞" or "󰁆"
+	local color = last_check == "success" and beautiful.bg_focus or beautiful.bg_urgent
+	local icon = wibox.widget.textbox()
+	icon.markup = "<span foreground='" .. color .. "'>" .. text .. "</span>"
+	return icon
+end
+
 ---@param habit table
 ---@param update_callback function
 local function build_habit_widget(habit, update_callback)
@@ -150,10 +169,10 @@ local function build_habit_widget(habit, update_callback)
 					{
 						{
 							{
-								text = habit.title,
-								widget = wibox.widget.textbox,
-							},
-							{
+								{
+									text = habit.title,
+									widget = wibox.widget.textbox,
+								},
 								icon_button(already_checked(), "󰸞", function()
 									edit_habit_by_id(habit, "success")
 									update_callback()
@@ -164,20 +183,29 @@ local function build_habit_widget(habit, update_callback)
 								end),
 								layout = wibox.layout.fixed.horizontal,
 							},
-							layout = wibox.layout.fixed.horizontal,
+							nil,
+							missing_checks_icon(habit.last_check_date),
+							expand = "inside",
+							layout = wibox.layout.align.horizontal,
+						},
+						{
+							{
+								text = "Streak: " .. habit.current_streak,
+								widget = wibox.widget.textbox,
+							},
+							nil,
+							status_icon(habit.last_check),
+							layout = wibox.layout.align.horizontal,
 						},
 						{
 							value = succes_rate,
-							forced_height = 10,
+							forced_height = 3,
 							forced_width = 100,
 							color = beautiful.bg_focus,
 							background_color = beautiful.bg_minimize,
 							widget = wibox.widget.progressbar,
 						},
-						{
-							text = "Current streak: " .. habit.current_streak,
-							widget = wibox.widget.textbox,
-						},
+						spacing = 3,
 						layout = wibox.layout.fixed.vertical,
 					},
 					widget = wibox.container.margin,
@@ -191,13 +219,13 @@ local function build_habit_widget(habit, update_callback)
 				bg = beautiful.bg_normal,
 			},
 			widget = wibox.container.margin,
-			top = 2.5,
-			left = 5,
-			right = 5,
-			bottom = 5,
+			top = 1,
+			left = 2,
+			right = 2,
+			bottom = 2,
 		},
 		widget = wibox.container.background,
-		bg = beautiful.border_normal,
+		bg = beautiful.bg_normal,
 	})
 end
 
@@ -205,16 +233,24 @@ habits = get_habits_data()
 
 local add_habit_button = wibox.widget({
 	{
-		text = "New Habit",
+		text = " New Habit",
 		widget = wibox.widget.textbox,
 	},
 	widget = wibox.container.background,
 	bg = beautiful.bg_normal,
 	fg = beautiful.bg_focus,
-	shape = gears.shape.rounded_rect,
+	shape = gears.shape.rectangle,
 	forced_height = 30,
 	forced_width = 100,
 })
+
+add_habit_button:connect_signal("mouse::enter", function()
+	add_habit_button.bg = beautiful.bg_minimize
+end)
+
+add_habit_button:connect_signal("mouse::leave", function()
+	add_habit_button.bg = beautiful.bg_normal
+end)
 
 local function add_new_habit(title, update_callback)
 	local habit = {
