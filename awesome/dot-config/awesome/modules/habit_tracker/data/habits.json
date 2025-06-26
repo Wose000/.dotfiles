@@ -16,36 +16,36 @@
     "successes":15
   },{
     "last_check":"fail",
-    "last_check_date":"2025-06-25",
+    "last_check_date":"2025-06-26",
     "best_streak":3,
-    "fails":8,
+    "fails":9,
     "title":"Meditate",
     "current_streak":0,
     "successes":7
   },{
     "last_check":"success",
-    "last_check_date":"2025-06-25",
+    "last_check_date":"2025-06-26",
     "best_streak":9,
     "fails":3,
     "title":"Eat healthy",
-    "current_streak":1,
-    "successes":12
+    "current_streak":2,
+    "successes":13
   },{
-    "last_check":"fail",
-    "last_check_date":"2025-06-25",
+    "last_check":"success",
+    "last_check_date":"2025-06-26",
     "best_streak":7,
     "fails":3,
     "title":"Don't do drugs",
-    "current_streak":0,
-    "successes":12
+    "current_streak":1,
+    "successes":13
   },{
-    "last_check":"fail",
-    "last_check_date":"2025-06-25",
+    "last_check":"success",
+    "last_check_date":"2025-06-26",
     "best_streak":6,
     "fails":3,
     "title":"Don't masturbate",
-    "current_streak":0,
-    "successes":12
+    "current_streak":1,
+    "successes":13
   },{
     "last_check":"fail",
     "last_check_date":"2025-06-26",
@@ -64,9 +64,9 @@
     "successes":16
   },{
     "last_check":"fail",
-    "last_check_date":"2025-06-25",
+    "last_check_date":"2025-06-26",
     "best_streak":0,
-    "fails":3,
+    "fails":4,
     "title":"Don't smoke",
     "current_streak":0,
     "successes":0
