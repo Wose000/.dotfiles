@@ -263,6 +263,7 @@ awful.screen.connect_for_each_screen(function(s)
 	local battery_widget = require("awesome-wm-widgets.battery-widget.battery")
 
 	local centered_systray = wibox.container.margin(s.mysystray, 0, 0, 6, 6)
+  centered_systray.spacing = 3
 
 	local function get_right_widgets(headphones, keyboard, tray, data, tiles, battery)
 		if is_desktop then
