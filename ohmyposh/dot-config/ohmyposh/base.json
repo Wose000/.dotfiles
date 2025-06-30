@@ -44,10 +44,12 @@
         },
         {
           "properties": {
-            "style": "folder"
+            "style": "powerlevel",
+            "home_icon": "~",
+            "max_width": 5
           },
-          "template": " <b>{{ .Folder }}</b> ",
-          "foreground": "p:white",
+          "template": " <b><p:green>{{ .Path }}</b></> ",
+          "foreground": "p:purple",
           "background": "trasparent",
           "type": "path",
           "style": "plain"
@@ -87,7 +89,7 @@
         {
           "type": "text",
           "style": "plain",
-          "template": "_",
+          "template": "<f>_</f>",
           "foreground": "p:white"
         }
       ]
@@ -99,7 +101,7 @@
           "properties": {
             "always_enabled": true
           },
-          "template": " {{ if gt .Code 0 }}<></>{{ else }}<></>{{ end }} ",
+          "template": " {{ if gt .Code 0 }} {{ .Code }}{{ else }}{{ end }} ",
           "foreground": "p:yellow",
           "background": "trasparent",
           "type": "status",
@@ -132,11 +134,11 @@
         },
         {
           "properties": {
-            "display_mode": "files",
+            "display_mode": "environment",
             "fetch_version": false,
-            "fetch_virtual_env": false
+            "fetch_virtual_env": true
           },
-          "template": " ",
+          "template": "  {{ if .Venv }}{{ .Venv }}{{ end }}",
           "foreground": "p:yellow",
           "background": "transparent",
           "type": "python",
@@ -150,7 +152,7 @@
           "style": "plain"
         },
         {
-          "template": "at <p:blue><b>{{ .CurrentDate | date \"15:04:05\" }}</b></>",
+          "template": "<p:blue><b>{{ .CurrentDate | date \"15:04:05\" }}</b></>",
           "foreground": "p:white",
           "background": "transparent",
           "type": "time",
