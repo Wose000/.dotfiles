@@ -1,5 +1,6 @@
 {
   "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
+  "enable_cursor_postioning": true,
   "palette": {
     "bright-black": "#30344f",
     "black": "#25283d",
@@ -36,15 +37,15 @@
       "alignment": "left",
       "segments": [
         {
-          "template": " {{ if .SSHSession }} {{ end }}󰣇 <p:red><b>{{ .UserName }}</b></> ",
-          "foreground": "p:purple",
+          "template": " {{ if .SSHSession }} {{ end }}󰣇 <p:red> <b>{{ .UserName }}</b></> ",
+          "foreground": "p:blue",
           "background": "trasparent",
           "type": "session",
           "style": "plain"
         },
         {
           "properties": {
-            "style": "powerlevel",
+            "style": "full",
             "home_icon": "~",
             "max_width": 5
           },
@@ -88,8 +89,9 @@
         },
         {
           "type": "text",
+          "newline": true,
           "style": "plain",
-          "template": "<f>_</f>",
+          "template": "\n<f> _</f>",
           "foreground": "p:white"
         }
       ]
@@ -101,7 +103,7 @@
           "properties": {
             "always_enabled": true
           },
-          "template": " {{ if gt .Code 0 }} {{ .Code }}{{ else }}{{ end }} ",
+          "template": " {{ if gt .Code 0 }}err: {{ .Code }}{{ else }}{{ end }}",
           "foreground": "p:yellow",
           "background": "trasparent",
           "type": "status",

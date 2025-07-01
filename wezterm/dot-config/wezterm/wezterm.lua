@@ -23,24 +23,33 @@ config.colors = {
 
 	ansi = {
 		"#25283d", -- black
-		"#a874ce", -- red
-		"#44b2c1", -- green
-		"#ce73ce", -- yellow
-		"#7481d1", -- blue
 		"#f265b5", -- magenta
-		"#5fe3c2", -- cyan
-		"#03b6b0", -- white
+		"#b1a8f9", -- red
+		"#a874ce", -- red
+		"#7481d1", -- blue
+		"#36b0c1", -- cyan
+		"#459Ade", -- cyan
+		"#27d877", -- green
 	},
 	brights = {
 		"#8c9297", -- black
-		"#b1a8f9", -- red
-		"#71d075", -- green
-		"#3fc7e7", -- yellow
-		"#44b2c1", -- blue
 		"#f265b5", -- magenta
-		"#5fe3c2", -- cyan
-		"#03b6b0", -- white
+		"#b1a8f9", -- red
+		"#7481d1", -- blue
+		"#a874ce", -- red
+		"#36b0c1", -- cyan
+		"#27d877", -- green
+		"#459Ade", -- cyan
 	},
+}
+
+local act = wezterm.action
+
+config.keys = {
+	{ key = "J", mods = "SHIFT", action = act.ScrollByLine(1) },
+	{ key = "K", mods = "SHIFT", action = act.ScrollByLine(-1) },
+	{ key = "U", mods = "SHIFT", action = act.ScrollByPage(-1) },
+	{ key = "D", mods = "SHIFT", action = act.ScrollByPage(1) },
 }
 
 return config
