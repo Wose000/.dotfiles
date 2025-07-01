@@ -48,8 +48,6 @@ local act = wezterm.action
 config.keys = {
 	{ key = "J", mods = "SHIFT", action = act.ScrollByLine(1) },
 	{ key = "K", mods = "SHIFT", action = act.ScrollByLine(-1) },
-	{ key = "U", mods = "SHIFT", action = act.ScrollByPage(-1) },
-	{ key = "D", mods = "SHIFT", action = act.ScrollByPage(1) },
 }
 
 return config
