@@ -133,6 +133,9 @@ local function ask_for_habit_title(callback, update_callback)
 end
 
 local function missing_checks_icon(last_check_date)
+	if last_check_date == "" then
+		return
+	end
 	local fmt_date = string.gsub(last_check_date, "-", " ")
 	local d = date.diff(date(), date(fmt_date))
 	local checks_needed = math.floor(d:spandays())
