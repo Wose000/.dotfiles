@@ -43,11 +43,4 @@ config.colors = {
 	},
 }
 
-local act = wezterm.action
-
-config.keys = {
-	{ key = "J", mods = "SHIFT", action = act.ScrollByLine(1) },
-	{ key = "K", mods = "SHIFT", action = act.ScrollByLine(-1) },
-}
-
 return config

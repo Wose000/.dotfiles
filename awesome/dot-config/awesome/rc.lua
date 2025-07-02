@@ -215,43 +215,27 @@ awful.screen.connect_for_each_screen(function(s)
 			{
 				{
 					{
-						{
-							{
-								id = "index_role",
-								widget = wibox.widget.textbox,
-							},
-							margins = 2,
-							widget = wibox.container.margin,
-						},
-						bg = beautiful.bg_normal,
-						shape = gears.shape.circle,
-						widget = wibox.container.background,
+						id = "index_role",
+						font = "JetBrainMono Nerd Font Mono 14",
+						widget = wibox.widget.textbox,
+						forced_width = 20,
 					},
-					{
-						{
-							id = "icon_role",
-							widget = wibox.widget.imagebox,
-						},
-						margins = 2,
-						widget = wibox.container.margin,
-					},
-					layout = wibox.layout.fixed.horizontal,
+					left = 5,
+					widget = wibox.container.margin,
 				},
-				left = 18,
-				right = 18,
-				widget = wibox.container.margin,
+				layout = wibox.layout.fixed.horizontal,
 			},
 			id = "background_role",
 			widget = wibox.container.background,
 			-- Add support for hover colors and an index label
 			create_callback = function(self, c3, index, objects) --luacheck: no unused args
-				self:get_children_by_id("index_role")[1].markup = "<b> " .. index .. " </b>"
+				self:get_children_by_id("index_role")[1].markup = "<b>" .. "" .. "</b>"
 				self:connect_signal("mouse::enter", function()
-					if self.bg ~= beautiful.bg_urgent then
+					if self.bg ~= beautiful.bg_normal then
 						self.backup = self.bg
 						self.has_backup = true
 					end
-					self.bg = beautiful.bg_urgent
+					self.bg = beautiful.bg_normal
 				end)
 				self:connect_signal("mouse::leave", function()
 					if self.has_backup then
@@ -261,9 +245,9 @@ awful.screen.connect_for_each_screen(function(s)
 			end,
 			update_callback = function(self, c3, index, objects) --luacheck: no unused args
 				if c3.selected then
-					self:get_children_by_id("index_role")[1].markup = "<b> " .. "" .. " </b>"
+					self:get_children_by_id("index_role")[1].markup = "<b>" .. "" .. "</b>"
 				else
-					self:get_children_by_id("index_role")[1].markup = "<b> " .. "" .. " </b>"
+					self:get_children_by_id("index_role")[1].markup = "<b>" .. "" .. "</b>"
 				end
 			end,
 		},
