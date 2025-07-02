@@ -7,11 +7,11 @@
     "best_streak":13,
     "fails":2
   },{
-    "successes":19,
+    "successes":20,
     "last_check":"success",
     "title":"Do breathing exercise",
-    "current_streak":2,
-    "last_check_date":"2025-07-01",
+    "current_streak":3,
+    "last_check_date":"2025-07-02",
     "best_streak":13,
     "fails":2
   },{
@@ -55,11 +55,11 @@
     "best_streak":15,
     "fails":2
   },{
-    "successes":20,
+    "successes":21,
     "last_check":"success",
     "title":"Code everyday",
-    "current_streak":2,
-    "last_check_date":"2025-07-01",
+    "current_streak":3,
+    "last_check_date":"2025-07-02",
     "best_streak":18,
     "fails":1
   },{
@@ -67,9 +67,9 @@
     "last_check":"fail",
     "title":"Don't smoke",
     "current_streak":0,
-    "last_check_date":"2025-07-01",
+    "last_check_date":"2025-07-02",
     "best_streak":1,
-    "fails":8
+    "fails":9
   },{
     "successes":0,
     "last_check":"fail",
