@@ -30,6 +30,10 @@ theme.border_normal = "#000000"
 theme.border_focus = "#03b6b0"
 theme.border_marked = "#f265b5"
 
+theme.taglist_fg_occupied = theme.bg_minimize
+theme.taglist_bg_focus = theme.bg_normal
+theme.taglist_fg_empty = theme.border_normal
+
 -- There are other variable sets
 -- overriding the default one when
 -- defined, the sets are:

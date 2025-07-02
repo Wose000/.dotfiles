@@ -111,8 +111,6 @@ local mymainmenu = awful.menu({
 	},
 })
 
-local mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon, menu = mymainmenu })
-
 -- Menubar configuration
 menubar.utils.terminal = terminal -- Set the terminal for applications that require it
 -- }}}
@@ -205,9 +203,6 @@ awful.screen.connect_for_each_screen(function(s)
 	s.mytaglist = awful.widget.taglist({
 		screen = s,
 		filter = awful.widget.taglist.filter.all,
-		style = {
-			shape = gears.shape.circle,
-		},
 		layout = {
 			layout = wibox.layout.fixed.horizontal,
 		},
@@ -229,7 +224,11 @@ awful.screen.connect_for_each_screen(function(s)
 			widget = wibox.container.background,
 			-- Add support for hover colors and an index label
 			create_callback = function(self, c3, index, objects) --luacheck: no unused args
-				self:get_children_by_id("index_role")[1].markup = "<b>" .. "" .. "</b>"
+				if c3.selected then
+					self:get_children_by_id("index_role")[1].markup = ""
+				else
+					self:get_children_by_id("index_role")[1].markup = ""
+				end
 				self:connect_signal("mouse::enter", function()
 					if self.bg ~= beautiful.bg_normal then
 						self.backup = self.bg
@@ -245,9 +244,13 @@ awful.screen.connect_for_each_screen(function(s)
 			end,
 			update_callback = function(self, c3, index, objects) --luacheck: no unused args
 				if c3.selected then
-					self:get_children_by_id("index_role")[1].markup = "<b>" .. "" .. "</b>"
+					self:get_children_by_id("index_role")[1].markup = "<span color='"
+						.. beautiful.bg_urgent
+						.. "'>"
+						.. ""
+						.. "</span>"
 				else
-					self:get_children_by_id("index_role")[1].markup = "<b>" .. "" .. "</b>"
+					self:get_children_by_id("index_role")[1].markup = ""
 				end
 			end,
 		},
