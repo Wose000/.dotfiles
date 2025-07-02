@@ -81,9 +81,6 @@ awful.layout.layouts = {
 	awful.layout.suit.max.fullscreen,
 	awful.layout.suit.magnifier,
 	awful.layout.suit.corner.nw,
-	-- awful.layout.suit.corner.ne,
-	-- awful.layout.suit.corner.sw,
-	-- awful.layout.suit.corner.se,
 }
 -- }}}
 
@@ -182,7 +179,7 @@ awful.screen.connect_for_each_screen(function(s)
 	set_wallpaper(s)
 
 	-- Each screen has its own tag table.
-	awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.layouts[1])
+	awful.tag({ "", "", "", "", "", "", "", "", "" }, s, awful.layout.layouts[1])
 
 	s.audio_widget = require("modules.audio_toggle")
 	-- Create a promptbox for each screen
@@ -208,36 +205,49 @@ awful.screen.connect_for_each_screen(function(s)
 	s.mytaglist = awful.widget.taglist({
 		screen = s,
 		filter = awful.widget.taglist.filter.all,
-		layout = { spacing = 5, layout = wibox.layout.fixed.horizontal },
+		style = {
+			shape = gears.shape.circle,
+		},
+		layout = {
+			layout = wibox.layout.fixed.horizontal,
+		},
 		widget_template = {
 			{
 				{
 					{
 						{
-							id = "index_role",
-							widget = wibox.widget.textbox,
+							{
+								id = "index_role",
+								widget = wibox.widget.textbox,
+							},
+							margins = 2,
+							widget = wibox.container.margin,
 						},
-						margins = 0,
-						widget = wibox.container.margin,
+						bg = beautiful.bg_normal,
+						shape = gears.shape.circle,
+						widget = wibox.container.background,
 					},
 					{
-						id = "text_role",
-						widget = wibox.widget.textbox,
+						{
+							id = "icon_role",
+							widget = wibox.widget.imagebox,
+						},
+						margins = 2,
+						widget = wibox.container.margin,
 					},
 					layout = wibox.layout.fixed.horizontal,
 				},
-				top = 2,
-				bottom = 2,
-				left = 8,
-				right = 8,
+				left = 18,
+				right = 18,
 				widget = wibox.container.margin,
 			},
 			id = "background_role",
 			widget = wibox.container.background,
 			-- Add support for hover colors and an index label
 			create_callback = function(self, c3, index, objects) --luacheck: no unused args
+				self:get_children_by_id("index_role")[1].markup = "<b> " .. index .. " </b>"
 				self:connect_signal("mouse::enter", function()
-					if self.bg ~= "#ff0000" then
+					if self.bg ~= beautiful.bg_urgent then
 						self.backup = self.bg
 						self.has_backup = true
 					end
@@ -250,9 +260,13 @@ awful.screen.connect_for_each_screen(function(s)
 				end)
 			end,
 			update_callback = function(self, c3, index, objects) --luacheck: no unused args
+				if c3.selected then
+					self:get_children_by_id("index_role")[1].markup = "<b> " .. "" .. " </b>"
+				else
+					self:get_children_by_id("index_role")[1].markup = "<b> " .. "" .. " </b>"
+				end
 			end,
 		},
-
 		buttons = taglist_buttons,
 	})
 
@@ -263,7 +277,7 @@ awful.screen.connect_for_each_screen(function(s)
 	local battery_widget = require("awesome-wm-widgets.battery-widget.battery")
 
 	local centered_systray = wibox.container.margin(s.mysystray, 0, 0, 6, 6)
-  centered_systray.spacing = 3
+	centered_systray.spacing = 3
 
 	local function get_right_widgets(headphones, keyboard, tray, data, tiles, battery)
 		if is_desktop then

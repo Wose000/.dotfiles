@@ -43,8 +43,6 @@ theme.border_marked = "#f265b5"
 -- Example:
 theme.taglist_bg_focus = theme.bg_focus
 theme.taglist_bg_occupied = theme.bg_minimize
-theme.taglist_shape = gears.shape.rectangle
-theme.taglist_shape_border_width = 4
 theme.taglist_shape_border_color = theme.bg_normal
 
 -- Generate taglist squares:
