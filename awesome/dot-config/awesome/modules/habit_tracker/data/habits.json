@@ -1,81 +1,81 @@
 [{
-    "last_check_date":"2025-07-02",
-    "successes":20,
+    "fails":2,
+    "last_check":"success",
+    "last_check_date":"2025-07-03",
+    "current_streak":4,
     "best_streak":13,
     "title":"Work out everyday",
-    "last_check":"success",
-    "fails":2,
-    "current_streak":3
+    "successes":21
   },{
+    "fails":2,
+    "last_check":"success",
     "last_check_date":"2025-07-02",
-    "successes":20,
+    "current_streak":3,
     "best_streak":13,
     "title":"Do breathing exercise",
-    "last_check":"success",
-    "fails":2,
-    "current_streak":3
+    "successes":20
   },{
+    "fails":11,
+    "last_check":"success",
     "last_check_date":"2025-07-02",
-    "successes":11,
+    "current_streak":2,
     "best_streak":3,
     "title":"Meditate",
-    "last_check":"success",
-    "fails":11,
-    "current_streak":2
+    "successes":11
   },{
+    "fails":6,
+    "last_check":"success",
     "last_check_date":"2025-07-02",
-    "successes":16,
+    "current_streak":1,
     "best_streak":9,
     "title":"Eat healthy",
-    "last_check":"success",
-    "fails":6,
-    "current_streak":1
+    "successes":16
   },{
+    "fails":5,
+    "last_check":"success",
     "last_check_date":"2025-07-02",
-    "successes":17,
+    "current_streak":3,
     "best_streak":7,
     "title":"Don't do drugs",
-    "last_check":"success",
-    "fails":5,
-    "current_streak":3
+    "successes":17
   },{
+    "fails":5,
+    "last_check":"success",
     "last_check_date":"2025-07-02",
-    "successes":17,
+    "current_streak":1,
     "best_streak":6,
     "title":"Don't masturbate",
-    "last_check":"success",
-    "fails":5,
-    "current_streak":1
+    "successes":17
   },{
+    "fails":2,
+    "last_check":"success",
     "last_check_date":"2025-07-02",
-    "successes":20,
+    "current_streak":4,
     "best_streak":15,
     "title":"No video-games",
-    "last_check":"success",
-    "fails":2,
-    "current_streak":4
+    "successes":20
   },{
-    "last_check_date":"2025-07-02",
-    "successes":21,
+    "fails":1,
+    "last_check":"success",
+    "last_check_date":"2025-07-03",
+    "current_streak":4,
     "best_streak":18,
     "title":"Code everyday",
-    "last_check":"success",
-    "fails":1,
-    "current_streak":3
+    "successes":22
   },{
+    "fails":9,
+    "last_check":"fail",
     "last_check_date":"2025-07-02",
-    "successes":1,
+    "current_streak":0,
     "best_streak":1,
     "title":"Don't smoke",
-    "last_check":"fail",
-    "fails":9,
-    "current_streak":0
+    "successes":1
   },{
+    "fails":1,
+    "last_check":"success",
     "last_check_date":"2025-07-02",
-    "successes":1,
+    "current_streak":1,
     "best_streak":1,
     "title":"Dont' waste time on youtube",
-    "last_check":"success",
-    "fails":1,
-    "current_streak":1
+    "successes":1
   }]
