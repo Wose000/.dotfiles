@@ -450,6 +450,15 @@ globalkeys = gears.table.join(
 	end, { description = "go back", group = "client" }),
 
 	-- Standard program
+	--
+	awful.key({ modkey }, "d", function()
+		awful.spawn.with_shell("rofi -show drun")
+	end, { description = "launch rofi", group = "launcher" }),
+
+	awful.key({ modkey }, "c", function()
+		awful.spawn.with_shell('rofi -modi "clipboard:greenclip print" -show clipboard -run-command')
+	end, { description = "launch rofi", group = "launcher" }),
+
 	awful.key({ modkey }, "Return", function()
 		awful.spawn(terminal)
 	end, { description = "open a terminal", group = "launcher" }),
@@ -590,10 +599,6 @@ clientkeys = gears.table.join(
 		c.maximized_vertical = not c.maximized_vertical
 		c:raise()
 	end, { description = "(un)maximize vertically", group = "client" }),
-
-	awful.key({ modkey }, "d", function()
-		awful.spawn.with_shell("rofi -show drun")
-	end, { description = "launch rofi", group = "launcher" }),
 
 	awful.key({ modkey, "Shift" }, "m", function(c)
 		c.maximized_horizontal = not c.maximized_horizontal
@@ -794,7 +799,7 @@ client.connect_signal("request::titlebars", function(c)
 		},
 		{ -- Middle
 			{ -- Title
-				align = "center",
+				align = "left",
 				widget = awful.titlebar.widget.titlewidget(c),
 			},
 			buttons = buttons,
@@ -804,10 +809,10 @@ client.connect_signal("request::titlebars", function(c)
 			awful.titlebar.widget.floatingbutton(c),
 			awful.titlebar.widget.maximizedbutton(c),
 			awful.titlebar.widget.stickybutton(c),
-			awful.titlebar.widget.ontopbutton(c),
 			awful.titlebar.widget.closebutton(c),
 			layout = wibox.layout.fixed.horizontal(),
 		},
+		forced_height = 20,
 		layout = wibox.layout.align.horizontal,
 	})
 end)
