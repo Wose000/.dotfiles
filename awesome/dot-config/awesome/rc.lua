@@ -94,6 +94,7 @@ myawesomemenu = {
 		end,
 	},
 	{ "manual", terminal .. " -e man awesome" },
+	{ "btop", terminal .. " -e btop" },
 	{ "edit config", editor_cmd .. " " .. awesome.conffile },
 	{ "restart", awesome.restart },
 	{
@@ -123,7 +124,7 @@ local mykeyboardlayout = awful.widget.keyboardlayout()
 local mytextclock = wibox.widget.textclock()
 local month_calendar = awful.widget.calendar_popup.month()
 month_calendar:attach(mytextclock, "tr")
-mytextclock.format = "%a %d %b, %H:%M"
+mytextclock.format = "%a %d %b, %H:%M "
 
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
@@ -165,7 +166,7 @@ end
 screen.connect_signal("property::geometry", set_wallpaper)
 
 local volume_widget = require("awesome-wm-widgets.pactl-widget.volume")({
-	widget_type = "horizontal_bar",
+	widget_type = "icon",
 	with_icon = true,
 	tooltip = true,
 })
@@ -226,8 +227,10 @@ awful.screen.connect_for_each_screen(function(s)
 			create_callback = function(self, c3, index, objects) --luacheck: no unused args
 				if c3.selected then
 					self:get_children_by_id("index_role")[1].markup = ""
-				else
+				elseif #c3:clients() == 0 then
 					self:get_children_by_id("index_role")[1].markup = ""
+				else
+					self:get_children_by_id("index_role")[1].markup = ""
 				end
 				self:connect_signal("mouse::enter", function()
 					if self.bg ~= beautiful.bg_normal then
@@ -249,8 +252,10 @@ awful.screen.connect_for_each_screen(function(s)
 						.. "'>"
 						.. ""
 						.. "</span>"
-				else
+				elseif #c3:clients() == 0 then
 					self:get_children_by_id("index_role")[1].markup = ""
+				else
+					self:get_children_by_id("index_role")[1].markup = ""
 				end
 			end,
 		},
