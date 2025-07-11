@@ -172,6 +172,7 @@ local volume_widget = require("awesome-wm-widgets.pactl-widget.volume")({
 })
 
 local habit_tracker = require("modules.habit_tracker.habit_tracker")
+local network_widget = require("modules.network.network-widget")
 
 awful.screen.connect_for_each_screen(function(s)
 	-- Wallpaper
@@ -278,6 +279,7 @@ awful.screen.connect_for_each_screen(function(s)
 				spacing = 5,
 				tray,
 				habit_tracker,
+				network_widget,
 				headphones,
 				data,
 			}
@@ -288,6 +290,7 @@ awful.screen.connect_for_each_screen(function(s)
 			tray,
 			headphones,
 			habit_tracker,
+			network_widget,
 			keyboard,
 			battery(),
 			data,
