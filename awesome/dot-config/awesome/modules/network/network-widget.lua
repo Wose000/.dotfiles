@@ -27,6 +27,14 @@ local function check_network_status()
 	end)
 end
 
+local nw_tooltip = awful.tooltip({
+	text = "test",
+	visibile = true,
+	bg = beautiful.bg_minimize,
+})
+
+nw_tooltip:add_to_object(internet_connection_widget)
+
 gears.timer({
 	timeout = 5,
 	call_now = true,
