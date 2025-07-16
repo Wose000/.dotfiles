@@ -13,11 +13,11 @@ if &shortmess =~ 'A'
 else
   set shortmess=aoO
 endif
-badd +187 ~/.dotfiles/awesome/dot-config/awesome/modules/habit_tracker/habit_tracker.lua
+badd +299 ~/.dotfiles/awesome/dot-config/awesome/modules/habit_tracker/habit_tracker.lua
 badd +8 ~/.dotfiles/awesome/dot-config/awesome/modules/habit_tracker/ui.lua
 badd +12 ~/.dotfiles/awesome/dot-config/awesome/modules/habit_tracker/data/habits.json
 badd +1 ~/.dotfiles/awesome/dot-config/awesome/themes/neon/theme.lua
-badd +408 ~/.dotfiles/awesome/dot-config/awesome/rc.lua
+badd +11 ~/.dotfiles/awesome/dot-config/awesome/rc.lua
 badd +32 ~/.dotfiles/awesome/dot-config/awesome/modules/network/network-widget.lua
 badd +15 ~/.dotfiles/awesome/dot-config/awesome/modules/network/get_network_status.sh
 argglobal
@@ -25,7 +25,7 @@ argglobal
 set stal=2
 tabnew +setlocal\ bufhidden=wipe
 tabrewind
-edit ~/.dotfiles/awesome/dot-config/awesome/rc.lua
+edit ~/.dotfiles/awesome/dot-config/awesome/modules/habit_tracker/habit_tracker.lua
 let s:save_splitbelow = &splitbelow
 let s:save_splitright = &splitright
 set splitbelow splitright
@@ -45,7 +45,7 @@ set winwidth=1
 exe 'vert 1resize ' . ((&columns * 117 + 118) / 236)
 exe 'vert 2resize ' . ((&columns * 118 + 118) / 236)
 argglobal
-balt ~/.dotfiles/awesome/dot-config/awesome/modules/network/get_network_status.sh
+balt ~/.dotfiles/awesome/dot-config/awesome/rc.lua
 setlocal foldmethod=manual
 setlocal foldexpr=v:lua.vim.treesitter.foldexpr()
 setlocal foldmarker={{{,}}}
@@ -56,11 +56,11 @@ setlocal foldnestmax=20
 setlocal foldenable
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 11 - ((10 * winheight(0) + 22) / 44)
+let s:l = 294 - ((24 * winheight(0) + 25) / 51)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 11
+keepjumps 294
 normal! 032|
 wincmd w
 argglobal
@@ -79,14 +79,13 @@ setlocal foldnestmax=20
 setlocal foldenable
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 52 - ((39 * winheight(0) + 22) / 44)
+let s:l = 32 - ((25 * winheight(0) + 25) / 51)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 52
-normal! 018|
+keepjumps 32
+normal! 029|
 wincmd w
-2wincmd w
 exe 'vert 1resize ' . ((&columns * 117 + 118) / 236)
 exe 'vert 2resize ' . ((&columns * 118 + 118) / 236)
 tabnext
@@ -103,7 +102,7 @@ setlocal foldnestmax=20
 setlocal foldenable
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 15 - ((8 * winheight(0) + 22) / 44)
+let s:l = 15 - ((9 * winheight(0) + 25) / 51)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt

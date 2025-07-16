@@ -296,7 +296,7 @@ local popup = awful.popup({
 	visible = false,
 	placement = awful.placement.right,
 	shape = gears.shape.rounded_rect,
-	hide_on_right_click = false,
+	hide_on_right_click = true,
 })
 
 local function update_popup()
