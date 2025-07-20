@@ -173,6 +173,7 @@ local volume_widget = require("awesome-wm-widgets.pactl-widget.volume")({
 
 local habit_tracker = require("modules.habit_tracker.habit_tracker")
 local network_widget = require("modules.network.network-widget")
+local notify_widget = require("modules.notification-widget")
 
 awful.screen.connect_for_each_screen(function(s)
 	-- Wallpaper
@@ -278,6 +279,7 @@ awful.screen.connect_for_each_screen(function(s)
 				layout = wibox.layout.fixed.horizontal,
 				spacing = 5,
 				tray,
+				notify_widget:get_bar_icon(),
 				habit_tracker,
 				network_widget,
 				headphones,
