@@ -1,49 +1,23 @@
 local wibox = require("wibox")
 local gears = require("gears")
 local awful = require("awful")
+local beautiful = require("beautiful")
+local naughty = require("naughty")
 
 local M = {}
 
 local window = awful.popup({
 	screen = screen[1],
 	widget = {
-		{
-			{
-				text = "foobar",
-				widget = wibox.widget.textbox,
-			},
-			{
-				{
-					text = "foobar",
-					widget = wibox.widget.textbox,
-				},
-				bg = "#ff00ff",
-				clip = true,
-				shape = gears.shape.rounded_bar,
-				widget = wibox.widget.background,
-			},
-			{
-				value = 0.5,
-				forced_height = 30,
-				forced_width = 100,
-				widget = wibox.widget.progressbar,
-			},
-			layout = wibox.layout.fixed.vertical,
-		},
-		margins = 10,
-		widget = wibox.container.margin,
+		{ widget = wibox.widget.textbox, text = "Dio cane" },
+		widget = wibox.widget.background,
+		color = beautiful.bg_normal,
 	},
-	border_color = "#00ff00",
-	border_width = 5,
-	ontop = true,
-	placement = awful.placement.top_left,
-	shape = gears.shape.rounded_rect,
-	visible = true,
 })
 
 local bar_icon = wibox.widget({
 	widget = wibox.widget.textbox,
-	text = "0",
+	text = "󰍥",
 	font = "Jet Brains Mono Nerd Font Mono 17",
 	align = "center",
 	valign = "center",
