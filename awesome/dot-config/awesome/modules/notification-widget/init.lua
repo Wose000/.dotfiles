@@ -9,7 +9,7 @@ local M = {}
 local window = awful.popup({
 	screen = screen[1],
 	widget = {
-		{ widget = wibox.widget.textbox, text = "Dio cane" },
+		{ widget = naughty.list.notifications },
 		widget = wibox.widget.background,
 		color = beautiful.bg_normal,
 	},
@@ -29,6 +29,7 @@ end
 
 bar_icon:buttons(awful.button({}, 1, function()
 	window.visible = not window.visible
+	naughty.notification({ title = "ciao", message = "cazzo" })
 end))
 
 function M:get_bar_icon()
