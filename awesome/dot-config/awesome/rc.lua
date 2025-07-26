@@ -7,6 +7,7 @@ pcall(require, "luarocks.loader")
 local gears = require("gears")
 local awful = require("awful")
 local wibox = require("wibox")
+local ruled = require("ruled")
 local beautiful = require("beautiful")
 local naughty = require("naughty")
 local menubar = require("menubar")
@@ -827,6 +828,25 @@ client.connect_signal("request::titlebars", function(c)
 	})
 end)
 
+-- {{{ Notifications
+
+ruled.notification.connect_signal("request::rules", function()
+	-- All notifications will match this rule.
+	ruled.notification.append_rule({
+		rule = {},
+		properties = {
+			screen = awful.screen.preferred,
+			implicit_timeout = 5,
+		},
+	})
+end)
+
+naughty.connect_signal("request::display", function(n)
+	naughty.layout.box({ notification = n })
+end)
+
+-- }}}
+
 -- Enable sloppy focus, so that focus follows mouse.
 client.connect_signal("mouse::enter", function(c)
 	c:emit_signal("request::activate", "mouse_enter", { raise = false })
@@ -839,3 +859,5 @@ client.connect_signal("unfocus", function(c)
 	c.border_color = beautiful.border_normal
 end)
 -- }}}
+--
+--
