@@ -63,8 +63,6 @@ beautiful.init("/home/wose/.config/awesome/themes/neon/" .. "theme.lua")
 terminal = "wezterm"
 editor = os.getenv("EDITOR") or "nvim"
 editor_cmd = terminal .. " -e " .. editor
-
--- Default modkey.
 modkey = "Mod4"
 
 -- Table of layouts to cover with awful.layout.inc, order matters.

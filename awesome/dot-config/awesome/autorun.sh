@@ -7,4 +7,4 @@ run() {
 }
 
 run "picom"
-run "greenclip daemon"
+run "greenclip" "daemon"
