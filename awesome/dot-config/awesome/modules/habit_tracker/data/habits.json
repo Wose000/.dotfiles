@@ -1,88 +1,88 @@
 [{
-    "fails":8,
     "successes":41,
     "last_check":"fail",
     "current_streak":0,
+    "fails":8,
     "title":"Work out everyday",
     "best_streak":13,
     "last_check_date":"2025-07-29"
   },{
-    "fails":17,
     "successes":32,
     "last_check":"fail",
     "current_streak":0,
+    "fails":17,
     "title":"Do breathing exercise",
     "best_streak":13,
     "last_check_date":"2025-07-29"
   },{
-    "fails":29,
     "successes":20,
     "last_check":"fail",
     "current_streak":0,
+    "fails":29,
     "title":"Meditate",
     "best_streak":3,
     "last_check_date":"2025-07-29"
   },{
-    "fails":13,
     "successes":36,
     "last_check":"success",
     "current_streak":7,
+    "fails":13,
     "title":"Eat healthy",
     "best_streak":9,
     "last_check_date":"2025-07-29"
   },{
-    "fails":16,
     "successes":33,
     "last_check":"fail",
     "current_streak":0,
+    "fails":16,
     "title":"Don't do drugs",
     "best_streak":7,
     "last_check_date":"2025-07-29"
   },{
-    "fails":15,
     "successes":33,
-    "last_check":"success",
-    "current_streak":1,
+    "last_check":"fail",
+    "current_streak":0,
+    "fails":16,
     "title":"Don't masturbate",
     "best_streak":6,
-    "last_check_date":"2025-07-28"
+    "last_check_date":"2025-07-29"
   },{
-    "fails":8,
     "successes":41,
     "last_check":"success",
     "current_streak":1,
+    "fails":8,
     "title":"No video-games",
     "best_streak":23,
     "last_check_date":"2025-07-29"
   },{
-    "fails":5,
     "successes":44,
     "last_check":"success",
     "current_streak":8,
+    "fails":5,
     "title":"Code everyday",
     "best_streak":18,
     "last_check_date":"2025-07-29"
   },{
-    "fails":35,
     "successes":2,
     "last_check":"fail",
     "current_streak":0,
+    "fails":35,
     "title":"Don't smoke",
     "best_streak":1,
     "last_check_date":"2025-07-29"
   },{
-    "fails":4,
     "successes":24,
-    "last_check":"success",
-    "current_streak":6,
+    "last_check":"fail",
+    "current_streak":0,
+    "fails":5,
     "title":"Dont' waste time on youtube",
     "best_streak":12,
-    "last_check_date":"2025-07-28"
+    "last_check_date":"2025-07-29"
   },{
-    "fails":2,
     "successes":17,
     "last_check":"fail",
     "current_streak":0,
+    "fails":2,
     "title":"Stop scrolling reddit",
     "best_streak":17,
     "last_check_date":"2025-07-29"

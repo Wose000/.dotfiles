@@ -18,7 +18,7 @@ local function log(msg)
 end
 
 ---@return table
-local function get_habits_data()
+local function load_habits_data()
 	local file = io.open(data_path, "r")
 	local habits_table = {}
 	if file then
@@ -244,7 +244,7 @@ local function build_habit_widget(habit, update_callback)
 	})
 end
 
-habits = get_habits_data()
+habits = load_habits_data()
 
 local add_habit_button = wibox.widget({
 	{
