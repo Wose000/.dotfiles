@@ -4,7 +4,7 @@ local beautiful = require("beautiful")
 local gears = require("gears")
 local awful = require("awful")
 local date = require("date")
-
+local data_path = "/home/wose/.dotfiles/awesome/dot-config/awesome/modules/habit_tracker/data/habits.json"
 local habits = {}
 
 local function log(msg)
@@ -16,8 +16,9 @@ local function log(msg)
 	file:close()
 end
 
+---@return table
 local function get_habits_data()
-	local file = io.open("/home/wose/.dotfiles/awesome/dot-config/awesome/modules/habit_tracker/data/habits.json", "r")
+	local file = io.open(data_path, "r")
 	local habits_table = {}
 	if file then
 		habits_table = file:read("*a")
@@ -29,8 +30,8 @@ end
 
 local function save_data(data)
 	local data_as_json = json.encode(data, { indent = true })
-	local file = io.open("/home/wose/.dotfiles/awesome/dot-config/awesome/modules/habit_tracker/data/habits.json", "w")
-	if file then
+	local file = io.open(data_path, "w")
+	if file and type(data_as_json) == "string" then
 		file:write(data_as_json)
 		file:close()
 	else
