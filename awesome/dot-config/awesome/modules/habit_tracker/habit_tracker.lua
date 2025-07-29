@@ -25,7 +25,11 @@ local function get_habits_data()
 		file:close()
 	end
 	local data, _, err = json.decode(habits_table)
-	return data
+	if type(data) == "table" then
+		return data
+	else
+		error("expected a table as json.decode output found " .. type(data))
+	end
 end
 
 local function save_data(data)
@@ -108,6 +112,7 @@ local function edit_habit_by_id(habit, what_to_change)
 
 	if what_to_change == "fail" then
 		habit.fails = habit.fails + 1
+
 		habit.last_check_date = get_new_date(habit.last_check_date)
 		-- in case last check was succes break the streak
 		if habit.last_check == "success" then
