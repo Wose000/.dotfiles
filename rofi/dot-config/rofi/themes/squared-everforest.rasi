@@ -6,6 +6,7 @@
 
     bg0:     #000000f0;
     bg1:     #00111100;
+    bg2:     #121212;
     fg0:     #36b0c1;
 
     accent-color:     #8c96d9;
@@ -28,7 +29,7 @@ window {
 inputbar {
     spacing:    8px;
     padding:    5px;
-    background-color:   @bg1;
+    background-color:   @bg2;
 }
 
 prompt, entry, element-icon, element-text {
