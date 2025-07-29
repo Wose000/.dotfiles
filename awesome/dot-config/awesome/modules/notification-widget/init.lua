@@ -1,18 +1,25 @@
 local wibox = require("wibox")
-local gears = require("gears")
 local awful = require("awful")
 local beautiful = require("beautiful")
 local naughty = require("naughty")
 
 local M = {}
 
+local notification_list =
+	naughty.list.notifications({ base_layout = wibox.widget({
+		layout = wibox.layout.flex.vertical,
+	}) })
+
 local window = awful.popup({
-	screen = screen[1],
 	widget = {
-		{ widget = naughty.list.notifications },
+		{ widget = notification_list },
 		widget = wibox.widget.background,
 		color = beautiful.bg_normal,
+		forced_width = 200,
 	},
+	screen = screen[1],
+	placement = awful.placement.top_left,
+	ontop = true,
 })
 
 local bar_icon = wibox.widget({
@@ -29,7 +36,7 @@ end
 
 bar_icon:buttons(awful.button({}, 1, function()
 	window.visible = not window.visible
-	naughty.notification({ title = "ciao", message = "cazzo" })
+	naughty.notification({ title = "ciao", message = "cazzo", timeout = 10000 })
 end))
 
 function M:get_bar_icon()

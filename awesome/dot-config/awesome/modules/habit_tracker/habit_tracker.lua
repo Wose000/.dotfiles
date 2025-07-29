@@ -12,7 +12,8 @@ local function log(msg)
 	if not file then
 		return
 	end
-	file:write(msg .. "\n")
+	local formatted_datetime = os.date("%Y-%m-%d %H:%M:%S")
+	file:write(formatted_datetime .. ": " .. msg .. "\n")
 	file:close()
 end
 
@@ -39,7 +40,7 @@ local function save_data(data)
 		file:write(data_as_json)
 		file:close()
 	else
-		print("Error: could not open file fro writing")
+		error("Error: could not open file for writing")
 	end
 end
 
@@ -138,6 +139,8 @@ local function ask_for_habit_title(callback, update_callback)
 	})
 end
 
+local naughty = require("naughty")
+
 local function missing_checks_icon(last_check_date)
 	if last_check_date == "" then
 		return
@@ -145,6 +148,9 @@ local function missing_checks_icon(last_check_date)
 	local fmt_date = string.gsub(last_check_date, "-", " ")
 	local d = date.diff(date(), date(fmt_date))
 	local checks_needed = math.floor(d:spandays())
+	if checks_needed == 0 then
+		naughty.notification({ title = "habit checkd", message = "this habit is checkd" })
+	end
 	local text = checks_needed > 0 and "x" .. checks_needed .. " 󰀦" or ""
 	return wibox.widget({
 		text = text,

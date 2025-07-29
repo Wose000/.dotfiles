@@ -63,6 +63,8 @@ beautiful.init("/home/wose/.config/awesome/themes/neon/" .. "theme.lua")
 terminal = "wezterm"
 editor = os.getenv("EDITOR") or "nvim"
 editor_cmd = terminal .. " -e " .. editor
+
+-- Default modkey.
 modkey = "Mod4"
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
@@ -264,7 +266,7 @@ awful.screen.connect_for_each_screen(function(s)
 	})
 
 	s.mysystray = wibox.widget.systray({
-		base_size = 13,
+		base_size = 9,
 	})
 
 	local battery_widget = require("awesome-wm-widgets.battery-widget.battery")
@@ -286,7 +288,7 @@ awful.screen.connect_for_each_screen(function(s)
 			}
 		end
 		return {
-			layout = require("wibox").layout.fixed.horizontal,
+			layout = wibox.layout.fixed.horizontal,
 			spacing = 5,
 			tray,
 			headphones,
