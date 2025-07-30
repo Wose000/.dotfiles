@@ -168,7 +168,7 @@ end
 
 ---@param habit table
 ---@param update_callback function
-local function build_habit_widget(habit, update_callback)
+local function habit_entry_widget(habit, update_callback)
 	local succes_rate = habit.successes / (habit.successes + habit.fails)
 	local function already_checked()
 		local today_date = os.date("%Y-%m-%d")
@@ -177,6 +177,7 @@ local function build_habit_widget(habit, update_callback)
 		end
 		return false
 	end
+
 	return wibox.widget({
 		{
 			{
@@ -191,10 +192,12 @@ local function build_habit_widget(habit, update_callback)
 								icon_button(already_checked(), "󰸞", function()
 									edit_habit_by_id(habit, "success")
 									update_callback()
+									awesome.emit_signal("habits::habit_updated")
 								end),
 								icon_button(already_checked(), "", function()
-									edit_habit_by_id(habit, "fail")
 									update_callback()
+									edit_habit_by_id(habit, "fail")
+									awesome.emit_signal("habits::habit_updated")
 								end),
 								layout = wibox.layout.fixed.horizontal,
 							},
@@ -285,7 +288,7 @@ end
 local function get_habits_widgets(callback)
 	local layout = wibox.layout.fixed.vertical()
 	for _, habit in ipairs(habits) do
-		layout:add(build_habit_widget(habit, callback))
+		layout:add(habit_entry_widget(habit, callback))
 	end
 	layout:add(promptbox)
 	layout:add(add_habit_button)
@@ -310,6 +313,10 @@ local popup = awful.popup({
 	shape = gears.shape.rounded_rect,
 	hide_on_right_click = false,
 })
+
+awesome.connect_signal("habits::habit_updated", function()
+	log("listening to signal")
+end)
 
 local function update_popup()
 	popup.widget = get_habits_widgets(update_popup)

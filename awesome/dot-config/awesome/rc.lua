@@ -14,6 +14,7 @@ local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup")
 require("awful.autofocus")
 
+local test_wibox = require("modules.test.test_wibox")
 local is_desktop = os.getenv("HOSTNAME") == "arch-pc"
 local is_laptop = os.getenv("HOSTNAME") == "arch-laptop"
 
@@ -66,6 +67,7 @@ editor_cmd = terminal .. " -e " .. editor
 
 -- Default modkey.
 modkey = "Mod4"
+local hyper = "Mod3"
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
@@ -539,19 +541,21 @@ if is_desktop then
 	globalkeys = gears.table.join(
 		globalkeys,
 		-- screen one is the central monitor
-		awful.key({ modkey, "Mod3" }, "2", function()
+		awful.key({ modkey, hyper }, "2", function()
 			awful.screen.focus(1)
 		end, { description = "focus screen one", group = "screen" }),
 		-- screen 2 is the pen display
-		awful.key({ modkey, "Mod3" }, "3", function()
+		awful.key({ modkey, hyper }, "3", function()
 			awful.screen.focus(2)
 		end, { description = "focus screen two", group = "screen" }),
 		-- third screen is the one on the left
-		awful.key({ modkey, "Mod3" }, "1", function()
+		awful.key({ modkey, hyper }, "1", function()
 			awful.screen.focus(3)
 		end, { description = "focus screen three", group = "screen" }),
-
-		awful.key({ "Mod3" }, "e", function()
+		awful.key({ hyper }, "t", function()
+			test_wibox:toggle_wibox()
+		end, { description = "test wibox", group = "test" }),
+		awful.key({ hyper }, "e", function()
 			awful.spawn.with_shell("firefox --new-window https://www.excalidraw.com")
 			local function move_firefox(c)
 				c:move_to_screen(2)
