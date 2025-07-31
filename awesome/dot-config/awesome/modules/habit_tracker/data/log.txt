@@ -1,3 +1,68 @@
-2025-07-29 21:54:14: Sourced!
-2025-07-29 21:54:17: Sourced!
-2025-07-30 10:59:29: listening to signal
+2025-07-31 20:50:21: Don't masturbate -> habit class data: Don't masturbate
+2025-07-31 20:50:21: Don't do drugs -> habit class data: Don't do drugs
+2025-07-31 20:50:21: Meditate -> habit class data: Meditate
+2025-07-31 20:50:21: No video-games -> habit class data: No video-games
+2025-07-31 20:50:21: Dont' waste time on youtube -> habit class data: Dont' waste time on youtube
+2025-07-31 20:50:21: Eat healthy -> habit class data: Eat healthy
+2025-07-31 20:50:21: Stop scrolling reddit -> habit class data: Stop scrolling reddit
+2025-07-31 20:50:21: Work out everyday -> habit class data: Work out everyday
+2025-07-31 20:50:21: Do breathing exercise -> habit class data: Do breathing exercise
+2025-07-31 20:50:21: Code everyday -> habit class data: Code everyday
+2025-07-31 20:50:21: Don't smoke -> habit class data: Don't smoke
+2025-07-31 20:50:21: 11
+2025-07-31 20:50:21: iterating in get_widgets()
+2025-07-31 20:50:21: about to return widget Don't masturbate
+2025-07-31 20:50:21: iterating in get_widgets()
+2025-07-31 20:50:21: about to return widget Don't do drugs
+2025-07-31 20:50:21: iterating in get_widgets()
+2025-07-31 20:50:21: about to return widget Meditate
+2025-07-31 20:50:21: iterating in get_widgets()
+2025-07-31 20:50:21: about to return widget No video-games
+2025-07-31 20:50:21: iterating in get_widgets()
+2025-07-31 20:50:21: about to return widget Dont' waste time on youtube
+2025-07-31 20:50:21: iterating in get_widgets()
+2025-07-31 20:50:21: about to return widget Eat healthy
+2025-07-31 20:50:21: iterating in get_widgets()
+2025-07-31 20:50:21: about to return widget Stop scrolling reddit
+2025-07-31 20:50:21: iterating in get_widgets()
+2025-07-31 20:50:21: about to return widget Work out everyday
+2025-07-31 20:50:21: iterating in get_widgets()
+2025-07-31 20:50:21: about to return widget Do breathing exercise
+2025-07-31 20:50:21: iterating in get_widgets()
+2025-07-31 20:50:21: about to return widget Code everyday
+2025-07-31 20:50:21: iterating in get_widgets()
+2025-07-31 20:50:21: about to return widget Don't smoke
+2025-08-01 01:49:07: Work out everyday -> habit class data: Work out everyday
+2025-08-01 01:49:07: No video-games -> habit class data: No video-games
+2025-08-01 01:49:07: Code everyday -> habit class data: Code everyday
+2025-08-01 01:49:07: Stop scrolling reddit -> habit class data: Stop scrolling reddit
+2025-08-01 01:49:07: Meditate -> habit class data: Meditate
+2025-08-01 01:49:07: Dont' waste time on youtube -> habit class data: Dont' waste time on youtube
+2025-08-01 01:49:07: Don't masturbate -> habit class data: Don't masturbate
+2025-08-01 01:49:07: Do breathing exercise -> habit class data: Do breathing exercise
+2025-08-01 01:49:07: Don't smoke -> habit class data: Don't smoke
+2025-08-01 01:49:07: Don't do drugs -> habit class data: Don't do drugs
+2025-08-01 01:49:07: Eat healthy -> habit class data: Eat healthy
+2025-08-01 01:49:07: 11
+2025-08-01 01:49:07: iterating in get_widgets()
+2025-08-01 01:49:07: about to return widget Work out everyday
+2025-08-01 01:49:07: iterating in get_widgets()
+2025-08-01 01:49:07: about to return widget No video-games
+2025-08-01 01:49:07: iterating in get_widgets()
+2025-08-01 01:49:07: about to return widget Code everyday
+2025-08-01 01:49:07: iterating in get_widgets()
+2025-08-01 01:49:07: about to return widget Stop scrolling reddit
+2025-08-01 01:49:07: iterating in get_widgets()
+2025-08-01 01:49:07: about to return widget Meditate
+2025-08-01 01:49:07: iterating in get_widgets()
+2025-08-01 01:49:07: about to return widget Dont' waste time on youtube
+2025-08-01 01:49:07: iterating in get_widgets()
+2025-08-01 01:49:07: about to return widget Don't masturbate
+2025-08-01 01:49:07: iterating in get_widgets()
+2025-08-01 01:49:07: about to return widget Do breathing exercise
+2025-08-01 01:49:07: iterating in get_widgets()
+2025-08-01 01:49:07: about to return widget Don't smoke
+2025-08-01 01:49:07: iterating in get_widgets()
+2025-08-01 01:49:07: about to return widget Don't do drugs
+2025-08-01 01:49:07: iterating in get_widgets()
+2025-08-01 01:49:07: about to return widget Eat healthy

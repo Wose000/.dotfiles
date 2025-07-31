@@ -5,9 +5,9 @@ local gears = require("gears")
 local awful = require("awful")
 local date = require("date")
 local data_path = "/home/wose/.dotfiles/awesome/dot-config/awesome/modules/habit_tracker/data/habits.json"
-local habits = {}
 local Habit = require("modules.habit_tracker.habit")
 
+---Logging utiliti function
 local function log(msg)
 	local file = io.open("/home/wose/.dotfiles/awesome/dot-config/awesome/modules/habit_tracker/data/log.txt", "a")
 	if not file then
@@ -45,86 +45,6 @@ local function save_data(data)
 	end
 end
 
----@param already_checked boolean
----@param icon string
----@param callback function
-local function icon_button(already_checked, icon, callback)
-	local button = {}
-	if not already_checked then
-		button = wibox.widget({
-			{ text = icon, align = "center", valign = "center", widget = wibox.widget.textbox },
-			forced_height = 20,
-			forced_width = 20,
-			widget = wibox.widget.background,
-		})
-		button:connect_signal("mouse::enter", function()
-			button.bg = "#555555"
-			button.fg = "#ffffff"
-		end)
-		button:connect_signal("mouse::leave", function()
-			button.bg = nil
-			button.fg = nil
-		end)
-		button:buttons(gears.table.join(awful.button({}, 1, nil, callback)))
-	else
-		button = wibox.widget({
-			{ text = "", align = "center", valign = "center", widget = wibox.widget.textbox },
-			forced_height = 20,
-			forced_width = 20,
-			widget = wibox.widget.background,
-		})
-	end
-
-	return button
-end
-
-local function get_new_date(last_update_date)
-	if last_update_date == "" then
-		return os.date("%Y-%m-%d")
-	end
-	local correct_format_date = string.gsub(last_update_date, "-", " ")
-	local curr_date = date(correct_format_date)
-	curr_date:adddays(1)
-	return curr_date:fmt("%Y-%m-%d")
-end
-
-local function edit_habit_by_id(habit, what_to_change)
-	if what_to_change == "success" then
-		habit.successes = habit.successes + 1
-		habit.last_check_date = get_new_date(habit.last_check_date)
-		-- in case last check was succes increase streak and check if new best streak
-		if habit.last_check == "success" then
-			habit.current_streak = habit.current_streak + 1
-			if habit.current_streak >= habit.best_streak then
-				habit.best_streak = habit.current_streak
-			end
-		-- in case last check was fail start a new streak
-		elseif habit.last_check == "fail" then
-			habit.current_streak = 1
-			if habit.current_streak >= habit.best_streak then
-				habit.best_streak = habit.current_streak
-			end
-		-- last check was empty this should be happen only on new habits
-		else
-			habit.current_streak = 1
-			habit.best_streak = habit.current_streak
-		end
-		habit.last_check = "success"
-	end
-
-	if what_to_change == "fail" then
-		habit.fails = habit.fails + 1
-
-		habit.last_check_date = get_new_date(habit.last_check_date)
-		-- in case last check was succes break the streak
-		if habit.last_check == "success" then
-			habit.current_streak = 0
-		end
-		habit.last_check = "fail"
-	end
-	save_data(habits)
-end
-
 local promptbox = wibox.widget.textbox()
 
 local function ask_for_habit_title(callback, update_callback)
@@ -140,115 +60,35 @@ local function ask_for_habit_title(callback, update_callback)
 	})
 end
 
-local naughty = require("naughty")
+local habits_data = load_habits_data()
 
-local function missing_checks_icon(last_check_date)
-	if last_check_date == "" then
-		return
+local function get_habits()
+	local result = {}
+	for _, habit in ipairs(habits_data) do
+		local h = Habit.new(habit)
+		result[habit.title] = h
 	end
-	local fmt_date = string.gsub(last_check_date, "-", " ")
-	local d = date.diff(date(), date(fmt_date))
-	local checks_needed = math.floor(d:spandays())
-	if checks_needed == 0 then
-		naughty.notification({ title = "habit checkd", message = "this habit is checkd" })
-	end
-	local text = checks_needed > 0 and "x" .. checks_needed .. " 󰀦" or ""
-	return wibox.widget({
-		text = text,
-		widget = wibox.widget.textbox,
-	})
+	return result
 end
 
-local function status_icon(last_check)
-	local text = last_check == "success" and "󰁞" or "󰁆"
-	local color = last_check == "success" and beautiful.bg_focus or beautiful.bg_urgent
-	local icon = wibox.widget.textbox()
-	icon.markup = "<span foreground='" .. color .. "'>" .. text .. "</span>"
-	return icon
-end
+local habits = get_habits()
 
----@param habit table
----@param update_callback function
-local function habit_entry_widget(habit, update_callback)
-	local succes_rate = habit.successes / (habit.successes + habit.fails)
-	local function already_checked()
-		local today_date = os.date("%Y-%m-%d")
-		if habit.last_check_date == today_date then
-			return true
-		end
-		return false
+local count = 0
+for title, habit in pairs(habits) do
+	log(title .. " -> habit class data: " .. habit.data.title)
+	count = count + 1
+end
+log(count)
+
+local function get_widgets()
+	local result = {}
+	for title, habit in pairs(habits) do
+		log("iterating in get_widgets()")
+		result[title] = habit:get_widget()
 	end
-
-	return wibox.widget({
-		{
-			{
-				{
-					{
-						{
-							{
-								{
-									text = habit.title,
-									widget = wibox.widget.textbox,
-								},
-								icon_button(already_checked(), "󰸞", function()
-									edit_habit_by_id(habit, "success")
-									update_callback()
-									awesome.emit_signal("habits::habit_updated")
-								end),
-								icon_button(already_checked(), "", function()
-									update_callback()
-									edit_habit_by_id(habit, "fail")
-									awesome.emit_signal("habits::habit_updated")
-								end),
-								layout = wibox.layout.fixed.horizontal,
-							},
-							nil,
-							missing_checks_icon(habit.last_check_date),
-							expand = "inside",
-							layout = wibox.layout.align.horizontal,
-						},
-						{
-							{
-								text = "Streak: " .. habit.current_streak,
-								widget = wibox.widget.textbox,
-							},
-							nil,
-							status_icon(habit.last_check),
-							layout = wibox.layout.align.horizontal,
-						},
-						{
-							value = succes_rate,
-							forced_height = 3,
-							forced_width = 100,
-							color = beautiful.bg_focus,
-							background_color = beautiful.bg_minimize,
-							widget = wibox.widget.progressbar,
-						},
-						spacing = 3,
-						layout = wibox.layout.fixed.vertical,
-					},
-					widget = wibox.container.margin,
-					top = 0,
-					left = 5,
-					right = 5,
-					bottom = 4,
-				},
-				widget = wibox.container.background,
-				shape = gears.shape.rectangle,
-				bg = beautiful.bg_normal,
-			},
-			widget = wibox.container.margin,
-			top = 1,
-			left = 2,
-			right = 2,
-			bottom = 2,
-		},
-		widget = wibox.container.background,
-		bg = beautiful.bg_normal,
-	})
+	return result
 end
-
-habits = load_habits_data()
+local habits_widgets = get_widgets()
 
 local add_habit_button = wibox.widget({
 	{
@@ -281,21 +121,22 @@ local function add_new_habit(title, update_callback)
 		successes = 0,
 		fails = 0,
 	}
-	table.insert(habits, habit)
-	save_data(habits)
+	table.insert(habits_data, habit)
+	save_data(habits_data)
 	update_callback()
 end
 
-local function get_habits_widgets(callback)
+local function get_habits_widgets()
 	local layout = wibox.layout.fixed.vertical()
-	for _, habit in ipairs(habits) do
-		local h = Habit.new(habit)
-		layout:add(h:get_widget())
+	for _, widget in pairs(habits_widgets) do
+		layout:add(widget)
 	end
 	layout:add(promptbox)
 	layout:add(add_habit_button)
 	layout.forced_width = 300
-	layout:connect_signal("habit::update", callback)
+	layout:connect_signal("habit::update", function(widget, title)
+		-- layout:replace_widget(widget, habits[title]:get_widget())
+	end)
 	return layout
 end
 
@@ -309,7 +150,7 @@ local bar_icon = wibox.widget({
 
 local popup = awful.popup({
 	screen = screen[1],
-	widget = get_habits_widgets(function() end),
+	widget = get_habits_widgets(),
 	ontop = true,
 	visible = false,
 	placement = awful.placement.right,
@@ -322,11 +163,11 @@ awesome.connect_signal("habits::habit_updated", function()
 end)
 
 local function update_popup()
-	popup.widget = get_habits_widgets(update_popup)
+	popup.widget = get_habits_widgets()
 end
 
 bar_icon:buttons(awful.button({}, 1, function()
-	popup.widget = get_habits_widgets(update_popup)
+	popup.widget = get_habits_widgets()
 	popup.visible = not popup.visible
 end))
 

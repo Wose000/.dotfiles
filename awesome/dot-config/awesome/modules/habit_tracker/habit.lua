@@ -14,6 +14,17 @@ local bar_width = 100
 local bar_fg_color = beautiful.bg_focus
 local bar_bg_color = beautiful.bg_minimized
 
+---Logging utiliti function
+local function log(msg)
+	local file = io.open("/home/wose/.dotfiles/awesome/dot-config/awesome/modules/habit_tracker/data/log.txt", "a")
+	if not file then
+		return
+	end
+	local formatted_datetime = os.date("%Y-%m-%d %H:%M:%S")
+	file:write(formatted_datetime .. ": " .. msg .. "\n")
+	file:close()
+end
+
 Habit.__index = Habit
 
 function Habit.new(data)
@@ -198,6 +209,8 @@ function Habit:get_widget()
 		spacing = 3,
 		layout = wibox.layout.fixed.vertical,
 	})
+
+	log("about to return widget " .. self.data.title)
 
 	return habit_widget
 end
