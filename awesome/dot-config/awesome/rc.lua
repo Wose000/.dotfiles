@@ -750,7 +750,6 @@ awful.rules.rules = {
 		rule = { class = "firefox" },
 		properties = {
 			titlebars_enabled = false,
-			floating = false,
 			screen = screen_sel(3),
 			tag = "1",
 		},

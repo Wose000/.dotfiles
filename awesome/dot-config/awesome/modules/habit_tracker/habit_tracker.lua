@@ -1,11 +1,12 @@
 local json = require("dkjson")
-local wibox = require("wibox.init")
+local wibox = require("wibox")
 local beautiful = require("beautiful")
 local gears = require("gears")
 local awful = require("awful")
 local date = require("date")
 local data_path = "/home/wose/.dotfiles/awesome/dot-config/awesome/modules/habit_tracker/data/habits.json"
 local habits = {}
+local Habit = require("modules.habit_tracker.habit")
 
 local function log(msg)
 	local file = io.open("/home/wose/.dotfiles/awesome/dot-config/awesome/modules/habit_tracker/data/log.txt", "a")
@@ -288,11 +289,13 @@ end
 local function get_habits_widgets(callback)
 	local layout = wibox.layout.fixed.vertical()
 	for _, habit in ipairs(habits) do
-		layout:add(habit_entry_widget(habit, callback))
+		local h = Habit.new(habit)
+		layout:add(h:get_widget())
 	end
 	layout:add(promptbox)
 	layout:add(add_habit_button)
 	layout.forced_width = 300
+	layout:connect_signal("habit::update", callback)
 	return layout
 end
 
@@ -306,7 +309,7 @@ local bar_icon = wibox.widget({
 
 local popup = awful.popup({
 	screen = screen[1],
-	widget = get_habits_widgets(),
+	widget = get_habits_widgets(function() end),
 	ontop = true,
 	visible = false,
 	placement = awful.placement.right,
