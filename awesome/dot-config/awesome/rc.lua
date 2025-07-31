@@ -422,6 +422,9 @@ root.buttons(gears.table.join(
 
 -- {{{ Key bindings
 globalkeys = gears.table.join(
+	awful.key({ hyper }, "t", function()
+		test_wibox:toggle_wibox()
+	end, { description = "test wibox", group = "test" }),
 	awful.key({ modkey }, "s", hotkeys_popup.show_help, { description = "show help", group = "awesome" }),
 	awful.key({ modkey }, "Left", awful.tag.viewprev, { description = "view previous", group = "tag" }),
 	awful.key({ modkey }, "Right", awful.tag.viewnext, { description = "view next", group = "tag" }),
@@ -552,9 +555,6 @@ if is_desktop then
 		awful.key({ modkey, hyper }, "1", function()
 			awful.screen.focus(3)
 		end, { description = "focus screen three", group = "screen" }),
-		awful.key({ hyper }, "t", function()
-			test_wibox:toggle_wibox()
-		end, { description = "test wibox", group = "test" }),
 		awful.key({ hyper }, "e", function()
 			awful.spawn.with_shell("firefox --new-window https://www.excalidraw.com")
 			local function move_firefox(c)
