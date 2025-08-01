@@ -17,6 +17,7 @@ theme.accent = "#03b6b0"
 theme.inactive = "#444444"
 
 theme.bg_normal = "#121212"
+theme.bg_hover = "#1f1f1f"
 theme.bg_focus = "#03b6b0"
 theme.bg_urgent = "#f265b5"
 theme.bg_minimize = "#444444"

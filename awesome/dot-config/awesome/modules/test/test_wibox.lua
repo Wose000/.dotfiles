@@ -47,7 +47,7 @@ M.mywibox.width = 500
 M.mywibox.height = 500
 M.mywibox.x = 500
 M.mywibox.y = 0
-M.mywibox.visible = true
+M.mywibox.visible = false
 
 function M:toggle_wibox()
 	M.mywibox.visible = not M.mywibox.visible

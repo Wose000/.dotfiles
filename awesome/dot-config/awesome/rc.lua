@@ -175,6 +175,10 @@ local volume_widget = require("awesome-wm-widgets.pactl-widget.volume")({
 })
 
 local habit_tracker = require("modules.habit_tracker.habit_tracker")
+if awesome.startup then
+	habit_tracker.process_habits_for_notifications()
+end
+
 local network_widget = require("modules.network.network-widget")
 local notify_widget = require("modules.notification-widget")
 
@@ -283,7 +287,7 @@ awful.screen.connect_for_each_screen(function(s)
 				spacing = 5,
 				tray,
 				notify_widget:get_bar_icon(),
-				habit_tracker,
+				habit_tracker.bar_icon,
 				network_widget,
 				headphones,
 				data,
@@ -294,7 +298,7 @@ awful.screen.connect_for_each_screen(function(s)
 			spacing = 5,
 			tray,
 			headphones,
-			habit_tracker,
+			habit_tracker.bar_icon,
 			network_widget,
 			keyboard,
 			battery(),

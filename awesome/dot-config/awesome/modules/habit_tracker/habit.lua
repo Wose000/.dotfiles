@@ -12,7 +12,9 @@ local fail_icon = ""
 local bar_height = 3
 local bar_width = 100
 local bar_fg_color = beautiful.bg_focus
-local bar_bg_color = beautiful.bg_minimized
+local bar_bg_color = beautiful.bg_minimize
+local widget_background = beautiful.bg_normal
+local widget_background_hover = beautiful.bg_hover
 
 ---Logging utiliti function
 local function log(msg)
@@ -39,13 +41,21 @@ function Habit:set_data(new_data)
 	self.data = new_data
 end
 
-local function missing_checks_icon(last_check_date)
-	if last_check_date == "" then
-		return
-	end
+local function get_checks_needed(last_check_date)
 	local fmt_date = string.gsub(last_check_date, "-", " ")
 	local d = date.diff(date(), date(fmt_date))
-	local checks_needed = math.floor(d:spandays())
+	return math.floor(d:spandays())
+end
+
+function Habit:checks_needed()
+	return get_checks_needed(self.data.last_check_date)
+end
+
+function Habit:missing_checks_icon()
+	if self.data.last_check_date == "" then
+		return wibox.widget.textbox("")
+	end
+	local checks_needed = get_checks_needed(self.data.last_check_date)
 	local text = checks_needed > 0 and "x" .. checks_needed .. " 󰀦" or ""
 	return wibox.widget.textbox(text)
 end
@@ -180,13 +190,13 @@ end
 function Habit:get_widget()
 	self.title = wibox.widget.textbox(self.data.title)
 	self.streaks_counter = wibox.widget.textbox("Streak " .. self.data.current_streak)
-	self.missing_checks_icon = missing_checks_icon(self.data.last_check_date)
+	self.missing_checks_icon = self:missing_checks_icon()
 	self.success_button = self:get_success_button()
 	self.fail_button = self:get_fail_button()
 	self.progressbar = self:get_succes_rate_bar()
 	self.status_icon = self:get_status_icon()
 
-	local habit_widget = wibox.widget({
+	local inner = wibox.widget({
 		{
 			{
 				{ widget = self.title },
@@ -210,9 +220,21 @@ function Habit:get_widget()
 		layout = wibox.layout.fixed.vertical,
 	})
 
-	log("about to return widget " .. self.data.title)
+	self.habit_widget = wibox.widget({
+		{ widget = inner },
+		widget = wibox.container.background,
+		shape = gears.shape.rectangle,
+		bg = widget_background,
+	})
 
-	return habit_widget
+	self.habit_widget:connect_signal("mouse::enter", function()
+		self.habit_widget.bg = widget_background_hover
+	end)
+	self.habit_widget:connect_signal("mouse::leave", function()
+		self.habit_widget.bg = widget_background
+	end)
+
+	return self.habit_widget
 end
 
 return Habit

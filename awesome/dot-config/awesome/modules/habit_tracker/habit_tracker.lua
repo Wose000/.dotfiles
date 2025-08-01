@@ -3,9 +3,11 @@ local wibox = require("wibox")
 local beautiful = require("beautiful")
 local gears = require("gears")
 local awful = require("awful")
-local date = require("date")
+local naughty = require("naughty")
 local data_path = "/home/wose/.dotfiles/awesome/dot-config/awesome/modules/habit_tracker/data/habits.json"
 local Habit = require("modules.habit_tracker.habit")
+
+local M = {}
 
 ---Logging utiliti function
 local function log(msg)
@@ -73,6 +75,44 @@ end
 
 local habits = get_habits()
 
+function M.process_habits_for_notifications()
+	for title, habit in pairs(habits) do
+		local needs_check = false
+		local is_streak_going_well = false
+		local checks_needed = habit:checks_needed()
+
+		if checks_needed > 2 then
+			needs_check = true
+		end
+
+		if habit.data.current_streak > 7 then
+			is_streak_going_well = true
+		end
+
+		if needs_check then
+			naughty.notification({
+				title = title .. " needs to be checked ",
+				timeout = 0,
+				category = "habit_tracker",
+				message = "This habit hasn't been checked in " .. checks_needed .. " days.",
+				width = 300,
+			})
+		end
+
+		if is_streak_going_well then
+			naughty.notification({
+				title = "Hot streak! 󰈸",
+				timeout = 0,
+				category = "habit_tracker",
+				message = "You're doing really well with "
+					.. title
+					.. " keep the focus and the good work master!\nAchieve this goal also today",
+				width = 300,
+			})
+		end
+	end
+end
+
 local function get_widgets()
 	local result = {}
 	for title, habit in pairs(habits) do
@@ -138,7 +178,7 @@ local function get_habits_widgets()
 	return layout
 end
 
-local bar_icon = wibox.widget({
+M.bar_icon = wibox.widget({
 	widget = wibox.widget.textbox,
 	text = "",
 	font = "Jet Brains Mono Nerd Font Mono 17",
@@ -164,7 +204,7 @@ local function update_popup()
 	popup.widget = get_habits_widgets()
 end
 
-bar_icon:buttons(awful.button({}, 1, function()
+M.bar_icon:buttons(awful.button({}, 1, function()
 	popup.widget = get_habits_widgets()
 	popup.visible = not popup.visible
 end))
@@ -173,4 +213,4 @@ add_habit_button:buttons(gears.table.join(awful.button({}, 1, function()
 	ask_for_habit_title(add_new_habit, update_popup)
 end)))
 
-return bar_icon
+return M
