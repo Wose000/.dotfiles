@@ -86,6 +86,8 @@ awful.layout.layouts = {
 	awful.layout.suit.corner.nw,
 }
 -- }}}
+--
+local habit_tracker = require("modules.habit_tracker.habit_tracker")
 
 -- {{{ Menu
 -- Create a launcher widget and a main menu
@@ -173,11 +175,6 @@ local volume_widget = require("awesome-wm-widgets.pactl-widget.volume")({
 	with_icon = true,
 	tooltip = true,
 })
-
-local habit_tracker = require("modules.habit_tracker.habit_tracker")
-if awesome.startup then
-	habit_tracker.process_habits_for_notifications()
-end
 
 local network_widget = require("modules.network.network-widget")
 local notify_widget = require("modules.notification-widget")
@@ -483,7 +480,9 @@ globalkeys = gears.table.join(
 		awful.spawn(terminal)
 	end, { description = "open a terminal", group = "launcher" }),
 
-	awful.key({ modkey, "Control" }, "r", awesome.restart, { description = "reload awesome", group = "awesome" }),
+	awful.key({ modkey, "Control" }, "r", function()
+		awesome.restart()
+	end, { description = "reload awesome", group = "awesome" }),
 	awful.key({ modkey, "Shift" }, "q", awesome.quit, { description = "quit awesome", group = "awesome" }),
 
 	awful.key({ modkey }, "l", function()

@@ -10,6 +10,7 @@ fi
 export HOSTNAME=$(cat /etc/hostname)
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
+export AWESOME_INIT=0
 
 if [[ $HOSTNAME == "arch-pc" ]]; then
 
