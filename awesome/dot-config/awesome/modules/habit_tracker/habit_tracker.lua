@@ -73,13 +73,6 @@ end
 
 local habits = get_habits()
 
-local count = 0
-for title, habit in pairs(habits) do
-	log(title .. " -> habit class data: " .. habit.data.title)
-	count = count + 1
-end
-log(count)
-
 local function get_widgets()
 	local result = {}
 	for title, habit in pairs(habits) do
@@ -88,6 +81,7 @@ local function get_widgets()
 	end
 	return result
 end
+
 local habits_widgets = get_widgets()
 
 local add_habit_button = wibox.widget({
@@ -134,8 +128,12 @@ local function get_habits_widgets()
 	layout:add(promptbox)
 	layout:add(add_habit_button)
 	layout.forced_width = 300
-	layout:connect_signal("habit::update", function(widget, title)
-		-- layout:replace_widget(widget, habits[title]:get_widget())
+	layout:connect_signal("habit::update", function(_, title)
+		if layout:replace_widget(habits_widgets[title], habits[title]:get_widget(), true) then
+			log("replaced")
+		else
+			log("replacement failed")
+		end
 	end)
 	return layout
 end
