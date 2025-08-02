@@ -4,31 +4,28 @@ local beautiful = require("beautiful")
 local gears = require("gears")
 local awful = require("awful")
 local naughty = require("naughty")
-local data_path = "/home/wose/.dotfiles/awesome/dot-config/awesome/modules/habit_tracker/data/habits.json"
+local module_path = gears.filesystem.get_configuration_dir() .. "modules/habit_tracker/"
+local module_data_path = module_path .. "data/"
+local data_path = module_data_path .. "habits.json"
 local Habit = require("modules.habit_tracker.habit")
 
 local M = {}
 
----Logging utiliti function
-local function log(msg)
-	local file = io.open("/home/wose/.dotfiles/awesome/dot-config/awesome/modules/habit_tracker/data/log.txt", "a")
-	if not file then
-		return
-	end
-	local formatted_datetime = os.date("%Y-%m-%d %H:%M:%S")
-	file:write(formatted_datetime .. ": " .. msg .. "\n")
-	file:close()
-end
+local L = require("modules.utils.logging")
 
 ---@return table
 local function load_habits_data()
 	local file = io.open(data_path, "r")
 	local habits_table = {}
+	L.log(gears.filesystem.get_configuration_dir())
 	if file then
 		habits_table = file:read("*a")
 		file:close()
 	end
 	local data, _, err = json.decode(habits_table)
+	if err then
+		error(err)
+	end
 	if type(data) == "table" then
 		return data
 	else
@@ -116,7 +113,6 @@ end
 local function get_widgets()
 	local result = {}
 	for title, habit in pairs(habits) do
-		log("iterating in get_widgets()")
 		result[title] = habit:get_widget()
 	end
 	return result
@@ -169,11 +165,7 @@ local function get_habits_widgets()
 	layout:add(add_habit_button)
 	layout.forced_width = 300
 	layout:connect_signal("habit::update", function(_, title)
-		if layout:replace_widget(habits_widgets[title], habits[title]:get_widget(), true) then
-			log("replaced")
-		else
-			log("replacement failed")
-		end
+		layout:replace_widget(habits_widgets[title], habits[title]:get_widget(), true)
 	end)
 	return layout
 end
@@ -195,10 +187,6 @@ local popup = awful.popup({
 	shape = gears.shape.rounded_rect,
 	hide_on_right_click = false,
 })
-
-awesome.connect_signal("habits::habit_updated", function()
-	log("listening to signal")
-end)
 
 local function update_popup()
 	popup.widget = get_habits_widgets()

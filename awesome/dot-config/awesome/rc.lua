@@ -64,8 +64,6 @@ beautiful.init("/home/wose/.config/awesome/themes/neon/" .. "theme.lua")
 terminal = "wezterm"
 editor = os.getenv("EDITOR") or "nvim"
 editor_cmd = terminal .. " -e " .. editor
-
--- Default modkey.
 modkey = "Mod4"
 local hyper = "Mod3"
 
@@ -87,73 +85,37 @@ awful.layout.layouts = {
 }
 -- }}}
 --
-local habit_tracker = require("modules.habit_tracker.habit_tracker")
-
--- {{{ Menu
--- Create a launcher widget and a main menu
-myawesomemenu = {
-	{
-		"hotkeys",
-		function()
-			hotkeys_popup.show_help(nil, awful.screen.focused())
-		end,
-	},
-	{ "manual", terminal .. " -e man awesome" },
-	{ "btop", terminal .. " -e btop" },
-	{ "edit config", editor_cmd .. " " .. awesome.conffile },
-	{ "restart", awesome.restart },
-	{
-		"quit",
-		function()
-			awesome.quit()
-		end,
-	},
-}
-
-local mymainmenu = awful.menu({
-	items = {
-		{ "awesome", myawesomemenu, beautiful.awesome_icon },
-		{ "open terminal", terminal },
-	},
-})
 
 -- Menubar configuration
 menubar.utils.terminal = terminal -- Set the terminal for applications that require it
 -- }}}
 
 -- Keyboard map indicator and switcher
-local mykeyboardlayout = awful.widget.keyboardlayout()
 
 -- {{{ Wibar
 -- Create a textclock widget
+local habit_tracker = require("modules.habit_tracker.habit_tracker")
+local mykeyboardlayout = awful.widget.keyboardlayout()
 local mytextclock = wibox.widget.textclock()
+mytextclock.format = "%a %d %b, %H:%M "
 local month_calendar = awful.widget.calendar_popup.month()
 month_calendar:attach(mytextclock, "tr")
-mytextclock.format = "%a %d %b, %H:%M "
+local volume_widget = require("awesome-wm-widgets.pactl-widget.volume")({
+	widget_type = "icon",
+	with_icon = true,
+	tooltip = true,
+})
+local network_widget = require("modules.network.network-widget")
+local notify_widget = require("modules.notification-widget")
+local taglist = require("modules.core.taglist")
 
+local mysystray = wibox.widget.systray({
+	base_size = 9,
+})
+local centered_systray = wibox.container.margin(mysystray, 0, 0, 6, 6)
+centered_systray.spacing = 3
+local battery_widget = require("awesome-wm-widgets.battery-widget.battery")
 -- Create a wibox for each screen and add it
-local taglist_buttons = gears.table.join(
-	awful.button({}, 1, function(t)
-		t:view_only()
-	end),
-	awful.button({ modkey }, 1, function(t)
-		if client.focus then
-			client.focus:move_to_tag(t)
-		end
-	end),
-	awful.button({}, 3, awful.tag.viewtoggle),
-	awful.button({ modkey }, 3, function(t)
-		if client.focus then
-			client.focus:toggle_tag(t)
-		end
-	end),
-	awful.button({}, 4, function(t)
-		awful.tag.viewnext(t.screen)
-	end),
-	awful.button({}, 5, function(t)
-		awful.tag.viewprev(t.screen)
-	end)
-)
 
 local function set_wallpaper(s)
 	-- Wallpaper
@@ -170,14 +132,32 @@ end
 -- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
 screen.connect_signal("property::geometry", set_wallpaper)
 
-local volume_widget = require("awesome-wm-widgets.pactl-widget.volume")({
-	widget_type = "icon",
-	with_icon = true,
-	tooltip = true,
-})
-
-local network_widget = require("modules.network.network-widget")
-local notify_widget = require("modules.notification-widget")
+local function get_right_widgets(headphones, keyboard, tray, data, tiles, battery)
+	if is_desktop then
+		return {
+			layout = wibox.layout.fixed.horizontal,
+			spacing = 5,
+			tray,
+			notify_widget:get_bar_icon(),
+			habit_tracker.bar_icon,
+			network_widget,
+			headphones,
+			data,
+		}
+	end
+	return {
+		layout = wibox.layout.fixed.horizontal,
+		spacing = 5,
+		tray,
+		headphones,
+		habit_tracker.bar_icon,
+		network_widget,
+		keyboard,
+		battery(),
+		data,
+		tiles,
+	}
+end
 
 awful.screen.connect_for_each_screen(function(s)
 	-- Wallpaper
@@ -189,7 +169,6 @@ awful.screen.connect_for_each_screen(function(s)
 	s.audio_widget = require("modules.audio_toggle")
 	-- Create a promptbox for each screen
 	s.mypromptbox = awful.widget.prompt()
-	-- Create an imagebox widget which will contain an icon indicating which layout we're using.
 	-- We need one layoutbox per screen.
 	s.mylayoutbox = awful.widget.layoutbox(s)
 	s.mylayoutbox:buttons(gears.table.join(
@@ -206,103 +185,7 @@ awful.screen.connect_for_each_screen(function(s)
 			awful.layout.inc(-1)
 		end)
 	))
-	-- Create a taglist widget
-	s.mytaglist = awful.widget.taglist({
-		screen = s,
-		filter = awful.widget.taglist.filter.all,
-		layout = {
-			layout = wibox.layout.fixed.horizontal,
-		},
-		widget_template = {
-			{
-				{
-					{
-						id = "index_role",
-						font = "JetBrainMono Nerd Font Mono 14",
-						widget = wibox.widget.textbox,
-						forced_width = 20,
-					},
-					left = 5,
-					widget = wibox.container.margin,
-				},
-				layout = wibox.layout.fixed.horizontal,
-			},
-			id = "background_role",
-			widget = wibox.container.background,
-			-- Add support for hover colors and an index label
-			create_callback = function(self, c3, index, objects) --luacheck: no unused args
-				if c3.selected then
-					self:get_children_by_id("index_role")[1].markup = ""
-				elseif #c3:clients() == 0 then
-					self:get_children_by_id("index_role")[1].markup = ""
-				else
-					self:get_children_by_id("index_role")[1].markup = ""
-				end
-				self:connect_signal("mouse::enter", function()
-					if self.bg ~= beautiful.bg_normal then
-						self.backup = self.bg
-						self.has_backup = true
-					end
-					self.bg = beautiful.bg_normal
-				end)
-				self:connect_signal("mouse::leave", function()
-					if self.has_backup then
-						self.bg = self.backup
-					end
-				end)
-			end,
-			update_callback = function(self, c3, index, objects) --luacheck: no unused args
-				if c3.selected then
-					self:get_children_by_id("index_role")[1].markup = "<span color='"
-						.. beautiful.bg_urgent
-						.. "'>"
-						.. ""
-						.. "</span>"
-				elseif #c3:clients() == 0 then
-					self:get_children_by_id("index_role")[1].markup = ""
-				else
-					self:get_children_by_id("index_role")[1].markup = ""
-				end
-			end,
-		},
-		buttons = taglist_buttons,
-	})
-
-	s.mysystray = wibox.widget.systray({
-		base_size = 9,
-	})
-
-	local battery_widget = require("awesome-wm-widgets.battery-widget.battery")
-
-	local centered_systray = wibox.container.margin(s.mysystray, 0, 0, 6, 6)
-	centered_systray.spacing = 3
-
-	local function get_right_widgets(headphones, keyboard, tray, data, tiles, battery)
-		if is_desktop then
-			return {
-				layout = wibox.layout.fixed.horizontal,
-				spacing = 5,
-				tray,
-				notify_widget:get_bar_icon(),
-				habit_tracker.bar_icon,
-				network_widget,
-				headphones,
-				data,
-			}
-		end
-		return {
-			layout = wibox.layout.fixed.horizontal,
-			spacing = 5,
-			tray,
-			headphones,
-			habit_tracker.bar_icon,
-			network_widget,
-			keyboard,
-			battery(),
-			data,
-			tiles,
-		}
-	end
+	s.mytaglist = taglist.get_taglist_widget(s)
 
 	-- Create the wibox
 	s.mywibox = awful.wibar({ position = "top", screen = s })
@@ -345,61 +228,8 @@ awful.screen.connect_for_each_screen(function(s)
 		})
 	end
 
-	local tasklist_buttons = gears.table.join(
-		awful.button({}, 1, function(c)
-			if c == client.focus then
-				c.minimized = true
-			else
-				c:emit_signal("request::activate", "tasklist", { raise = true })
-			end
-		end),
-		awful.button({}, 3, function()
-			awful.menu.client_list({ theme = { width = 250 } })
-		end),
-		awful.button({}, 4, function()
-			awful.client.focus.byidx(1)
-		end),
-		awful.button({}, 5, function()
-			awful.client.focus.byidx(-1)
-		end)
-	)
-
-	-- Create a tasklist widget
-	s.mytasklist = awful.widget.tasklist({
-		screen = s,
-		filter = awful.widget.tasklist.filter.currenttags,
-		buttons = tasklist_buttons,
-		style = {
-			border_width = 1,
-			border_color = "#777777",
-			shape = gears.shape.rectangle,
-		},
-		layout = {
-			spacing = 10,
-			layout = wibox.layout.fixed.horizontal,
-		},
-		widget_template = {
-			{
-				{
-					{
-						{
-							id = "icon_role",
-							widget = wibox.widget.imagebox,
-						},
-						margins = 2,
-						widget = wibox.container.margin,
-					},
-					layout = wibox.layout.fixed.horizontal,
-				},
-				left = 2,
-				right = 2,
-				widget = wibox.container.margin,
-			},
-			id = "background_role",
-			widget = wibox.container.background,
-		},
-	})
-
+	--- tasklist bar at the bottom
+	s.mytasklist = require("modules.core.tasklist").get_tastklist_widget(s)
 	s.witasks = awful.wibar({ position = "bottom", screen = s })
 	s.witasks:setup({
 		layout = wibox.layout.align.horizontal,
@@ -410,11 +240,13 @@ awful.screen.connect_for_each_screen(function(s)
 end)
 
 -- }}}
+--
+local mainmenu = require("modules.core.right_click_menu")
 
 -- {{{ Mouse bindings
 root.buttons(gears.table.join(
 	awful.button({}, 3, function()
-		mymainmenu:toggle()
+		mainmenu:toggle()
 	end),
 	awful.button({}, 4, awful.tag.viewnext),
 	awful.button({}, 5, awful.tag.viewprev)
@@ -438,7 +270,7 @@ globalkeys = gears.table.join(
 		awful.client.focus.byidx(-1)
 	end, { description = "focus previous by index", group = "client" }),
 	awful.key({ modkey, "Shift" }, "w", function()
-		mymainmenu:show()
+		mainmenu:show()
 	end, { description = "show main menu", group = "awesome" }),
 
 	-- Layout manipulation
