@@ -159,6 +159,8 @@ local function get_right_widgets(headphones, keyboard, tray, data, tiles, batter
 	}
 end
 
+local audio_widget = require("modules.audio_toggle")
+
 awful.screen.connect_for_each_screen(function(s)
 	-- Wallpaper
 	set_wallpaper(s)
@@ -166,7 +168,6 @@ awful.screen.connect_for_each_screen(function(s)
 	-- Each screen has its own tag table.
 	awful.tag({ "", "", "", "", "", "", "", "", "" }, s, awful.layout.layouts[1])
 
-	s.audio_widget = require("modules.audio_toggle")
 	-- Create a promptbox for each screen
 	s.mypromptbox = awful.widget.prompt()
 	-- We need one layoutbox per screen.
@@ -202,7 +203,7 @@ awful.screen.connect_for_each_screen(function(s)
 			},
 			{ layout = wibox.layout.fixed.horizontal, volume_widget },
 			get_right_widgets(
-				s.audio_widget,
+				audio_widget,
 				mykeyboardlayout,
 				centered_systray,
 				mytextclock,
@@ -306,7 +307,7 @@ globalkeys = gears.table.join(
 
 	awful.key({ modkey }, "c", function()
 		awful.spawn.with_shell('rofi -modi "clipboard:greenclip print" -show clipboard -run-command')
-	end, { description = "launch rofi", group = "launcher" }),
+	end, { description = "Open rofi clipboard", group = "launcher" }),
 
 	awful.key({ modkey }, "Return", function()
 		awful.spawn(terminal)
@@ -315,6 +316,7 @@ globalkeys = gears.table.join(
 	awful.key({ modkey, "Control" }, "r", function()
 		awesome.restart()
 	end, { description = "reload awesome", group = "awesome" }),
+
 	awful.key({ modkey, "Shift" }, "q", awesome.quit, { description = "quit awesome", group = "awesome" }),
 
 	awful.key({ modkey }, "l", function()
