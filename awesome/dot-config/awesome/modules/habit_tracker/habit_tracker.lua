@@ -166,6 +166,7 @@ local function get_habits_widgets()
 	layout.forced_width = 300
 	layout:connect_signal("habit::update", function(_, title)
 		layout:replace_widget(habits_widgets[title], habits[title]:get_widget(), true)
+		save_data(habits_data)
 	end)
 	return layout
 end
