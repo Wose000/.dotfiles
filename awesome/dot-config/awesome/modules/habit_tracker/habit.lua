@@ -51,7 +51,7 @@ function Habit:checks_needed()
 	return get_checks_needed(self.data.last_check_date)
 end
 
-function Habit:missing_checks_icon()
+function Habit:get_missing_checks_icon()
 	if self.data.last_check_date == "" then
 		return wibox.widget.textbox("")
 	end
@@ -94,8 +94,7 @@ end
 ---Check if the habit has been already checked up until today
 ---@return boolean
 function Habit:is_already_checked()
-	local today_date = os.date("%Y-%m-%d")
-	return self.data.last_check_date == today_date
+	return get_checks_needed(self.data.last_check_date) <= 0
 end
 
 ---Generate a button to increase success in the current habit
@@ -190,7 +189,7 @@ end
 function Habit:get_widget()
 	self.title = wibox.widget.textbox(self.data.title)
 	self.streaks_counter = wibox.widget.textbox("Streak " .. self.data.current_streak)
-	self.missing_checks_icon = self:missing_checks_icon()
+	self.missing_checks_icon = self:get_missing_checks_icon()
 	self.success_button = self:get_success_button()
 	self.fail_button = self:get_fail_button()
 	self.progressbar = self:get_succes_rate_bar()
