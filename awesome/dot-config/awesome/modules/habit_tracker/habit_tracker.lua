@@ -70,6 +70,14 @@ local function get_habits()
 	return result
 end
 
+local function get_habit_index_by_title(title)
+	for i, data in ipairs(habits_data) do
+		if data.title == title then
+			return i
+		end
+	end
+end
+
 local habits = get_habits()
 
 function M.process_habits_for_notifications()
@@ -171,11 +179,11 @@ local function get_habits_widgets()
 		save_data(habits_data)
 	end)
 	layout:connect_signal("habit::delete", function(_, title)
+		habits_data[get_habit_index_by_title(title)] = nil
+		save_data(habits_data)
 		layout:replace_widget(habits_widgets[title], wibox.widget({}), true)
 		habits[title] = nil
-		habits_data[title] = nil
 		habits_widgets[title] = nil
-		save_data(habits_data)
 	end)
 	return layout
 end
