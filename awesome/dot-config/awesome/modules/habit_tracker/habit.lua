@@ -42,6 +42,9 @@ function Habit:set_data(new_data)
 end
 
 local function get_checks_needed(last_check_date)
+	if last_check_date == "" then
+		return 1
+	end
 	local fmt_date = string.gsub(last_check_date, "-", " ")
 	local d = date.diff(date(), date(fmt_date))
 	return math.floor(d:spandays())
@@ -95,6 +98,42 @@ end
 ---@return boolean
 function Habit:is_already_checked()
 	return get_checks_needed(self.data.last_check_date) <= 0
+end
+
+function Habit:delete_habit()
+	self.habit_widget:emit_signal_recursive("habit::delete", self.data.title)
+	self.data = nil
+end
+
+function Habit:reset_habit()
+	self.data.best_streak = 0
+	self.data.last_check_date = ""
+	self.data.fails = 0
+	self.data.successes = 0
+	self.data.current_streak = 0
+	self.data.last_check = ""
+	self.habit_widget:emit_signal_recursive("habit::update", self.data.title)
+end
+
+function Habit:get_right_click_menu()
+	local menu = awful.menu({
+		items = {
+			{
+				"delete",
+				function()
+					self:delete_habit()
+				end,
+			},
+			{
+				"reset",
+				function()
+					self:reset_habit()
+				end,
+			},
+		},
+	})
+
+	return menu
 end
 
 ---Generate a button to increase success in the current habit
@@ -194,6 +233,7 @@ function Habit:get_widget()
 	self.fail_button = self:get_fail_button()
 	self.progressbar = self:get_succes_rate_bar()
 	self.status_icon = self:get_status_icon()
+	self.right_click_menu = self:get_right_click_menu()
 
 	local inner = wibox.widget({
 		{
@@ -232,6 +272,10 @@ function Habit:get_widget()
 	self.habit_widget:connect_signal("mouse::leave", function()
 		self.habit_widget.bg = widget_background
 	end)
+
+	self.habit_widget:buttons(awful.util.table.join(awful.button({}, 3, function()
+		self.right_click_menu:toggle()
+	end)))
 
 	return self.habit_widget
 end

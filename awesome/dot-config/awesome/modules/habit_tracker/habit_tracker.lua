@@ -170,6 +170,13 @@ local function get_habits_widgets()
 		habits_widgets[title] = new_habit_widget
 		save_data(habits_data)
 	end)
+	layout:connect_signal("habit::delete", function(_, title)
+		layout:replace_widget(habits_widgets[title], wibox.widget({}), true)
+		habits[title] = nil
+		habits_data[title] = nil
+		habits_widgets[title] = nil
+		save_data(habits_data)
+	end)
 	return layout
 end
 
