@@ -99,7 +99,7 @@ function M.process_habits_for_notifications()
 				title = title .. " needs to be checked ",
 				timeout = 0,
 				category = "habit_tracker",
-				message = "This habit hasn't been checked in " .. checks_needed .. " days.",
+				message = "This habit hasn't been checked in " .. checks_needed .. " days do your best to ammend.",
 				width = 300,
 			})
 		end
@@ -141,15 +141,32 @@ local add_habit_button = wibox.widget({
 	forced_width = 100,
 })
 
-add_habit_button:connect_signal("mouse::enter", function()
-	add_habit_button.bg = beautiful.bg_minimize
-end)
+local function get_habits_widgets()
+	local layout = wibox.layout.fixed.vertical()
+	for _, widget in pairs(habits_widgets) do
+		layout:add(widget)
+	end
+	layout.forced_width = 300
+	layout:connect_signal("habit::update", function(_, title)
+		local new_habit_widget = habits[title]:get_widget()
+		layout:replace_widget(habits_widgets[title], new_habit_widget, true)
+		habits_widgets[title] = new_habit_widget
+		save_data(habits_data)
+	end)
+	local function on_delete_habit_callback(_, title)
+		table.remove(habits_data, get_habit_index_by_title(title))
+		save_data(habits_data)
+		layout:replace_widget(habits_widgets[title], wibox.widget({}), true)
+		habits[title] = nil
+		habits_widgets[title] = nil
+	end
+	layout:connect_signal("habit::delete", on_delete_habit_callback)
+	return layout
+end
 
-add_habit_button:connect_signal("mouse::leave", function()
-	add_habit_button.bg = beautiful.bg_normal
-end)
+local habit_tracker = get_habits_widgets()
 
-local function add_new_habit(title, update_callback)
+local function add_new_habit(title)
 	local habit = {
 		title = title,
 		current_streak = 0,
@@ -160,33 +177,42 @@ local function add_new_habit(title, update_callback)
 		fails = 0,
 	}
 	table.insert(habits_data, habit)
+	local h = Habit.new(habit)
+	habits[title] = h
+	habits_widgets[title] = h:get_widget()
+	habit_tracker:add(habits_widgets[title])
 	save_data(habits_data)
-	update_callback()
 end
 
-local function get_habits_widgets()
-	local layout = wibox.layout.fixed.vertical()
-	for _, widget in pairs(habits_widgets) do
-		layout:add(widget)
-	end
-	layout:add(promptbox)
-	layout:add(add_habit_button)
-	layout.forced_width = 300
-	layout:connect_signal("habit::update", function(_, title)
-		local new_habit_widget = habits[title]:get_widget()
-		layout:replace_widget(habits_widgets[title], new_habit_widget, true)
-		habits_widgets[title] = new_habit_widget
-		save_data(habits_data)
-	end)
-	layout:connect_signal("habit::delete", function(_, title)
-		habits_data[get_habit_index_by_title(title)] = nil
-		save_data(habits_data)
-		layout:replace_widget(habits_widgets[title], wibox.widget({}), true)
-		habits[title] = nil
-		habits_widgets[title] = nil
-	end)
-	return layout
+add_habit_button:connect_signal("mouse::enter", function()
+	add_habit_button.bg = beautiful.bg_minimize
+end)
+
+add_habit_button:connect_signal("mouse::leave", function()
+	add_habit_button.bg = beautiful.bg_normal
+end)
+
+add_habit_button:buttons(gears.table.join(awful.button({}, 1, function()
+	ask_for_habit_title(add_new_habit)
+end)))
+
+local function get_full_pop_window()
+	local w = wibox.layout.fixed.vertical()
+	w:add(habit_tracker)
+	w:add(promptbox)
+	w:add(add_habit_button)
+	return w
 end
+
+local popup = awful.popup({
+	screen = screen[1],
+	widget = get_full_pop_window(),
+	ontop = true,
+	visible = false,
+	placement = awful.placement.right,
+	shape = gears.shape.rounded_rect,
+	hide_on_right_click = false,
+})
 
 M.bar_icon = wibox.widget({
 	widget = wibox.widget.textbox,
@@ -196,27 +222,9 @@ M.bar_icon = wibox.widget({
 	valign = "center",
 })
 
-local popup = awful.popup({
-	screen = screen[1],
-	widget = get_habits_widgets(),
-	ontop = true,
-	visible = false,
-	placement = awful.placement.right,
-	shape = gears.shape.rounded_rect,
-	hide_on_right_click = false,
-})
-
-local function update_popup()
-	popup.widget = get_habits_widgets()
-end
-
 M.bar_icon:buttons(awful.button({}, 1, function()
-	popup.widget = get_habits_widgets()
+	popup.widget = get_full_pop_window()
 	popup.visible = not popup.visible
 end))
-
-add_habit_button:buttons(gears.table.join(awful.button({}, 1, function()
-	ask_for_habit_title(add_new_habit, update_popup)
-end)))
 
 return M

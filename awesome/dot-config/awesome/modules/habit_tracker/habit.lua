@@ -102,7 +102,6 @@ end
 
 function Habit:delete_habit()
 	self.habit_widget:emit_signal_recursive("habit::delete", self.data.title)
-	self.data = nil
 end
 
 function Habit:reset_habit()
