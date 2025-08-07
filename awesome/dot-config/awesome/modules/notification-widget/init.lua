@@ -5,23 +5,30 @@ local naughty = require("naughty")
 
 local M = {}
 
-local notification_list =
-	naughty.list.notifications({ base_layout = wibox.widget({
-		layout = wibox.layout.flex.vertical,
-	}) })
+M.notifications = {}
 
-local window = awful.popup({
-	widget = {
-		{ widget = notification_list },
-		widget = wibox.widget.background,
-		color = beautiful.bg_normal,
-		forced_width = 200,
-	},
-	screen = screen[1],
-	placement = awful.placement.top_left,
-	ontop = true,
+local layout = wibox.layout.fixed.vertical()
+
+naughty.connect_signal("request::display", function(notification, context, args)
+	table.insert(M.notifications, notification)
+	local n = wibox.widget({
+		widget = wibox.widget.textbox(notification.title),
+	})
+	layout:add(n)
+end)
+
+M.window = wibox()
+
+local bg = wibox.container.background()
+bg.bg = beautiful.bg_normal
+
+M.window:setup({
+	{ widget = layout },
+	widget = bg,
 })
-
+M.window.ontop = true
+M.window.width = 300
+M.window.height = 1000
 local bar_icon = wibox.widget({
 	widget = wibox.widget.textbox,
 	text = "󰍥",
@@ -31,11 +38,11 @@ local bar_icon = wibox.widget({
 })
 
 function M:display_widget()
-	window.visible = not window.visible
+	M.window.visible = not M.window.visible
 end
 
 bar_icon:buttons(awful.button({}, 1, function()
-	window.visible = not window.visible
+	M.window.visible = not M.window.visible
 	naughty.notification({ title = "ciao", message = "cazzo", timeout = 10000 })
 end))
 
