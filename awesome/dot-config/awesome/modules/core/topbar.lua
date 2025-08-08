@@ -29,7 +29,7 @@ local function get_right_widgets(headphones, keyboard, tray, data, tiles, batter
 	if Is_desktop then
 		return {
 			layout = wibox.layout.fixed.horizontal,
-			spacing = 5,
+			spacing = 10,
 			tray,
 			notify_widget:get_bar_icon(),
 			habit_tracker.bar_icon,
@@ -84,7 +84,6 @@ awful.screen.connect_for_each_screen(function(s)
 			layout = wibox.layout.align.horizontal,
 			{ -- Left widgets
 				layout = wibox.layout.fixed.horizontal,
-				-- mylauncher,
 				s.mytaglist,
 				s.mypromptbox,
 			},

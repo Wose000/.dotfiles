@@ -56,7 +56,8 @@ theme.titlebar_bg_focus = theme.bg_normal
 -- notification_[bg|fg]
 -- notification_[width|height|margin]
 -- notification_[border_color|border_width|shape|opacity]
-theme.notification_font = "JetBrainsMono Nerd Font Mono 10"
+theme.notification_border_width = 0
+theme.notification_font = "JetBrainsMono Nerd Font Mono 9"
 theme.notification_max_width = 400
 theme.notification_icon_size = 60
 
