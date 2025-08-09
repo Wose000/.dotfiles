@@ -67,26 +67,14 @@ local hyper = "Mod3"
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
 	awful.layout.suit.spiral,
-	awful.layout.suit.tile,
 	awful.layout.suit.floating,
 	awful.layout.suit.tile.left,
 	awful.layout.suit.tile.bottom,
-	awful.layout.suit.tile.top,
 	awful.layout.suit.fair,
-	awful.layout.suit.fair.horizontal,
 	awful.layout.suit.spiral.dwindle,
-	awful.layout.suit.max,
-	awful.layout.suit.max.fullscreen,
 	awful.layout.suit.magnifier,
-	awful.layout.suit.corner.nw,
 }
--- }}}
 --
-
--- Keyboard map indicator and switcher
-
--- {{{ Wibar
--- Create a textclock widget
 
 local function set_wallpaper(s)
 	-- Wallpaper
@@ -125,16 +113,15 @@ end)
 local mainmenu = require("modules.core.right_click_menu")
 
 -- {{{ Mouse bindings
-root.buttons(gears.table.join(
+awful.mouse.append_global_mousebindings({
 	awful.button({}, 3, function()
 		mainmenu:toggle()
 	end),
-	awful.button({}, 4, awful.tag.viewnext),
-	awful.button({}, 5, awful.tag.viewprev)
-))
+	awful.button({}, 4, awful.tag.viewprev),
+	awful.button({}, 5, awful.tag.viewnext),
+})
 -- }}}
-local keys = require("modules.core.keybind")
-keys.set_keys(Is_desktop)
+require("modules.core.keybind")
 
 --
 local function screen_sel(index)
@@ -145,44 +132,37 @@ local function screen_sel(index)
 end
 
 -- {{{ Rules
--- Rules to apply to new clients (through the "manage" signal).
-awful.rules.rules = {
+-- Rules to apply to new clients.
+ruled.client.connect_signal("request::rules", function()
 	-- All clients will match this rule.
-	{
+	ruled.client.append_rule({
+		id = "global",
 		rule = {},
 		properties = {
-			border_width = beautiful.border_width,
-			border_color = beautiful.border_normal,
 			focus = awful.client.focus.filter,
 			raise = true,
-			keys = clientkeys,
-			buttons = clientbuttons,
 			screen = awful.screen.preferred,
 			placement = awful.placement.no_overlap + awful.placement.no_offscreen,
+			titlebars_enabled = false,
 		},
-	},
+	})
 
 	-- Floating clients.
-	{
+	ruled.client.append_rule({
+		id = "floating",
 		rule_any = {
-			instance = {
-				"DTA", -- Firefox addon DownThemAll.
-				"copyq", -- Includes session name in class.
-				"pinentry",
-			},
+			instance = { "copyq", "pinentry" },
 			class = {
 				"Arandr",
 				"Blueman-manager",
 				"Gpick",
 				"Kruler",
-				"MessageWin", -- kalarm.
 				"Sxiv",
-				"Tor Browser", -- Needs a fixed window size to avoid fingerprinting by screen size.
+				"Tor Browser",
 				"Wpa_gui",
 				"veromix",
 				"xtightvncviewer",
 			},
-
 			-- Note that the name property shown in xprop might be set slightly after creation of the client
 			-- and the name shown there might not match defined rules here.
 			name = {
@@ -194,41 +174,22 @@ awful.rules.rules = {
 				"pop-up", -- e.g. Google Chrome's (detached) Developer Tools.
 			},
 		},
-		properties = { floating = true },
-	},
+		properties = { floating = false },
+	})
 
 	-- Add titlebars to normal clients and dialogs
-	{ rule_any = { type = { "normal", "dialog" } }, properties = { titlebars_enabled = true } },
+	ruled.client.append_rule({
+		id = "titlebars",
+		rule_any = { type = { "normal", "dialog" } },
+		properties = { titlebars_enabled = false },
+	})
 
 	-- Set Firefox to always map on the tag named "2" on screen 1.
-	{
-		rule = { class = "firefox" },
-		properties = {
-			titlebars_enabled = false,
-			screen = screen_sel(3),
-			tag = "1",
-		},
-	},
-	{
-		rule = { class = "qutebrowser" },
-		properties = {
-			titlebars_enabled = false,
-			floating = false,
-			screen = screen_sel(3),
-			tag = "1",
-		},
-	},
-	{
-		rule = { class = "Spotify" },
-		properties = {
-			titlebars_enabled = false,
-			floating = false,
-			screen = screen_sel(3),
-			tag = "3",
-		},
-	},
-}
--- }}}
+	-- ruled.client.append_rule {
+	--     rule       = { class = "Firefox"     },
+	--     properties = { screen = 1, tag = "2" }
+	-- }
+end) -- }}}
 
 -- {{{ Signals
 -- Signal function to execute when a new client appears.
@@ -243,49 +204,37 @@ client.connect_signal("manage", function(c)
 	end
 end)
 
+-- {{{ Titlebars
 -- Add a titlebar if titlebars_enabled is set to true in the rules.
 client.connect_signal("request::titlebars", function(c)
 	-- buttons for the titlebar
-	if not c.floating then
-		return
-	end
-	local buttons = gears.table.join(
+	local buttons = {
 		awful.button({}, 1, function()
-			c:emit_signal("request::activate", "titlebar", { raise = true })
-			awful.mouse.client.move(c)
+			c:activate({ context = "titlebar", action = "mouse_move" })
 		end),
 		awful.button({}, 3, function()
-			c:emit_signal("request::activate", "titlebar", { raise = true })
-			awful.mouse.client.resize(c)
-		end)
-	)
+			c:activate({ context = "titlebar", action = "mouse_resize" })
+		end),
+	}
 
-	awful.titlebar(c):setup({
+	awful.titlebar(c).widget = {
 		{ -- Left
-			awful.titlebar.widget.iconwidget(c),
+			{ widget = awful.titlebar.widget.titlewidget(c), halign = "center" },
 			buttons = buttons,
 			layout = wibox.layout.fixed.horizontal,
 		},
 		{ -- Middle
-			{ -- Title
-				align = "left",
-				widget = awful.titlebar.widget.titlewidget(c),
-			},
 			buttons = buttons,
 			layout = wibox.layout.flex.horizontal,
 		},
 		{ -- Right
 			awful.titlebar.widget.floatingbutton(c),
-			awful.titlebar.widget.maximizedbutton(c),
-			awful.titlebar.widget.stickybutton(c),
 			awful.titlebar.widget.closebutton(c),
 			layout = wibox.layout.fixed.horizontal(),
 		},
-		forced_height = 20,
 		layout = wibox.layout.align.horizontal,
-	})
+	}
 end)
-
 -- {{{ Notifications
 
 ruled.notification.connect_signal("request::rules", function()

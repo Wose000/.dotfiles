@@ -4,10 +4,10 @@
 
 local theme_assets = require("beautiful.theme_assets")
 local xresources = require("beautiful.xresources")
+local rnotification = require("ruled.notification")
 local dpi = xresources.apply_dpi
 local themes_path = os.getenv("HOME") .. "/.config/awesome/themes/"
 local wall_folder = themes_path .. "neon/wallp/"
-local gears = require("gears")
 
 local theme = {}
 
@@ -29,9 +29,9 @@ theme.fg_urgent = "#ffffff"
 theme.fg_minimize = "#ffffff"
 
 theme.useless_gap = dpi(3)
-theme.border_width = dpi(2)
+theme.border_width = dpi(1)
 theme.border_normal = "#000000"
-theme.border_focus = "#03b6b0"
+theme.border_focus = theme.accent
 theme.border_marked = "#f265b5"
 
 theme.taglist_fg_occupied = theme.bg_minimize
@@ -56,7 +56,8 @@ theme.titlebar_bg_focus = theme.bg_normal
 -- notification_[bg|fg]
 -- notification_[width|height|margin]
 -- notification_[border_color|border_width|shape|opacity]
-theme.notification_border_width = 0
+theme.notification_border_width = 1
+theme.notification_border_color = theme.accent
 theme.notification_font = "JetBrainsMono Nerd Font Mono 9"
 theme.notification_max_width = 400
 theme.notification_icon_size = 60
