@@ -7,3 +7,5 @@
 2025-08-10 03:29:04: /home/wose/.config/awesome/
 2025-08-10 03:29:14: /home/wose/.config/awesome/
 2025-08-10 03:30:49: /home/wose/.config/awesome/
+2025-08-10 09:54:14: /home/wose/.config/awesome/
+2025-08-10 16:30:34: /home/wose/.config/awesome/
