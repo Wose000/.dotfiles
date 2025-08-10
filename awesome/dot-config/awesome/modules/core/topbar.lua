@@ -17,9 +17,8 @@ local network_widget = require("modules.network.network-widget")
 local notify_widget = require("modules.notification-widget")
 local taglist = require("modules.core.taglist")
 
-local mysystray = wibox.widget.systray({
-	base_size = 9,
-})
+local mysystray = wibox.widget.systray()
+mysystray.base_size = 13
 local centered_systray = wibox.container.margin(mysystray, 0, 0, 6, 6)
 centered_systray.spacing = 3
 local battery_widget = require("awesome-wm-widgets.battery-widget.battery")
