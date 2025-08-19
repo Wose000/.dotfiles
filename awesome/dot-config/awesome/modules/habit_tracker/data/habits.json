@@ -1,1 +1,41 @@
-[]
+[{
+    "current_streak":0,
+    "fails":0,
+    "successes":0,
+    "last_check":"",
+    "title":"Don't smoke",
+    "best_streak":0,
+    "last_check_date":""
+  },{
+    "current_streak":0,
+    "fails":0,
+    "successes":0,
+    "last_check":"",
+    "title":"Don't do drugs",
+    "best_streak":0,
+    "last_check_date":""
+  },{
+    "current_streak":1,
+    "fails":0,
+    "successes":1,
+    "last_check":"success",
+    "title":"Work out",
+    "best_streak":1,
+    "last_check_date":"2025-08-19"
+  },{
+    "current_streak":0,
+    "fails":0,
+    "successes":0,
+    "last_check":"",
+    "title":"Code everyday",
+    "best_streak":0,
+    "last_check_date":""
+  },{
+    "current_streak":1,
+    "fails":0,
+    "successes":1,
+    "last_check":"success",
+    "title":"Do Breathing exercises",
+    "best_streak":1,
+    "last_check_date":"2025-08-19"
+  }]
