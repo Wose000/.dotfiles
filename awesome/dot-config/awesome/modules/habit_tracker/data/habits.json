@@ -38,4 +38,12 @@
     "title":"Do Breathing exercises",
     "best_streak":1,
     "last_check_date":"2025-08-19"
+  },{
+    "current_streak":0,
+    "fails":0,
+    "successes":0,
+    "last_check":"",
+    "title":"Don't masturbate",
+    "best_streak":0,
+    "last_check_date":""
   }]
