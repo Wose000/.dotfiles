@@ -17,7 +17,6 @@ local L = require("modules.utils.logging")
 local function load_habits_data()
 	local file = io.open(data_path, "r")
 	local habits_table = {}
-	L.log(gears.filesystem.get_configuration_dir())
 	if file then
 		habits_table = file:read("*a")
 		file:close()
