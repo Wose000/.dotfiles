@@ -11,8 +11,6 @@ local Habit = require("modules.habit_tracker.habit")
 
 local M = {}
 
-local L = require("modules.utils.logging")
-
 ---@return table
 local function load_habits_data()
 	local file = io.open(data_path, "r")
@@ -222,7 +220,10 @@ M.bar_icon = wibox.widget({
 })
 
 M.bar_icon:buttons(awful.button({}, 1, function()
-	popup.widget = get_full_pop_window
+	popup.widget = wibox.layout.fixed.vertical()
+	popup.widget:add(habit_tracker)
+	popup.widget:add(promptbox)
+	popup.widget:add(add_habit_button)
 	popup.visible = not popup.visible
 end))
 
