@@ -1,49 +1,49 @@
 [{
-    "successes":1,
+    "last_check":"success",
     "fails":0,
-    "current_streak":1,
-    "last_check_date":"2025-08-20",
     "best_streak":1,
-    "title":"Don't smoke",
-    "last_check":"success"
-  },{
-    "successes":1,
-    "fails":0,
     "current_streak":1,
+    "successes":1,
     "last_check_date":"2025-08-20",
-    "best_streak":1,
-    "title":"Don't do drugs",
-    "last_check":"success"
+    "title":"Don't smoke"
   },{
-    "successes":3,
+    "last_check":"success",
     "fails":0,
-    "current_streak":3,
-    "last_check_date":"2025-08-21",
+    "best_streak":1,
+    "current_streak":1,
+    "successes":1,
+    "last_check_date":"2025-08-20",
+    "title":"Don't do drugs"
+  },{
+    "last_check":"success",
+    "fails":0,
     "best_streak":3,
-    "title":"Work out",
-    "last_check":"success"
-  },{
-    "successes":1,
-    "fails":0,
-    "current_streak":1,
-    "last_check_date":"2025-08-20",
-    "best_streak":1,
-    "title":"Code everyday",
-    "last_check":"success"
-  },{
-    "successes":3,
-    "fails":0,
     "current_streak":3,
+    "successes":3,
     "last_check_date":"2025-08-21",
-    "best_streak":3,
-    "title":"Do Breathing exercises",
-    "last_check":"success"
+    "title":"Work out"
   },{
-    "successes":1,
+    "last_check":"success",
     "fails":0,
-    "current_streak":1,
-    "last_check_date":"2025-08-20",
+    "best_streak":2,
+    "current_streak":2,
+    "successes":2,
+    "last_check_date":"2025-08-21",
+    "title":"Code everyday"
+  },{
+    "last_check":"success",
+    "fails":0,
+    "best_streak":3,
+    "current_streak":3,
+    "successes":3,
+    "last_check_date":"2025-08-21",
+    "title":"Do Breathing exercises"
+  },{
+    "last_check":"success",
+    "fails":0,
     "best_streak":1,
-    "title":"Don't masturbate",
-    "last_check":"success"
+    "current_streak":1,
+    "successes":1,
+    "last_check_date":"2025-08-20",
+    "title":"Don't masturbate"
   }]
