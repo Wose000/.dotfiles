@@ -99,7 +99,7 @@ function M.process_habits_for_notifications()
 				title = title .. " needs to be checked ",
 				timeout = 0,
 				category = "habit_tracker",
-				message = "This habit hasn't been checked in " .. checks_needed .. " days do your best to ammend.",
+				message = "This habit hasn't been checked in " .. checks_needed .. " days.",
 				width = 300,
 			})
 		end
@@ -223,7 +223,7 @@ M.bar_icon = wibox.widget({
 })
 
 M.bar_icon:buttons(awful.button({}, 1, function()
-	popup.widget = get_full_pop_window()
+	popup.widget = get_full_pop_window
 	popup.visible = not popup.visible
 end))
 
