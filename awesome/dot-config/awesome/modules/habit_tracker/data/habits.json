@@ -1,49 +1,49 @@
 [{
-    "fails":0,
-    "last_check":"success",
-    "title":"Don't smoke",
-    "current_streak":2,
-    "last_check_date":"2025-08-21",
-    "successes":2,
-    "best_streak":2
-  },{
-    "fails":0,
-    "last_check":"success",
-    "title":"Don't do drugs",
-    "current_streak":2,
-    "last_check_date":"2025-08-21",
-    "successes":2,
-    "best_streak":2
-  },{
-    "fails":0,
-    "last_check":"success",
-    "title":"Work out",
-    "current_streak":3,
-    "last_check_date":"2025-08-21",
-    "successes":3,
-    "best_streak":3
-  },{
-    "fails":0,
-    "last_check":"success",
-    "title":"Code everyday",
-    "current_streak":2,
-    "last_check_date":"2025-08-21",
-    "successes":2,
-    "best_streak":2
-  },{
-    "fails":0,
-    "last_check":"success",
-    "title":"Do Breathing exercises",
-    "current_streak":3,
-    "last_check_date":"2025-08-21",
-    "successes":3,
-    "best_streak":3
-  },{
-    "fails":1,
-    "last_check":"fail",
-    "title":"Don't masturbate",
     "current_streak":0,
     "last_check_date":"2025-08-22",
-    "successes":2,
-    "best_streak":2
+    "last_check":"fail",
+    "title":"Don't smoke",
+    "best_streak":2,
+    "fails":1,
+    "successes":2
+  },{
+    "current_streak":3,
+    "last_check_date":"2025-08-22",
+    "last_check":"success",
+    "title":"Don't do drugs",
+    "best_streak":3,
+    "fails":0,
+    "successes":3
+  },{
+    "current_streak":4,
+    "last_check_date":"2025-08-22",
+    "last_check":"success",
+    "title":"Work out",
+    "best_streak":4,
+    "fails":0,
+    "successes":4
+  },{
+    "current_streak":0,
+    "last_check_date":"2025-08-22",
+    "last_check":"fail",
+    "title":"Code everyday",
+    "best_streak":2,
+    "fails":1,
+    "successes":2
+  },{
+    "current_streak":5,
+    "last_check_date":"2025-08-23",
+    "last_check":"success",
+    "title":"Do Breathing exercises",
+    "best_streak":5,
+    "fails":0,
+    "successes":5
+  },{
+    "current_streak":0,
+    "last_check_date":"2025-08-22",
+    "last_check":"fail",
+    "title":"Don't masturbate",
+    "best_streak":2,
+    "fails":1,
+    "successes":2
   }]
