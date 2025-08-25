@@ -12,7 +12,7 @@ local beautiful = require("beautiful")
 local naughty = require("naughty")
 require("awful.autofocus")
 Is_desktop = os.getenv("HOSTNAME") == "arch-pc"
-local is_laptop = os.getenv("HOSTNAME") == "arch-laptop"
+local is_laptop = os.getenv("HOSTNAME") == "arch-laptop" or os.getenv("HOSTNAME") == "archlinux"
 
 awful.spawn.with_shell("setxkbmap -option caps:hyper")
 -- launch starting applications
