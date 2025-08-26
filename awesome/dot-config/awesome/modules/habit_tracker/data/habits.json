@@ -1,1 +1,65 @@
-[]
+[{
+    "last_check_date":"",
+    "best_streak":0,
+    "title":"Don't play videogames",
+    "current_streak":0,
+    "fails":0,
+    "last_check":"",
+    "successes":0
+  },{
+    "last_check_date":"",
+    "best_streak":0,
+    "title":"Don't do drugs",
+    "current_streak":0,
+    "fails":0,
+    "last_check":"",
+    "successes":0
+  },{
+    "last_check_date":"",
+    "best_streak":0,
+    "title":"Don't smoke",
+    "current_streak":0,
+    "fails":0,
+    "last_check":"",
+    "successes":0
+  },{
+    "last_check_date":"",
+    "best_streak":0,
+    "title":"Don't masturbate",
+    "current_streak":0,
+    "fails":0,
+    "last_check":"",
+    "successes":0
+  },{
+    "last_check_date":"",
+    "best_streak":0,
+    "title":"Eat healthy",
+    "current_streak":0,
+    "fails":0,
+    "last_check":"",
+    "successes":0
+  },{
+    "last_check_date":"",
+    "best_streak":0,
+    "title":"Work out",
+    "current_streak":0,
+    "fails":0,
+    "last_check":"",
+    "successes":0
+  },{
+    "last_check_date":"",
+    "best_streak":0,
+    "title":"Do breathing exercises",
+    "current_streak":0,
+    "fails":0,
+    "last_check":"",
+    "successes":0
+  },{
+    "last_check_date":"",
+    "best_streak":0,
+    "title":"Meditate 5 min a day",
+    "current_streak":0,
+    "fails":0,
+    "last_check":"",
+    "successes":0
+  }]
