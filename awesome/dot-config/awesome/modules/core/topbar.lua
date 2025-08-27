@@ -23,6 +23,7 @@ local centered_systray = wibox.container.margin(mysystray, 0, 0, 6, 6)
 centered_systray.spacing = 3
 local battery_widget = require("awesome-wm-widgets.battery-widget.battery")
 local audio_widget = require("modules.audio_toggle")
+local control_center = require("modules.control_center.control_center")
 
 local function get_right_widgets(headphones, keyboard, tray, data, tiles, battery)
 	if Is_desktop then
@@ -41,13 +42,14 @@ local function get_right_widgets(headphones, keyboard, tray, data, tiles, batter
 		layout = wibox.layout.fixed.horizontal,
 		spacing = 5,
 		tray,
+		control_center:get_bar_icon(),
+		notify_widget:get_bar_icon(),
 		headphones,
 		habit_tracker.bar_icon,
 		network_widget,
 		keyboard,
 		battery(),
 		data,
-		tiles,
 	}
 end
 
