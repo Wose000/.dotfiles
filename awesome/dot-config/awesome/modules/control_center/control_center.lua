@@ -15,8 +15,11 @@ local title = wibox.widget({
 	bg = beautiful.bg_normal,
 })
 
+local brightness_control = require("modules.control_center.brightness_control")
+
 M.control_center:setup({
 	{ widget = title },
+	{ widget = brightness_control },
 	widget = wibox.container.margin,
 	top = 0,
 	left = 10,

@@ -27,6 +27,9 @@ case "$1" in
 			NEW_BRIGHTNESS=0
 		fi
 		;;
+  [0-9]*)
+    NEW_BRIGHTNESS="$1"
+    ;;
 	*)
 		exit 1
 		;;
