@@ -5,27 +5,36 @@ local gears = require("gears")
 local naughty = require("naughty")
 
 local max_brightness_file = "/sys/class/backlight/intel_backlight/max_brightness"
-local max_brightness_value = -1
 local brightness_script = "/home/wose/bin/brightness"
 
+local brightness_control = {}
+
+-- Set max brightness reading it from the max_brightness system file
 awful.spawn.easy_async_with_shell("cat " .. max_brightness_file, function(stout, sterr, _, exit_code)
 	if exit_code == 0 then
 		local max_brightness = tonumber(stout)
 		if max_brightness then
-			max_brightness_value = max_brightness
+			naughty.notification({
+				title = "error",
+				message = "max  brightness " .. max_brightness,
+			})
+			brightness_control.max_brightness = max_brightness
 		else
 			naughty.notification({
 				title = "error",
 				message = "error converting to a number to output of: cat " .. max_brightness_file,
 			})
+			error("Error converting the output of cat to a number")
 		end
 	else
 		naughty.notification({
 			title = "error",
 			message = "Error reading the file " .. max_brightness_file .. " " .. sterr,
 		})
+		error("Error executing the script exit code: " .. exit_code .. "\nError: " .. sterr)
 	end
 end)
+
 local slider = wibox.widget({
 	bar_shape = gears.shape.rounded_rect,
 	bar_height = 10,
@@ -42,7 +51,7 @@ local slider = wibox.widget({
 	widget = wibox.widget.slider,
 })
 
-local widget = wibox.widget({
+brightness_control.widget = wibox.widget({
 	{ widget = slider },
 	widget = wibox.container.background,
 	bg = beautiful.inactive,
@@ -51,9 +60,9 @@ local widget = wibox.widget({
 
 local function calc_percentage_of_brightness(p)
 	local decimal_percentage = p / 100
-	local brightness_val = math.floor((max_brightness_value * decimal_percentage) + 0.5)
-	if brightness_val >= max_brightness_value then
-		return max_brightness_value
+	local brightness_val = math.floor((brightness_control.max_brightness * decimal_percentage) + 0.5)
+	if brightness_val >= brightness_control.max_brightness then
+		return brightness_control.max_brightness
 	end
 	if brightness_val <= 0 then
 		return 1
@@ -67,4 +76,4 @@ slider:connect_signal("property::value", function(_, new_value)
 	awful.spawn.easy_async_with_shell("sudo " .. brightness_script .. " " .. new_brightness, function() end)
 end)
 
-return widget
+return brightness_control
