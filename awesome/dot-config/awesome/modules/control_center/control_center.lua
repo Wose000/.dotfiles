@@ -16,14 +16,12 @@ local title = wibox.widget({
 })
 
 local brightness_control = require("modules.control_center.brightness_control")
+local volume_control = require("modules.control_center.volume_control")
 
 M.control_center:setup({
 	{ widget = title },
+	{ widget = volume_control.widget },
 	{ widget = brightness_control },
-	widget = wibox.container.margin,
-	top = 0,
-	left = 10,
-	right = 10,
 	layout = wibox.layout.fixed.vertical,
 })
 local _, h = root.size()

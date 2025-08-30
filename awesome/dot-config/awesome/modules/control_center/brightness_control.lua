@@ -26,8 +26,7 @@ awful.spawn.easy_async_with_shell("cat " .. max_brightness_file, function(stout,
 		})
 	end
 end)
-
-local widget = wibox.widget({
+local slider = wibox.widget({
 	bar_shape = gears.shape.rounded_rect,
 	bar_height = 10,
 	bar_color = beautiful.inactive,
@@ -43,6 +42,13 @@ local widget = wibox.widget({
 	widget = wibox.widget.slider,
 })
 
+local widget = wibox.widget({
+	{ widget = slider },
+	widget = wibox.container.background,
+	bg = beautiful.inactive,
+	forced_height = 20,
+})
+
 local function calc_percentage_of_brightness(p)
 	local decimal_percentage = p / 100
 	local brightness_val = math.floor((max_brightness_value * decimal_percentage) + 0.5)
@@ -56,7 +62,7 @@ local function calc_percentage_of_brightness(p)
 end
 
 -- Connect to `property::value` to use the value on change
-widget:connect_signal("property::value", function(_, new_value)
+slider:connect_signal("property::value", function(_, new_value)
 	local new_brightness = calc_percentage_of_brightness(new_value)
 	awful.spawn.easy_async_with_shell("sudo " .. brightness_script .. " " .. new_brightness, function() end)
 end)
