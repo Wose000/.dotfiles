@@ -46,13 +46,20 @@ function Notification:get_widget()
 	dismiss_button:buttons(gears.table.join(awful.button({}, 1, nil, function()
 		self:dismiss()
 	end)))
+
+	local time = os.date("%H:%M")
+	local time_text = wibox.widget.textbox(time)
 	local widget = wibox.widget({
 		{
 			{
 				{
 					{ widget = wibox.widget.textbox, markup = "<b>" .. self.title .. "</b>" },
 					{ widget = wibox.widget.textbox, text = self.msg },
-					{ widget = dismiss_button },
+					{
+						{ widget = dismiss_button },
+						{ widget = time_text },
+						layout = wibox.layout.flex.horizontal,
+					},
 					layout = wibox.layout.fixed.vertical,
 				},
 				widget = wibox.container.margin,

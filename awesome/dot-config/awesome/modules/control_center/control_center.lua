@@ -1,6 +1,7 @@
 local wibox = require("wibox")
 local beautiful = require("beautiful")
 local awful = require("awful")
+local naughty = require("naughty")
 
 local M = {}
 
@@ -43,6 +44,7 @@ end
 
 bar_icon:buttons(awful.button({}, 1, function()
 	M.control_center.visible = not M.control_center.visible
+	naughty.notification({ title = "test", message = "test notification" })
 end))
 
 function M:get_bar_icon()

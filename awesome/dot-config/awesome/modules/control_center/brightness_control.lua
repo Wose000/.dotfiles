@@ -79,11 +79,13 @@ local slider = wibox.widget({
 	widget = wibox.widget.slider,
 })
 
+local label = wibox.widget.textbox("Brightness")
+
 brightness_control.widget = wibox.widget({
-	{ widget = slider },
+	{ { widget = label }, { widget = slider }, layout = wibox.layout.fixed.vertical },
 	widget = wibox.container.background,
 	bg = beautiful.inactive,
-	forced_height = 20,
+	forced_height = 30,
 })
 
 --- max_brightness : 100 = brightness : x

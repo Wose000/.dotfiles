@@ -42,12 +42,14 @@ local slider = wibox.widget({
 	widget = wibox.widget.slider,
 })
 
+local label = wibox.widget.textbox("Volume")
+
 volume_control.widget = wibox.widget({
-	{
+	{ { widget = label }, {
 		widget = slider,
-	},
+	}, layout = wibox.layout.fixed.vertical },
 	widget = wibox.container.background,
-	forced_height = 20,
+	forced_height = 40,
 	bg = beautiful.inactive,
 })
 
