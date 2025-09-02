@@ -1,65 +1,65 @@
 [{
-    "last_check":"",
-    "current_streak":0,
-    "last_check_date":"",
-    "successes":0,
-    "best_streak":0,
     "fails":0,
-    "title":"Don't play videogames"
-  },{
-    "last_check":"",
-    "current_streak":0,
-    "last_check_date":"",
-    "successes":0,
-    "best_streak":0,
-    "fails":0,
-    "title":"Don't do drugs"
-  },{
-    "last_check":"",
-    "current_streak":0,
-    "last_check_date":"",
-    "successes":0,
-    "best_streak":0,
-    "fails":0,
-    "title":"Don't smoke"
-  },{
-    "last_check":"",
-    "current_streak":0,
-    "last_check_date":"",
-    "successes":0,
-    "best_streak":0,
-    "fails":0,
-    "title":"Don't masturbate"
-  },{
-    "last_check":"",
-    "current_streak":0,
-    "last_check_date":"",
-    "successes":0,
-    "best_streak":0,
-    "fails":0,
-    "title":"Eat healthy"
-  },{
-    "last_check":"success",
-    "current_streak":1,
-    "last_check_date":"2025-09-01",
     "successes":1,
-    "best_streak":1,
-    "fails":0,
-    "title":"Work out"
-  },{
     "last_check":"success",
+    "title":"Don't play videogames",
     "current_streak":1,
-    "last_check_date":"2025-09-01",
-    "successes":1,
     "best_streak":1,
-    "fails":0,
-    "title":"Do breathing exercises"
+    "last_check_date":"2025-09-02"
   },{
-    "last_check":"success",
-    "current_streak":1,
-    "last_check_date":"2025-09-01",
-    "successes":1,
-    "best_streak":1,
     "fails":0,
-    "title":"Meditate 5 min a day"
+    "successes":0,
+    "last_check":"",
+    "title":"Don't do drugs",
+    "current_streak":0,
+    "best_streak":0,
+    "last_check_date":""
+  },{
+    "fails":0,
+    "successes":0,
+    "last_check":"",
+    "title":"Don't smoke",
+    "current_streak":0,
+    "best_streak":0,
+    "last_check_date":""
+  },{
+    "fails":0,
+    "successes":0,
+    "last_check":"",
+    "title":"Don't masturbate",
+    "current_streak":0,
+    "best_streak":0,
+    "last_check_date":""
+  },{
+    "fails":0,
+    "successes":0,
+    "last_check":"",
+    "title":"Eat healthy",
+    "current_streak":0,
+    "best_streak":0,
+    "last_check_date":""
+  },{
+    "fails":0,
+    "successes":1,
+    "last_check":"success",
+    "title":"Work out",
+    "current_streak":1,
+    "best_streak":1,
+    "last_check_date":"2025-09-01"
+  },{
+    "fails":0,
+    "successes":1,
+    "last_check":"success",
+    "title":"Do breathing exercises",
+    "current_streak":1,
+    "best_streak":1,
+    "last_check_date":"2025-09-01"
+  },{
+    "fails":0,
+    "successes":1,
+    "last_check":"success",
+    "title":"Meditate 5 min a day",
+    "current_streak":1,
+    "best_streak":1,
+    "last_check_date":"2025-09-01"
   }]
