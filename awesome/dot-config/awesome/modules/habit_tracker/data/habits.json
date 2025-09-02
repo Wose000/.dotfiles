@@ -1,65 +1,65 @@
 [{
-    "fails":0,
     "successes":1,
+    "last_check_date":"2025-09-02",
     "last_check":"success",
-    "title":"Don't play videogames",
+    "fails":0,
     "current_streak":1,
     "best_streak":1,
-    "last_check_date":"2025-09-02"
+    "title":"Don't play videogames"
   },{
-    "fails":0,
     "successes":0,
+    "last_check_date":"",
     "last_check":"",
-    "title":"Don't do drugs",
+    "fails":0,
     "current_streak":0,
     "best_streak":0,
-    "last_check_date":""
+    "title":"Don't do drugs"
   },{
-    "fails":0,
     "successes":0,
+    "last_check_date":"",
     "last_check":"",
-    "title":"Don't smoke",
+    "fails":0,
     "current_streak":0,
     "best_streak":0,
-    "last_check_date":""
+    "title":"Don't smoke"
   },{
-    "fails":0,
     "successes":0,
+    "last_check_date":"",
     "last_check":"",
-    "title":"Don't masturbate",
+    "fails":0,
     "current_streak":0,
     "best_streak":0,
-    "last_check_date":""
+    "title":"Don't masturbate"
   },{
-    "fails":0,
     "successes":0,
+    "last_check_date":"",
     "last_check":"",
-    "title":"Eat healthy",
+    "fails":0,
     "current_streak":0,
     "best_streak":0,
-    "last_check_date":""
+    "title":"Eat healthy"
   },{
-    "fails":0,
-    "successes":1,
+    "successes":2,
+    "last_check_date":"2025-09-02",
     "last_check":"success",
-    "title":"Work out",
+    "fails":0,
+    "current_streak":2,
+    "best_streak":2,
+    "title":"Work out"
+  },{
+    "successes":2,
+    "last_check_date":"2025-09-02",
+    "last_check":"success",
+    "fails":0,
+    "current_streak":2,
+    "best_streak":2,
+    "title":"Do breathing exercises"
+  },{
+    "successes":1,
+    "last_check_date":"2025-09-01",
+    "last_check":"success",
+    "fails":0,
     "current_streak":1,
     "best_streak":1,
-    "last_check_date":"2025-09-01"
-  },{
-    "fails":0,
-    "successes":1,
-    "last_check":"success",
-    "title":"Do breathing exercises",
-    "current_streak":1,
-    "best_streak":1,
-    "last_check_date":"2025-09-01"
-  },{
-    "fails":0,
-    "successes":1,
-    "last_check":"success",
-    "title":"Meditate 5 min a day",
-    "current_streak":1,
-    "best_streak":1,
-    "last_check_date":"2025-09-01"
+    "title":"Meditate 5 min a day"
   }]

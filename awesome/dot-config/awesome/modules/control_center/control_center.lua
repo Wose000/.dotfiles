@@ -22,7 +22,7 @@ local volume_control = require("modules.control_center.volume_control")
 M.control_center:setup({
 	{ widget = title },
 	{ widget = volume_control.widget },
-	{ widget = brightness_control.widget },
+	{ widget = brightness_control.widget() },
 	layout = wibox.layout.fixed.vertical,
 })
 local _, h = root.size()

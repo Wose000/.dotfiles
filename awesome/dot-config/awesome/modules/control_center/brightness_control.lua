@@ -63,38 +63,40 @@ awful.spawn.easy_async_with_shell("cat " .. brightness_file, function(stout, ste
 	end
 end)
 
-local slider = wibox.widget({
-	bar_shape = gears.shape.rounded_rect,
-	bar_height = 10,
-	bar_color = beautiful.inactive,
-	bar_active_color = beautiful.accent,
-	handle_color = beautiful.accent,
-	handle_shape = gears.shape.circle,
-	handle_width = 10,
-	handle_border_color = beautiful.border_normal,
-	handle_border_width = 1,
-	value = 100,
-	maximum = 100,
-	minimum = 0,
-	widget = wibox.widget.slider,
-})
+function brightness_control.widget()
+	local slider = wibox.widget({
+		bar_shape = gears.shape.rounded_rect,
+		bar_height = 10,
+		bar_color = beautiful.inactive,
+		bar_active_color = beautiful.accent,
+		handle_color = beautiful.accent,
+		handle_shape = gears.shape.circle,
+		handle_width = 10,
+		handle_border_color = beautiful.border_normal,
+		handle_border_width = 1,
+		value = brightness_control.brightness,
+		maximum = 100,
+		minimum = 0,
+		widget = wibox.widget.slider,
+	})
 
-local label = wibox.widget.textbox("Brightness")
+	-- Connect to `property::value` to use the value on change
+	slider:connect_signal("property::value", function(_, new_value)
+		local new_brightness = calc_percentage_of_brightness(new_value)
+		awful.spawn.easy_async_with_shell("sudo " .. brightness_script .. " " .. new_brightness, function() end)
+	end)
 
-brightness_control.widget = wibox.widget({
-	{ { widget = label }, { widget = slider }, layout = wibox.layout.fixed.vertical },
-	widget = wibox.container.background,
-	bg = beautiful.inactive,
-	forced_height = 30,
-})
+	local label = wibox.widget.textbox("Brightness")
+
+	return wibox.widget({
+		{ { widget = label }, { widget = slider }, layout = wibox.layout.fixed.vertical },
+		widget = wibox.container.background,
+		bg = beautiful.inactive,
+		forced_height = 30,
+	})
+end
 
 --- max_brightness : 100 = brightness : x
-
--- Connect to `property::value` to use the value on change
-slider:connect_signal("property::value", function(_, new_value)
-	local new_brightness = calc_percentage_of_brightness(new_value)
-	awful.spawn.easy_async_with_shell("sudo " .. brightness_script .. " " .. new_brightness, function() end)
-end)
 
 local function percentage_out_of_value(val)
 	local tmp = val * 100 / brightness_control.max_brightness
