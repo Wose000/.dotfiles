@@ -10,6 +10,11 @@ local brightness_script = "/home/wose/bin/brightness"
 
 local brightness_control = {}
 
+local function percentage_of_val(val, max)
+	local tmp = val * 100 / max
+	return math.floor(tmp + 0.5)
+end
+
 local function calc_percentage_of_brightness(p)
 	local decimal_percentage = p / 100
 	local brightness_val = math.floor((brightness_control.max_brightness * decimal_percentage) + 0.5)
@@ -22,48 +27,7 @@ local function calc_percentage_of_brightness(p)
 	return brightness_val
 end
 
--- Set max brightness reading it from the max_brightness system file
-awful.spawn.easy_async_with_shell("cat " .. max_brightness_file, function(stout, sterr, _, exit_code)
-	if exit_code == 0 then
-		local max_brightness = tonumber(stout)
-		if max_brightness then
-			brightness_control.max_brightness = max_brightness
-		else
-			naughty.notification({
-				title = "error",
-				message = "error converting to a number to output of: cat " .. max_brightness_file,
-			})
-			error("Error converting the output of cat to a number")
-		end
-	else
-		naughty.notification({
-			title = "error",
-			message = "Error reading the file " .. max_brightness_file .. " " .. sterr,
-		})
-		error("Error executing the script exit code: " .. exit_code .. "\nError: " .. sterr)
-	end
-end)
-
-awful.spawn.easy_async_with_shell("cat " .. brightness_file, function(stout, sterr, _, exit_code)
-	if exit_code == 0 then
-		local brightness = tonumber(stout)
-		if brightness then
-			brightness_control.brightness = brightness
-		else
-			naughty.notification({
-				title = "error",
-				message = "error converting to a number to output of: cat " .. brightness_file,
-			})
-		end
-	else
-		naughty.notification({
-			title = "error",
-			message = "Error reading the file " .. brightness_file .. " " .. sterr,
-		})
-	end
-end)
-
-function brightness_control.widget()
+function brightness_control.get_widget()
 	local slider = wibox.widget({
 		bar_shape = gears.shape.rounded_rect,
 		bar_height = 10,
@@ -96,11 +60,52 @@ function brightness_control.widget()
 	})
 end
 
---- max_brightness : 100 = brightness : x
+brightness_control.widget = brightness_control.get_widget()
 
-local function percentage_out_of_value(val)
-	local tmp = val * 100 / brightness_control.max_brightness
-	return math.floor(tmp + 0.5)
+--- max_brightness : 100 = brightness : x
+---
+function brightness_control.init()
+	-- Set max brightness reading it from the max_brightness system file
+	awful.spawn.easy_async_with_shell("cat " .. max_brightness_file, function(stout, sterr, _, exit_code)
+		if exit_code == 0 then
+			local max_brightness = tonumber(stout)
+			if max_brightness then
+				brightness_control.max_brightness = max_brightness
+				awful.spawn.easy_async_with_shell("cat " .. brightness_file, function(stout, sterr, _, exit_code)
+					if exit_code == 0 then
+						local brightness = tonumber(stout)
+						if brightness then
+							brightness_control.brightness =
+								percentage_of_val(brightness, brightness_control.max_brightness)
+							brightness_control.widget:emit_signal_recursive("update::brightness")
+						else
+							naughty.notification({
+								title = "error",
+								message = "error converting to a number to output of: cat " .. brightness_file,
+							})
+						end
+					else
+						naughty.notification({
+							title = "error",
+							message = "Error reading the file " .. brightness_file .. " " .. sterr,
+						})
+					end
+				end)
+			else
+				naughty.notification({
+					title = "error",
+					message = "error converting to a number to output of: cat " .. max_brightness_file,
+				})
+				error("Error converting the output of cat to a number")
+			end
+		else
+			naughty.notification({
+				title = "error",
+				message = "Error reading the file " .. max_brightness_file .. " " .. sterr,
+			})
+			error("Error executing the script exit code: " .. exit_code .. "\nError: " .. sterr)
+		end
+	end)
 end
 
 return brightness_control

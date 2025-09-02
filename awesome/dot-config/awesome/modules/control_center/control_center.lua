@@ -18,18 +18,27 @@ local title = wibox.widget({
 
 local brightness_control = require("modules.control_center.brightness_control")
 local volume_control = require("modules.control_center.volume_control")
+local layout = wibox.layout.fixed.vertical()
 
 M.control_center:setup({
-	{ widget = title },
-	{ widget = volume_control.widget },
-	{ widget = brightness_control.widget() },
-	layout = wibox.layout.fixed.vertical,
+	layout = layout,
 })
+layout:add(title)
+layout:add(brightness_control.widget)
+layout:add(volume_control.widget)
+
 local _, h = root.size()
 M.control_center.screen = screen[1]
 M.control_center.ontop = true
 M.control_center.width = 300
 M.control_center.height = h
+
+layout:connect_signal("update::brightness", function()
+	local new_brightness = brightness_control.get_widget()
+	layout:replace_widget(brightness_control.widget, new_brightness, true)
+end)
+
+brightness_control.init()
 
 local bar_icon = wibox.widget.textbox()
 bar_icon.font = "JetBrainMono Nerd Font Mono 12"
@@ -44,7 +53,6 @@ end
 
 bar_icon:buttons(awful.button({}, 1, function()
 	M.control_center.visible = not M.control_center.visible
-	naughty.notification({ title = "test", message = "test notification" })
 end))
 
 function M:get_bar_icon()
