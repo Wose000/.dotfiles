@@ -26,36 +26,40 @@ function volume_control.set_volume(vol)
 	awful.spawn("pactl set-sink-volume " .. default_sink .. " " .. vol, false)
 end
 
-local slider = wibox.widget({
-	bar_shape = gears.shape.rounded_rect,
-	bar_height = 10,
-	bar_color = beautiful.inactive,
-	bar_active_color = beautiful.accent,
-	handle_color = beautiful.accent,
-	handle_shape = gears.shape.circle,
-	handle_width = 10,
-	handle_border_color = beautiful.border_normal,
-	handle_border_width = 1,
-	value = 100,
-	maximum = 100,
-	minimum = 0,
-	widget = wibox.widget.slider,
-})
+function volume_control.get_widget()
+	local slider = wibox.widget({
+		bar_shape = gears.shape.rounded_rect,
+		bar_height = 10,
+		bar_color = beautiful.inactive,
+		bar_active_color = beautiful.accent,
+		handle_color = beautiful.accent,
+		handle_shape = gears.shape.circle,
+		handle_width = 10,
+		handle_border_color = beautiful.border_normal,
+		handle_border_width = 1,
+		value = 100,
+		maximum = 100,
+		minimum = 0,
+		widget = wibox.widget.slider,
+	})
 
-local label = wibox.widget.textbox("Volume")
+	local label = wibox.widget.textbox("Volume")
 
-volume_control.widget = wibox.widget({
-	{ { widget = label }, {
-		widget = slider,
-	}, layout = wibox.layout.fixed.vertical },
-	widget = wibox.container.background,
-	forced_height = 40,
-	bg = beautiful.inactive,
-})
+	slider:connect_signal("property::value", function(_, new_value)
+		local new_volume = percentage_of_max_volume(new_value)
+		volume_control.set_volume(new_volume)
+	end)
 
-slider:connect_signal("property::value", function(_, new_value)
-	local new_volume = percentage_of_max_volume(new_value)
-	volume_control.set_volume(new_volume)
-end)
+	return wibox.widget({
+		{ { widget = label }, {
+			widget = slider,
+		}, layout = wibox.layout.fixed.vertical },
+		widget = wibox.container.background,
+		forced_height = 40,
+		bg = beautiful.inactive,
+	})
+end
+
+volume_control.widget = volume_control.get_widget()
 
 return volume_control
