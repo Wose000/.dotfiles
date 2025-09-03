@@ -15,6 +15,7 @@ Is_desktop = os.getenv("HOSTNAME") == "arch-pc"
 local is_laptop = os.getenv("HOSTNAME") == "arch-laptop" or os.getenv("HOSTNAME") == "archlinux"
 
 awful.spawn.with_shell("setxkbmap -option caps:hyper")
+awful.spawn.with_shell(' setxkbmap -option "compose:ralt" ')
 -- launch starting applications
 awful.spawn.with_shell("/home/wose/.config/awesome/autorun.sh")
 if Is_desktop then
