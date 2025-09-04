@@ -10,6 +10,11 @@ local volume_control = {}
 local max_volume_value = 65536
 local default_sink = "@DEFAULT_SINK@"
 
+local function percentage_of_val(val, max)
+	local tmp = val * 100 / max
+	return math.floor(tmp + 0.5)
+end
+
 local function percentage_of_max_volume(p)
 	local decimal_percentage = p / 100
 	local volume_val = math.floor((max_volume_value * decimal_percentage) + 0.5)
@@ -64,10 +69,15 @@ volume_control.volume = 1
 volume_control.widget = volume_control.get_widget(volume_control.volume)
 
 function volume_control.init()
-	local get_volume_command = 'pact get_sink_volume @DEFAULT_SINK@ | grep "Volume"'
-	awful.spawn.easy_async_with_shell(get_volume_command, function(stdout)
-		volume_control.volume = tonumber(string.match(stdout, "%d+"))
-		volume_control.widget:emit_signal_recursive("volume_widget::update")
+	local get_volume_command = 'pactl get-sink-volume @DEFAULT_SINK@ | grep "Volume"'
+	awful.spawn.easy_async_with_shell(get_volume_command, function(stdout, sterr, _, exit_code)
+		if exit_code == 0 then
+			local volume = tonumber(string.match(stdout, "%d+"))
+			volume_control.volume = percentage_of_val(volume, max_volume_value)
+			volume_control.widget:emit_signal_recursive("update::volume")
+		else
+			naughty.notification({ title = "non zero exit", message = "porco dio non zero exit " .. exit_code })
+		end
 	end)
 end
 

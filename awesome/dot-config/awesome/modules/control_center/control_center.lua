@@ -36,9 +36,17 @@ M.control_center.height = h
 layout:connect_signal("update::brightness", function()
 	local new_brightness = brightness_control.get_widget()
 	layout:replace_widget(brightness_control.widget, new_brightness, true)
+	brightness_control.widget = new_brightness
+end)
+
+layout:connect_signal("update::volume", function()
+	local new_volume = volume_control.get_widget(volume_control.volume)
+	layout:replace_widget(volume_control.widget, new_volume, true)
+	volume_control.widget = new_volume
 end)
 
 brightness_control.init()
+volume_control.init()
 
 local bar_icon = wibox.widget.textbox()
 bar_icon.font = "JetBrainMono Nerd Font Mono 12"
