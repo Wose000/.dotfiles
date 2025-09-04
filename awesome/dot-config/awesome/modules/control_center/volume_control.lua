@@ -26,7 +26,7 @@ function volume_control.set_volume(vol)
 	awful.spawn("pactl set-sink-volume " .. default_sink .. " " .. vol, false)
 end
 
-function volume_control.get_widget()
+function volume_control.get_widget(vol)
 	local slider = wibox.widget({
 		bar_shape = gears.shape.rounded_rect,
 		bar_height = 10,
@@ -37,7 +37,7 @@ function volume_control.get_widget()
 		handle_width = 10,
 		handle_border_color = beautiful.border_normal,
 		handle_border_width = 1,
-		value = 100,
+		value = vol,
 		maximum = 100,
 		minimum = 0,
 		widget = wibox.widget.slider,
@@ -60,6 +60,15 @@ function volume_control.get_widget()
 	})
 end
 
-volume_control.widget = volume_control.get_widget()
+volume_control.volume = 1
+volume_control.widget = volume_control.get_widget(volume_control.volume)
+
+function volume_control.init()
+	local get_volume_command = 'pact get_sink_volume @DEFAULT_SINK@ | grep "Volume"'
+	awful.spawn.easy_async_with_shell(get_volume_command, function(stdout)
+		volume_control.volume = tonumber(string.match(stdout, "%d+"))
+		volume_control.widget:emit_signal_recursive("volume_widget::update")
+	end)
+end
 
 return volume_control
