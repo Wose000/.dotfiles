@@ -1,0 +1,10 @@
+[
+  {
+    "title": "do home work",
+    "is_completed": false
+  },
+  {
+    "title": "buy groceries",
+    "is_completed": true
+  }
+]

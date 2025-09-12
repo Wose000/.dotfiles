@@ -1,73 +1,73 @@
 [{
     "successes":1,
-    "last_check_date":"2025-09-11",
-    "best_streak":1,
     "title":"Don't play videogames",
-    "fails":0,
+    "last_check":"success",
+    "best_streak":1,
     "current_streak":1,
-    "last_check":"success"
+    "fails":0,
+    "last_check_date":"2025-09-11"
   },{
     "successes":1,
-    "last_check_date":"2025-09-11",
-    "best_streak":1,
     "title":"Don't do drugs",
-    "fails":0,
+    "last_check":"success",
+    "best_streak":1,
     "current_streak":1,
-    "last_check":"success"
+    "fails":0,
+    "last_check_date":"2025-09-11"
   },{
     "successes":0,
-    "last_check_date":"2025-09-11",
-    "best_streak":0,
     "title":"Don't smoke",
-    "fails":1,
+    "last_check":"fail",
+    "best_streak":0,
     "current_streak":0,
-    "last_check":"fail"
+    "fails":1,
+    "last_check_date":"2025-09-11"
   },{
     "successes":1,
-    "last_check_date":"2025-09-11",
-    "best_streak":1,
     "title":"Don't masturbate",
-    "fails":0,
+    "last_check":"success",
+    "best_streak":1,
     "current_streak":1,
-    "last_check":"success"
+    "fails":0,
+    "last_check_date":"2025-09-11"
   },{
     "successes":1,
-    "last_check_date":"2025-09-11",
-    "best_streak":1,
     "title":"Eat healthy",
-    "fails":0,
-    "current_streak":1,
-    "last_check":"success"
-  },{
-    "successes":1,
-    "last_check_date":"2025-09-11",
+    "last_check":"success",
     "best_streak":1,
+    "current_streak":1,
+    "fails":0,
+    "last_check_date":"2025-09-11"
+  },{
+    "successes":2,
     "title":"Work out",
+    "last_check":"success",
+    "best_streak":2,
+    "current_streak":2,
     "fails":0,
-    "current_streak":1,
-    "last_check":"success"
+    "last_check_date":"2025-09-12"
   },{
-    "successes":1,
-    "last_check_date":"2025-09-11",
-    "best_streak":1,
+    "successes":2,
     "title":"Do breathing exercises",
+    "last_check":"success",
+    "best_streak":2,
+    "current_streak":2,
     "fails":0,
-    "current_streak":1,
-    "last_check":"success"
+    "last_check_date":"2025-09-12"
   },{
-    "successes":1,
-    "last_check_date":"2025-09-11",
-    "best_streak":1,
+    "successes":2,
     "title":"Meditate 5 min a day",
+    "last_check":"success",
+    "best_streak":2,
+    "current_streak":2,
     "fails":0,
-    "current_streak":1,
-    "last_check":"success"
+    "last_check_date":"2025-09-12"
   },{
     "successes":1,
-    "last_check_date":"2025-09-11",
-    "best_streak":1,
     "title":"Drink 2L water",
-    "fails":0,
+    "last_check":"success",
+    "best_streak":1,
     "current_streak":1,
-    "last_check":"success"
+    "fails":0,
+    "last_check_date":"2025-09-11"
   }]
