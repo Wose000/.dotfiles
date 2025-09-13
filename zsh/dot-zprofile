@@ -7,3 +7,4 @@ if [ -z "$DISPLAY" ] && [ "$XDG_VTNR" = 1 ]; then
 fi
 
 export EDITOR=nvim
+export GTK_THEME=Arc-Dark
