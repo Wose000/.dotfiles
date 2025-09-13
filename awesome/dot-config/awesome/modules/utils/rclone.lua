@@ -15,8 +15,7 @@ end
 function rclone.cat_with_signal(path, remote, signal)
 	awful.spawn.easy_async_with_shell(rclone.read(path, remote), function(stdout, stderr, _, exit_code)
 		if exit_code == 0 then
-			naughty.notification({ title = "called", message = stdout })
-			signal()
+			signal(stdout)
 		else
 			naughty.notification({
 				title = "Error rclone cat",
