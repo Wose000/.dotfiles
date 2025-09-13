@@ -23,17 +23,14 @@ local centered_systray = wibox.container.margin(mysystray, 0, 0, 6, 6)
 centered_systray.spacing = 3
 local battery_widget = require("awesome-wm-widgets.battery-widget.battery")
 local audio_widget = require("modules.audio_toggle")
-local control_center = require("modules.control_center.control_center")
 local task = require("modules.todo.task")
 
-local function get_right_widgets(headphones, keyboard, tray, data, tiles, battery)
+local function get_right_widgets(headphones, keyboard, tray, data, battery)
 	if Is_desktop then
 		return {
 			layout = wibox.layout.fixed.horizontal,
 			spacing = 10,
 			tray,
-
-			task.get_bar_icon(),
 			notify_widget:get_bar_icon(),
 			habit_tracker.bar_icon,
 			network_widget,
@@ -45,7 +42,7 @@ local function get_right_widgets(headphones, keyboard, tray, data, tiles, batter
 		layout = wibox.layout.fixed.horizontal,
 		spacing = 5,
 		tray,
-		control_center:get_bar_icon(),
+		require("modules.control_center.control_center"):get_bar_icon(),
 		notify_widget:get_bar_icon(),
 		headphones,
 		habit_tracker.bar_icon,
@@ -61,22 +58,6 @@ awful.screen.connect_for_each_screen(function(s)
 
 	-- Create a promptbox for each screen
 	s.mypromptbox = awful.widget.prompt()
-	-- We need one layoutbox per screen.
-	s.mylayoutbox = awful.widget.layoutbox(s)
-	s.mylayoutbox:buttons(gears.table.join(
-		awful.button({}, 1, function()
-			awful.layout.inc(1)
-		end),
-		awful.button({}, 3, function()
-			awful.layout.inc(-1)
-		end),
-		awful.button({}, 4, function()
-			awful.layout.inc(1)
-		end),
-		awful.button({}, 5, function()
-			awful.layout.inc(-1)
-		end)
-	))
 	s.mytaglist = taglist.get_taglist_widget(s)
 
 	-- Create the wibox
@@ -92,25 +73,17 @@ awful.screen.connect_for_each_screen(function(s)
 				s.mypromptbox,
 			},
 			{ layout = wibox.layout.fixed.horizontal, volume_widget },
-			get_right_widgets(
-				audio_widget,
-				mykeyboardlayout,
-				centered_systray,
-				mytextclock,
-				s.mylayoutbox,
-				battery_widget
-			),
+			get_right_widgets(audio_widget, mykeyboardlayout, centered_systray, mytextclock, battery_widget),
 		})
 	else
 		s.mywibox:setup({
 			layout = wibox.layout.align.horizontal,
 			{ -- Left widgets
 				layout = wibox.layout.fixed.horizontal,
-				-- mylauncher,
 				s.mytaglist,
 				s.mypromptbox,
 			},
-			nil,
+			nil, -- Center widgets
 			{ -- Right widgets
 				layout = wibox.layout.fixed.horizontal,
 				spacing = 5,

@@ -12,6 +12,8 @@ local wall_folder = themes_path .. "neon/wallp/"
 local theme = {}
 
 theme.font = "JetBrainsMono Nerd Font Mono 10"
+theme.icon = "Symbols Nerd Font"
+theme.widget_font = "JetBrainsMono Nerd Font"
 
 theme.accent = "#03b6b0"
 theme.inactive = "#444444"
