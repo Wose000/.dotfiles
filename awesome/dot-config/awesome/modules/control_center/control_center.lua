@@ -27,11 +27,10 @@ layout:add(title)
 layout:add(brightness_control.widget)
 layout:add(volume_control.widget)
 
-local _, h = root.size()
 M.control_center.screen = screen[1]
 M.control_center.ontop = true
 M.control_center.width = 300
-M.control_center.height = h
+M.control_center.height = select(2, root.size())
 
 layout:connect_signal("update::brightness", function()
 	local new_brightness = brightness_control.get_widget()
