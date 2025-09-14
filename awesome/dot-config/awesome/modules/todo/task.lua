@@ -19,8 +19,12 @@ function Task:get_widget()
 	local label = wibox.widget.textbox()
 	label.font = beautiful.widget_font .. " 11"
 	label.valign = "center"
-	label.halign = "center"
-	label.markup = helpers.colorize_text(self.data.name, beautiful.fg_normal)
+	label.halign = "left"
+	label.markup = helpers.colorize_text(self.data.title, beautiful.fg_normal)
+
+	local layout = wibox.layout.flex.horizontal()
+	layout:add(label)
+	return layout
 end
 
 return Task

@@ -25,6 +25,7 @@ M.task_list = wibox.layout.fixed.vertical()
 M.container = wibox.widget({
 	{ layout = M.task_list },
 	widget = wibox.container.background,
+	forced_height = 1000,
 	bg = beautiful.bg_normal,
 })
 
@@ -41,7 +42,13 @@ end
 local function create_tasks(data_list)
 	for _, task_data in ipairs(data_list) do
 		local task = Task.new(task_data)
-		table.insert(M.task_list, task)
+		table.insert(M.tasks, task)
+	end
+end
+
+local function create_widgets()
+	for _, task in ipairs(M.tasks) do
+		M.task_list:add(task:get_widget())
 	end
 end
 
@@ -49,6 +56,7 @@ function M.init(listener_widget)
 	listener_widget:connect_signal(init_signal, function(_, args)
 		local decoded_data = helpers.decode_json(args)
 		create_tasks(decoded_data)
+		create_widgets()
 	end)
 	rclone.cat_with_signal(path, remote, emit_function(M.task_list))
 end
