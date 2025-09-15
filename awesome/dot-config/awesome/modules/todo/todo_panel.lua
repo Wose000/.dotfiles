@@ -22,17 +22,6 @@ M.box.height = select(2, root.size())
 
 M.task_list = wibox.layout.fixed.vertical()
 
-M.container = wibox.widget({
-	{ layout = M.task_list },
-	widget = wibox.container.background,
-	forced_height = 1000,
-	bg = beautiful.bg_normal,
-})
-
-M.box:setup({
-	widget = M.container,
-})
-
 local function emit_function(widget)
 	return function(stdout)
 		widget:emit_signal_recursive(init_signal, stdout)
@@ -53,7 +42,21 @@ local function update_remote_data()
 	end
 	helpers.debug_log(type(data))
 	local encoded_data = helpers.encode_json(data)
-	rclone.rcat(path, remote, encoded_data)
+	rclone.add_command_to_queue(rclone.get_rcat_commad(path, remote, encoded_data))
+end
+
+---create a new task given the title
+---@param title string
+local function create_task(title)
+	helpers.debug_log("called create_task(" .. title .. ")")
+	local new_task = Task.new({ title = title, is_completed = false })
+	local new_task_widget = new_task:get_widget()
+	new_task_widget:add_button(awful.button({}, 1, function()
+		new_task:toggle()
+		update_remote_data()
+	end))
+	table.insert(M.tasks, new_task)
+	M.task_list:add(new_task_widget)
 end
 
 local function create_widgets()
@@ -89,5 +92,44 @@ function M.get_bar_icon()
 	end))
 	return bar_icon
 end
+
+local promptbox = wibox.widget.textbox()
+local function create_new_task()
+	awful.prompt.run({
+		prompt = "Title: ",
+		textbox = promptbox,
+		exe_callback = function(input)
+			if input and input ~= "" then
+				create_task(input)
+			end
+		end,
+		history_path = awful.util.get_cache_dir() .. "/habit_add_history",
+	})
+end
+
+local add_task_block = wibox.layout.fixed.vertical()
+local addbutton = wibox.widget({
+	{ widget = wibox.widget.textbox, markup = "Add Taks" },
+	widget = wibox.container.background,
+	bg = beautiful.bg_minimize,
+	forced_height = 20,
+	forced_width = 200,
+})
+addbutton:add_button(awful.button({}, 1, create_new_task))
+add_task_block:add(promptbox)
+add_task_block:add(addbutton)
+
+M.container = wibox.widget({
+	{ layout = M.task_list },
+	{ layout = add_task_block },
+	widget = wibox.container.background,
+	forced_height = 1000,
+	bg = beautiful.bg_normal,
+	layout = wibox.layout.fixed.vertical,
+})
+
+M.box:setup({
+	widget = M.container,
+})
 
 return M
