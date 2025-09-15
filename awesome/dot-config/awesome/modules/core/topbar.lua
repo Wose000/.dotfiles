@@ -44,6 +44,7 @@ local function get_right_widgets(headphones, keyboard, tray, data, battery)
 		layout = wibox.layout.fixed.horizontal,
 		spacing = 5,
 		tray,
+		task.get_bar_icon(),
 		require("modules.control_center.control_center"):get_bar_icon(),
 		notify_widget:get_bar_icon(),
 		headphones,

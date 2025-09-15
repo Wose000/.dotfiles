@@ -22,9 +22,23 @@ function Task:get_widget()
 	label.halign = "left"
 	label.markup = helpers.colorize_text(self.data.title, beautiful.fg_normal)
 
+	local check_icon = wibox.widget.textbox()
+	check_icon.markup = "󰄱"
+	check_icon.valign = "center"
+	check_icon.halign = "right"
+	check_icon.font = beautiful.icon .. " 10"
+
+	local checked_icon = "󰱒"
+
 	local layout = wibox.layout.flex.horizontal()
 	layout:add(label)
-	return layout
+	layout:add(check_icon)
+	return wibox.widget({
+		{ widget = layout },
+		widget = wibox.container.margin,
+		right = 15,
+		left = 15,
+	})
 end
 
 return Task
