@@ -46,9 +46,24 @@ local function create_tasks(data_list)
 	end
 end
 
-local function create_widgets()
+local function update_remote_data()
+	local data = {}
 	for _, task in ipairs(M.tasks) do
-		M.task_list:add(task:get_widget())
+		table.insert(data, { title = task.data.title, is_completed = task.data.is_completed })
+	end
+	helpers.debug_log(type(data))
+	local encoded_data = helpers.encode_json(data)
+	rclone.rcat(path, remote, encoded_data)
+end
+
+local function create_widgets()
+	for index, task in ipairs(M.tasks) do
+		local widget = task:get_widget()
+		widget:add_button(awful.button({}, 1, function()
+			M.tasks[index]:toggle()
+			update_remote_data()
+		end))
+		M.task_list:add(widget)
 	end
 end
 

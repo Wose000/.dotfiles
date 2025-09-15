@@ -1,6 +1,7 @@
 local json = require("dkjson")
 local awful = require("awful")
 local naughty = require("naughty")
+local helpers = require("modules.utils.helpers")
 
 local rclone = {}
 
@@ -10,6 +11,17 @@ end
 
 function rclone.write(path, remote, file)
 	return "rclone copy " .. file .. " " .. remote .. ":" .. path
+end
+
+function rclone.rcat(path, remote, data)
+	local command = string.format("rclone rcat '%s:%s' << EOF\n%s\nEOF", remote, path, data)
+	awful.spawn.easy_async_with_shell(command, function(stdout, stderr, _, exit_code)
+		if exit_code == 0 then
+			helpers.debug_log("success")
+		else
+			helpers.debug_log(stderr)
+		end
+	end)
 end
 
 function rclone.cat_with_signal(path, remote, signal)

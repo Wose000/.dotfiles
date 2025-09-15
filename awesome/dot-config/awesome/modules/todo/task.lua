@@ -15,30 +15,54 @@ function Task.new(data)
 	return self
 end
 
+function Task:get_icon()
+	if self.data.is_completed then
+		return "󰱒"
+	else
+		return "󰄱"
+	end
+end
+function Task:get_title()
+	if self.data.is_completed then
+		return "<s>" .. self.data.title .. "</s>"
+	else
+		return self.data.title
+	end
+end
+
 function Task:get_widget()
-	local label = wibox.widget.textbox()
-	label.font = beautiful.widget_font .. " 11"
-	label.valign = "center"
-	label.halign = "left"
-	label.markup = helpers.colorize_text(self.data.title, beautiful.fg_normal)
-
-	local check_icon = wibox.widget.textbox()
-	check_icon.markup = "󰄱"
-	check_icon.valign = "center"
-	check_icon.halign = "right"
-	check_icon.font = beautiful.icon .. " 10"
-
-	local checked_icon = "󰱒"
+	self.label = wibox.widget.textbox()
+	self.label.font = beautiful.widget_font .. " 11"
+	self.label.valign = "center"
+	self.label.halign = "left"
+	self.label.markup = helpers.colorize_text(self:get_title(), beautiful.fg_normal)
+	self.check_icon = wibox.widget.textbox()
+	self.check_icon.markup = self:get_icon()
+	self.check_icon.valign = "center"
+	self.check_icon.halign = "right"
+	self.check_icon.font = beautiful.icon .. " 10"
 
 	local layout = wibox.layout.flex.horizontal()
-	layout:add(label)
-	layout:add(check_icon)
+	layout:add(self.label)
+	layout:add(self.check_icon)
 	return wibox.widget({
 		{ widget = layout },
 		widget = wibox.container.margin,
 		right = 15,
 		left = 15,
 	})
+end
+
+function Task:toggle()
+	if self.data.is_completed then
+		self.data.is_completed = false
+		self.label.markup = helpers.colorize_text(self:get_title(), beautiful.fg_normal)
+		self.check_icon.markup = self:get_icon()
+	else
+		self.data.is_completed = true
+		self.label.markup = helpers.colorize_text(self:get_title(), beautiful.fg_normal)
+		self.check_icon.markup = self:get_icon()
+	end
 end
 
 return Task
