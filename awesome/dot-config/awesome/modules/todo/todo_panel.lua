@@ -1,5 +1,4 @@
 local wibox = require("wibox")
-local naughty = require("naughty")
 local beautiful = require("beautiful")
 local awful = require("awful")
 local rclone = require("modules.utils.rclone")
@@ -106,8 +105,8 @@ local function create_new_task()
 	})
 end
 
-local function delete_task(widget, task)
-	local success = M.task_list:remove_widgets(widget, true)
+local function delete_task(_, task)
+	local success = M.task_list:remove_widgets(task.widget, true)
 	if success then
 		helpers.debug_log("success")
 	end
