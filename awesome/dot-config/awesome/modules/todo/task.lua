@@ -30,6 +30,29 @@ function Task:get_title()
 	end
 end
 
+function Task.__eq(a, b)
+	return a.data.title == b.data.title
+end
+
+function Task:delete_task()
+	self.widget:emit_signal_recursive("task::delete", self)
+end
+
+function Task:get_right_click_menu()
+	local menu = awful.menu({
+		items = {
+			{
+				"delete",
+				function()
+					self:delete_task()
+				end,
+			},
+		},
+	})
+
+	return menu
+end
+
 function Task:get_widget()
 	self.label = wibox.widget.textbox()
 	self.label.font = beautiful.widget_font .. " 11"
@@ -45,12 +68,18 @@ function Task:get_widget()
 	local layout = wibox.layout.flex.horizontal()
 	layout:add(self.label)
 	layout:add(self.check_icon)
-	return wibox.widget({
+	local right_click_menu = self:get_right_click_menu()
+	self.widget = wibox.widget({
 		{ widget = layout },
 		widget = wibox.container.margin,
 		right = 15,
 		left = 15,
 	})
+	self.widget:buttons(awful.button({}, 3, function()
+		right_click_menu:toggle()
+	end))
+
+	return self.widget
 end
 
 function Task:toggle()

@@ -40,7 +40,6 @@ local function update_remote_data()
 	for _, task in ipairs(M.tasks) do
 		table.insert(data, { title = task.data.title, is_completed = task.data.is_completed })
 	end
-	helpers.debug_log(type(data))
 	local encoded_data = helpers.encode_json(data)
 	rclone.add_command_to_queue(rclone.get_rcat_commad(path, remote, encoded_data))
 end
@@ -107,6 +106,19 @@ local function create_new_task()
 	})
 end
 
+local function delete_task(widget, task)
+	local success = M.task_list:remove_widgets(widget, true)
+	if success then
+		helpers.debug_log("success")
+	end
+	for index, value in ipairs(M.tasks) do
+		if task == value then
+			table.remove(M.tasks, index)
+		end
+	end
+	update_remote_data()
+end
+
 local function get_todo_panel()
 	local add_task_block = wibox.layout.fixed.vertical()
 	local addbutton = wibox.widget({
@@ -128,6 +140,9 @@ local function get_todo_panel()
 		bg = beautiful.bg_normal,
 		layout = wibox.layout.fixed.vertical,
 	})
+	M.container:connect_signal("task::delete", function(widget, task)
+		delete_task(widget, task)
+	end)
 	return M.container
 end
 
