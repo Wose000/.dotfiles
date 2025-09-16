@@ -107,29 +107,32 @@ local function create_new_task()
 	})
 end
 
-local add_task_block = wibox.layout.fixed.vertical()
-local addbutton = wibox.widget({
-	{ widget = wibox.widget.textbox, markup = "Add Taks" },
-	widget = wibox.container.background,
-	bg = beautiful.bg_minimize,
-	forced_height = 20,
-	forced_width = 200,
-})
-addbutton:add_button(awful.button({}, 1, create_new_task))
-add_task_block:add(promptbox)
-add_task_block:add(addbutton)
+local function get_todo_panel()
+	local add_task_block = wibox.layout.fixed.vertical()
+	local addbutton = wibox.widget({
+		{ widget = wibox.widget.textbox, markup = "Add Taks" },
+		widget = wibox.container.background,
+		bg = beautiful.bg_minimize,
+		forced_height = 20,
+		forced_width = 200,
+	})
+	addbutton:add_button(awful.button({}, 1, create_new_task))
+	add_task_block:add(promptbox)
+	add_task_block:add(addbutton)
 
-M.container = wibox.widget({
-	{ layout = M.task_list },
-	{ layout = add_task_block },
-	widget = wibox.container.background,
-	forced_height = 1000,
-	bg = beautiful.bg_normal,
-	layout = wibox.layout.fixed.vertical,
-})
+	M.container = wibox.widget({
+		{ layout = M.task_list },
+		{ layout = add_task_block },
+		widget = wibox.container.background,
+		forced_height = 1000,
+		bg = beautiful.bg_normal,
+		layout = wibox.layout.fixed.vertical,
+	})
+	return M.container
+end
 
 M.box:setup({
-	widget = M.container,
+	widget = get_todo_panel(),
 })
 
 return M
