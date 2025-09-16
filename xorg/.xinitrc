@@ -20,6 +20,9 @@ if [[ $HOSTNAME == "arch-pc" ]]; then
     xrandr --output $MAIN --mode 1920x1080 --rate 143 --pos 0x0 --primary --output $SECOND --mode 1920x1080 --left-of $MAIN --output $PEN --mode 1920x1080 --right-of $MAIN
 fi
 
+[ -f /etc/xprfile ] && . /etc/xprofile
+[ -f ~/.xprofile ] && . ~/.xprofile
+
 setxkbmap -option caps:hyper
 setxkbmap -option "compose:ralt"
 
