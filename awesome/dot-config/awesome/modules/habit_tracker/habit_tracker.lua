@@ -193,7 +193,7 @@ add_habit_button:buttons(gears.table.join(awful.button({}, 1, function()
 	ask_for_habit_title(add_new_habit)
 end)))
 
-local function get_full_pop_window()
+function M.create_widget()
 	local w = wibox.layout.fixed.vertical()
 	w:add(habit_tracker)
 	w:add(promptbox)
@@ -203,7 +203,7 @@ end
 
 local popup = awful.popup({
 	screen = screen[1],
-	widget = get_full_pop_window(),
+	widget = M.create_widget(),
 	ontop = true,
 	visible = false,
 	placement = awful.placement.right,

@@ -118,7 +118,7 @@ local function delete_task(_, task)
 	update_remote_data()
 end
 
-local function get_todo_panel()
+function M.get_todo_panel()
 	local add_task_block = wibox.layout.fixed.vertical()
 	local addbutton = wibox.widget({
 		{ widget = wibox.widget.textbox, markup = "Add Taks" },
@@ -132,21 +132,20 @@ local function get_todo_panel()
 	add_task_block:add(addbutton)
 
 	M.container = wibox.widget({
-		{ layout = M.task_list },
-		{ layout = add_task_block },
-		widget = wibox.container.background,
+		{ { layout = M.task_list }, { layout = add_task_block }, layout = wibox.layout.fixed.vertical },
 		forced_height = 1000,
 		bg = beautiful.bg_normal,
-		layout = wibox.layout.fixed.vertical,
+		widget = wibox.container.background,
 	})
 	M.container:connect_signal("task::delete", function(widget, task)
 		delete_task(widget, task)
 	end)
+	M.init(M.container)
 	return M.container
 end
 
-M.box:setup({
-	widget = get_todo_panel(),
-})
+-- M.box:setup({
+-- 	widget = M.get_todo_panel(),
+-- })
 
 return M

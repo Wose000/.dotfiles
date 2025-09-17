@@ -13,25 +13,33 @@ if &shortmess =~ 'A'
 else
   set shortmess=aoO
 endif
-badd +299 ~/.dotfiles/awesome/dot-config/awesome/modules/habit_tracker/habit_tracker.lua
+badd +115 ~/.dotfiles/awesome/dot-config/awesome/modules/habit_tracker/habit_tracker.lua
 badd +8 ~/.dotfiles/awesome/dot-config/awesome/modules/habit_tracker/ui.lua
 badd +12 ~/.dotfiles/awesome/dot-config/awesome/modules/habit_tracker/data/habits.json
 badd +1 ~/.dotfiles/awesome/dot-config/awesome/themes/neon/theme.lua
-badd +11 ~/.dotfiles/awesome/dot-config/awesome/rc.lua
-badd +32 ~/.dotfiles/awesome/dot-config/awesome/modules/network/network-widget.lua
+badd +27 ~/.dotfiles/awesome/dot-config/awesome/rc.lua
+badd +64 ~/.dotfiles/awesome/dot-config/awesome/modules/network/network-widget.lua
 badd +15 ~/.dotfiles/awesome/dot-config/awesome/modules/network/get_network_status.sh
+badd +80 ~/.dotfiles/awesome/dot-config/awesome/modules/todo/todo_panel.lua
+badd +22 ~/.dotfiles/awesome/dot-config/awesome/modules/productivity_center/productivity_panel.lua
+badd +42 ~/.dotfiles/awesome/dot-config/awesome/modules/core/topbar.lua
 argglobal
 %argdel
 set stal=2
 tabnew +setlocal\ bufhidden=wipe
+tabnew +setlocal\ bufhidden=wipe
 tabrewind
-edit ~/.dotfiles/awesome/dot-config/awesome/modules/habit_tracker/habit_tracker.lua
+edit ~/.dotfiles/awesome/dot-config/awesome/modules/todo/todo_panel.lua
 let s:save_splitbelow = &splitbelow
 let s:save_splitright = &splitright
 set splitbelow splitright
 wincmd _ | wincmd |
 vsplit
 1wincmd h
+wincmd _ | wincmd |
+split
+1wincmd k
+wincmd w
 wincmd w
 let &splitbelow = s:save_splitbelow
 let &splitright = s:save_splitright
@@ -42,10 +50,13 @@ set winminheight=0
 set winheight=1
 set winminwidth=0
 set winwidth=1
-exe 'vert 1resize ' . ((&columns * 117 + 118) / 236)
+exe '1resize ' . ((&lines * 25 + 27) / 54)
+exe 'vert 1resize ' . ((&columns * 118 + 118) / 236)
+exe '2resize ' . ((&lines * 25 + 27) / 54)
 exe 'vert 2resize ' . ((&columns * 118 + 118) / 236)
+exe 'vert 3resize ' . ((&columns * 117 + 118) / 236)
 argglobal
-balt ~/.dotfiles/awesome/dot-config/awesome/rc.lua
+balt ~/.dotfiles/awesome/dot-config/awesome/modules/habit_tracker/habit_tracker.lua
 setlocal foldmethod=manual
 setlocal foldexpr=v:lua.vim.treesitter.foldexpr()
 setlocal foldmarker={{{,}}}
@@ -56,18 +67,67 @@ setlocal foldnestmax=20
 setlocal foldenable
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 294 - ((24 * winheight(0) + 25) / 51)
+let s:l = 136 - ((21 * winheight(0) + 12) / 25)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 294
-normal! 032|
+keepjumps 136
+normal! 025|
 wincmd w
 argglobal
-if bufexists(fnamemodify("~/.dotfiles/awesome/dot-config/awesome/modules/network/network-widget.lua", ":p")) | buffer ~/.dotfiles/awesome/dot-config/awesome/modules/network/network-widget.lua | else | edit ~/.dotfiles/awesome/dot-config/awesome/modules/network/network-widget.lua | endif
+if bufexists(fnamemodify("~/.dotfiles/awesome/dot-config/awesome/modules/productivity_center/productivity_panel.lua", ":p")) | buffer ~/.dotfiles/awesome/dot-config/awesome/modules/productivity_center/productivity_panel.lua | else | edit ~/.dotfiles/awesome/dot-config/awesome/modules/productivity_center/productivity_panel.lua | endif
 if &buftype ==# 'terminal'
-  silent file ~/.dotfiles/awesome/dot-config/awesome/modules/network/network-widget.lua
+  silent file ~/.dotfiles/awesome/dot-config/awesome/modules/productivity_center/productivity_panel.lua
 endif
+setlocal foldmethod=manual
+setlocal foldexpr=v:lua.vim.treesitter.foldexpr()
+setlocal foldmarker={{{,}}}
+setlocal foldignore=#
+setlocal foldlevel=0
+setlocal foldminlines=1
+setlocal foldnestmax=20
+setlocal foldenable
+silent! normal! zE
+let &fdl = &fdl
+let s:l = 45 - ((2 * winheight(0) + 12) / 25)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 45
+normal! 08|
+wincmd w
+argglobal
+if bufexists(fnamemodify("~/.dotfiles/awesome/dot-config/awesome/modules/core/topbar.lua", ":p")) | buffer ~/.dotfiles/awesome/dot-config/awesome/modules/core/topbar.lua | else | edit ~/.dotfiles/awesome/dot-config/awesome/modules/core/topbar.lua | endif
+if &buftype ==# 'terminal'
+  silent file ~/.dotfiles/awesome/dot-config/awesome/modules/core/topbar.lua
+endif
+balt ~/.dotfiles/awesome/dot-config/awesome/modules/todo/todo_panel.lua
+setlocal foldmethod=manual
+setlocal foldexpr=v:lua.vim.treesitter.foldexpr()
+setlocal foldmarker={{{,}}}
+setlocal foldignore=#
+setlocal foldlevel=0
+setlocal foldminlines=1
+setlocal foldnestmax=20
+setlocal foldenable
+silent! normal! zE
+let &fdl = &fdl
+let s:l = 55 - ((45 * winheight(0) + 25) / 51)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 55
+normal! 033|
+wincmd w
+3wincmd w
+exe '1resize ' . ((&lines * 25 + 27) / 54)
+exe 'vert 1resize ' . ((&columns * 118 + 118) / 236)
+exe '2resize ' . ((&lines * 25 + 27) / 54)
+exe 'vert 2resize ' . ((&columns * 118 + 118) / 236)
+exe 'vert 3resize ' . ((&columns * 117 + 118) / 236)
+tabnext
+edit ~/.dotfiles/awesome/dot-config/awesome/modules/core/topbar.lua
+argglobal
 balt ~/.dotfiles/awesome/dot-config/awesome/rc.lua
 setlocal foldmethod=manual
 setlocal foldexpr=v:lua.vim.treesitter.foldexpr()
@@ -79,15 +139,12 @@ setlocal foldnestmax=20
 setlocal foldenable
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 32 - ((25 * winheight(0) + 25) / 51)
+let s:l = 101 - ((51 * winheight(0) + 25) / 51)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 32
-normal! 029|
-wincmd w
-exe 'vert 1resize ' . ((&columns * 117 + 118) / 236)
-exe 'vert 2resize ' . ((&columns * 118 + 118) / 236)
+keepjumps 101
+normal! 0
 tabnext
 edit ~/.dotfiles/awesome/dot-config/awesome/themes/neon/theme.lua
 argglobal
@@ -102,11 +159,11 @@ setlocal foldnestmax=20
 setlocal foldenable
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 15 - ((9 * winheight(0) + 25) / 51)
+let s:l = 19 - ((13 * winheight(0) + 25) / 51)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 15
+keepjumps 19
 normal! 0
 tabnext 1
 set stal=1

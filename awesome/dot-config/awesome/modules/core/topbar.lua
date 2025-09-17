@@ -1,30 +1,37 @@
-local gears = require("gears")
 local awful = require("awful")
 local wibox = require("wibox")
 
-local habit_tracker = require("modules.habit_tracker.habit_tracker")
+local productive_panel = require("modules.productivity_center.productivity_panel")
+
 local mykeyboardlayout = awful.widget.keyboardlayout()
+
 local mytextclock = wibox.widget.textclock()
 mytextclock.format = "%a %d %b, %H:%M "
+
 local month_calendar = awful.widget.calendar_popup.month()
 month_calendar:attach(mytextclock, "tr")
+
 local volume_widget = require("awesome-wm-widgets.pactl-widget.volume")({
 	widget_type = "icon",
 	with_icon = true,
 	tooltip = true,
 })
+
 local network_widget = require("modules.network.network-widget")
+
 local notify_widget = require("modules.notification-widget")
+
 local taglist = require("modules.core.taglist")
 
 local mysystray = wibox.widget.systray()
 mysystray.base_size = 13
+
 local centered_systray = wibox.container.margin(mysystray, 0, 0, 6, 6)
 centered_systray.spacing = 3
+
 local battery_widget = require("awesome-wm-widgets.battery-widget.battery")
+
 local audio_widget = require("modules.audio_toggle")
-local task = require("modules.todo.todo_panel")
-task.init(task.container)
 
 local function get_right_widgets(headphones, keyboard, tray, data, battery)
 	if Is_desktop then
@@ -32,9 +39,8 @@ local function get_right_widgets(headphones, keyboard, tray, data, battery)
 			layout = wibox.layout.fixed.horizontal,
 			spacing = 10,
 			tray,
-			task.get_bar_icon(),
+			productive_panel.get_bar_icon(),
 			notify_widget:get_bar_icon(),
-			habit_tracker.bar_icon,
 			network_widget,
 			headphones,
 			data,
@@ -44,11 +50,9 @@ local function get_right_widgets(headphones, keyboard, tray, data, battery)
 		layout = wibox.layout.fixed.horizontal,
 		spacing = 5,
 		tray,
-		task.get_bar_icon(),
+		productive_panel.get_bar_icon(),
 		require("modules.control_center.control_center"):get_bar_icon(),
 		notify_widget:get_bar_icon(),
-		headphones,
-		habit_tracker.bar_icon,
 		network_widget,
 		keyboard,
 		battery(),
