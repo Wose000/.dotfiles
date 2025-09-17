@@ -16,8 +16,11 @@ local function create_wibox()
 			layout = wibox.layout.fixed.vertical,
 		},
 		widget = wibox.container.margin,
-		margins = 10,
+		margins = 5,
 	})
+	panel:connect_signal("mouse::leave", function()
+		panel.visible = false
+	end)
 
 	panel.screen = screen[1]
 	panel.ontop = true

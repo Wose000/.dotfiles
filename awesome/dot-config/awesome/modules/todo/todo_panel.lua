@@ -13,12 +13,6 @@ local M = {}
 
 M.tasks = {}
 
-M.box = wibox()
-M.box.screen = screen[1]
-M.box.ontop = true
-M.box.width = 300
-M.box.height = select(2, root.size())
-
 M.task_list = wibox.layout.fixed.vertical()
 
 local function emit_function(widget)
@@ -121,7 +115,7 @@ end
 function M.get_todo_panel()
 	local add_task_block = wibox.layout.fixed.vertical()
 	local addbutton = wibox.widget({
-		{ widget = wibox.widget.textbox, markup = "Add Taks" },
+		{ widget = wibox.widget.textbox, markup = "Add Taks", halign = "center" },
 		widget = wibox.container.background,
 		bg = beautiful.bg_minimize,
 		forced_height = 20,
@@ -133,7 +127,6 @@ function M.get_todo_panel()
 
 	M.container = wibox.widget({
 		{ { layout = M.task_list }, { layout = add_task_block }, layout = wibox.layout.fixed.vertical },
-		forced_height = 1000,
 		bg = beautiful.bg_normal,
 		widget = wibox.container.background,
 	})

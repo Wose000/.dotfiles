@@ -76,7 +76,7 @@ function M.get_taglist_widget(s)
 			update_callback = function(self, c3, index, objects) --luacheck: no unused args
 				if c3.selected then
 					self:get_children_by_id("index_role")[1].markup = "<span color='"
-						.. beautiful.bg_urgent
+						.. beautiful.accent
 						.. "'>"
 						.. ""
 						.. "</span>"

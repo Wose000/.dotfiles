@@ -65,19 +65,33 @@ function Task:get_widget()
 	self.check_icon.halign = "right"
 	self.check_icon.font = beautiful.icon .. " 10"
 
-	local layout = wibox.layout.flex.horizontal()
-	layout:add(self.label)
-	layout:add(self.check_icon)
-	local right_click_menu = self:get_right_click_menu()
-	self.widget = wibox.widget({
-		{ widget = layout },
-		widget = wibox.container.margin,
-		right = 15,
-		left = 15,
+	local widget_foreground = wibox.widget({
+		self.label,
+		nil,
+		self.check_icon,
+		layout = wibox.layout.align.horizontal,
 	})
+
+	local widget_background = wibox.container.background()
+	widget_background.bg = beautiful.bg_normal
+
+	self.widget = wibox.widget({
+		{ widget = widget_foreground },
+		widget = widget_background,
+	})
+
+	local right_click_menu = self:get_right_click_menu()
 	self.widget:buttons(awful.button({}, 3, function()
 		right_click_menu:toggle()
 	end))
+
+	self.widget:connect_signal("mouse::enter", function()
+		widget_background.bg = beautiful.bg_hover
+	end)
+
+	self.widget:connect_signal("mouse::leave", function()
+		widget_background.bg = beautiful.bg_normal
+	end)
 
 	return self.widget
 end
