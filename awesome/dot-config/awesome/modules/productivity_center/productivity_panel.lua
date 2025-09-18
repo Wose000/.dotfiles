@@ -1,3 +1,4 @@
+local helpers = require("modules.utils.helpers")
 local wibox = require("wibox")
 local beautiful = require("beautiful")
 local awful = require("awful")
@@ -18,9 +19,6 @@ local function create_wibox()
 		widget = wibox.container.margin,
 		margins = 5,
 	})
-	panel:connect_signal("mouse::leave", function()
-		panel.visible = false
-	end)
 
 	panel.screen = screen[1]
 	panel.ontop = true
@@ -37,7 +35,7 @@ function M.get_bar_icon()
 	bar_icon.halign = "center"
 	bar_icon.valign = "center"
 	bar_icon.forced_width = 17
-	bar_icon.markup = "<span color='" .. beautiful.fg_normal .. "'></span>"
+	bar_icon.markup = helpers.colorize_text(beautiful.fg_normal, "")
 
 	bar_icon:buttons(awful.button({}, 1, function()
 		M.panel.visible = not M.panel.visible
