@@ -1,10 +1,5 @@
----------------------------
--- Default awesome theme --
----------------------------
-
 local theme_assets = require("beautiful.theme_assets")
 local xresources = require("beautiful.xresources")
-local rnotification = require("ruled.notification")
 local dpi = xresources.apply_dpi
 local themes_path = os.getenv("HOME") .. "/.config/awesome/themes/"
 local wall_folder = themes_path .. "neon/wallp/"
@@ -17,6 +12,8 @@ theme.widget_font = "JetBrainsMono Nerd Font"
 
 theme.accent = "#03b6b0"
 theme.inactive = "#444444"
+
+theme.bg01 = "#2f2f2f"
 
 theme.bg_normal = "#121212"
 theme.bg_hover = "#1f1f1f"

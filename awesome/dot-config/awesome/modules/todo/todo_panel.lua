@@ -45,10 +45,10 @@ local function create_task(title)
 	local new_task_widget = new_task:get_widget()
 	new_task_widget:add_button(awful.button({}, 1, function()
 		new_task:toggle()
-		update_remote_data()
 	end))
 	table.insert(M.tasks, new_task)
 	M.task_list:add(new_task_widget)
+	update_remote_data()
 end
 
 local function create_widgets()
