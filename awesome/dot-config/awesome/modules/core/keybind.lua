@@ -25,6 +25,12 @@ if Is_desktop then
 			client.connect_signal("manage", move_firefox)
 		end, { description = "launch excalidraw", group = "launcher" }),
 	})
+else
+	awful.keyboard.append_global_keybindings({
+		awful.key({ modkey, hyper }, "l", function()
+			awful.spawn.with_shell("i3lock -c 00000000")
+		end, { description = "lock screen", group = "screen" }),
+	})
 end
 
 awful.keyboard.append_global_keybindings({
