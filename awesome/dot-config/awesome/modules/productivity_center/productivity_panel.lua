@@ -12,7 +12,9 @@ local function create_wibox()
 	local panel = wibox()
 	panel:setup({
 		{
+			{ widget = wibox.widget.textbox, markup = "<b>Habit Tracker</b>", halign = "center" },
 			{ widget = habit_tracker.create_widget() },
+			{ widget = wibox.widget.textbox, markup = "<b>Todo Panel</b>", halign = "center" },
 			{ widget = todo.get_todo_panel() },
 			layout = wibox.layout.fixed.vertical,
 		},

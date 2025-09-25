@@ -212,10 +212,10 @@ client.connect_signal("request::default_keybindings", function()
 			c:swap(awful.client.getmaster())
 		end, { description = "move to master", group = "client" }),
 		awful.key({ modkey }, "o", function(c)
-			c:move_to_screen()
+			c:move_to_screen(c.screen.index + 1)
 		end, { description = "move to screen", group = "client" }),
 		awful.key({ modkey }, "i", function(c)
-			c:move_to_screen(-1)
+			c:move_to_screen(c.screen.index - 1)
 		end, { description = "move to screen", group = "client" }),
 		awful.key({ modkey }, "t", function(c)
 			c.ontop = not c.ontop

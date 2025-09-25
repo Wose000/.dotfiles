@@ -8,8 +8,14 @@ local module_path = gears.filesystem.get_configuration_dir() .. "modules/habit_t
 local module_data_path = module_path .. "data/"
 local data_path = module_data_path .. "habits.json"
 local Habit = require("modules.habit_tracker.habit")
-
+local remote = "onedrive"
+local path = ".data/habits.json"
+local init_signal = "habits::data_loaded"
+local rclone = require("modules.utils.rclone")
 local M = {}
+
+M.habits = {}
+M.habits_list = wibox.layout.fixed.vertical()
 
 ---@return table
 local function load_habits_data()
@@ -127,15 +133,15 @@ local habits_widgets = get_widgets()
 
 local add_habit_button = wibox.widget({
 	{
-		text = " New Habit",
 		widget = wibox.widget.textbox,
+		markup = "New Habit",
+		halign = "center",
 	},
 	widget = wibox.container.background,
-	bg = beautiful.bg_normal,
-	fg = beautiful.bg_focus,
+	bg = beautiful.bg_minimize,
 	shape = gears.shape.rectangle,
-	forced_height = 30,
-	forced_width = 100,
+	forced_height = 20,
+	forced_width = 200,
 })
 
 local function get_habits_widgets()
@@ -182,11 +188,11 @@ local function add_new_habit(title)
 end
 
 add_habit_button:connect_signal("mouse::enter", function()
-	add_habit_button.bg = beautiful.bg_minimize
+	add_habit_button.bg = beautiful.accent
 end)
 
 add_habit_button:connect_signal("mouse::leave", function()
-	add_habit_button.bg = beautiful.bg_normal
+	add_habit_button.bg = beautiful.bg_minimize
 end)
 
 add_habit_button:buttons(gears.table.join(awful.button({}, 1, function()
@@ -201,16 +207,6 @@ function M.create_widget()
 	return w
 end
 
-local popup = awful.popup({
-	screen = screen[1],
-	widget = M.create_widget(),
-	ontop = true,
-	visible = false,
-	placement = awful.placement.right,
-	shape = gears.shape.rounded_rect,
-	hide_on_right_click = false,
-})
-
 M.bar_icon = wibox.widget({
 	widget = wibox.widget.textbox,
 	text = "",
@@ -218,13 +214,4 @@ M.bar_icon = wibox.widget({
 	align = "center",
 	valign = "center",
 })
-
-M.bar_icon:buttons(awful.button({}, 1, function()
-	popup.widget = wibox.layout.fixed.vertical()
-	popup.widget:add(habit_tracker)
-	popup.widget:add(promptbox)
-	popup.widget:add(add_habit_button)
-	popup.visible = not popup.visible
-end))
-
 return M
