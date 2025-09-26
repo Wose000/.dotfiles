@@ -36,6 +36,18 @@ local function load_habits_data()
 	end
 end
 
+local function emit_function(widget)
+	return function(stdout)
+		widget:emit_signal_recursive(init_signal, stdout)
+	end
+end
+
+function M.init()
+	-- I could use stdout to populate the widget from the callback function.
+	-- Why do I emit a signal?
+	rclone.cat_with_callback(path, remote, emit_function(M.habits_list))
+end
+
 local function save_data(data)
 	local data_as_json = json.encode(data, { indent = true })
 	local file = io.open(data_path, "w")

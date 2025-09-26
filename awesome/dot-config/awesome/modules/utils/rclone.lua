@@ -44,10 +44,15 @@ function rclone.add_command_to_queue(command)
 	end
 end
 
-function rclone.cat_with_signal(path, remote, signal)
+---Use the cat command on rclone, calling the signal function on success with
+---stdout as argument
+---@param path string
+---@param remote string
+---@param callback function
+function rclone.cat_with_callback(path, remote, callback)
 	awful.spawn.easy_async_with_shell(rclone.read(path, remote), function(stdout, stderr, _, exit_code)
 		if exit_code == 0 then
-			signal(stdout)
+			callback(stdout)
 		else
 			naughty.notification({
 				title = "Error rclone cat",

@@ -68,7 +68,7 @@ function M.init(listener_widget)
 		create_tasks(decoded_data)
 		create_widgets()
 	end)
-	rclone.cat_with_signal(path, remote, emit_function(M.task_list))
+	rclone.cat_with_callback(path, remote, emit_function(M.task_list))
 end
 
 function M.get_bar_icon()
