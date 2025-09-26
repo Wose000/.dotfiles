@@ -1,18 +1,16 @@
-local json = require("dkjson")
 local awful = require("awful")
-local naughty = require("naughty")
 local helpers = require("modules.utils.helpers")
 
 local rclone = {}
 
 local commands_queue = {}
 
-function rclone.read(path, remote)
-	return "rclone cat " .. remote .. ":" .. path
-end
-
 function rclone.get_rcat_commad(path, remote, data)
 	return string.format("rclone rcat '%s:%s' << EOF\n%s\nEOF", remote, path, data)
+end
+
+function rclone.get_cat_command(path, remote)
+	return string.format("rclone cat %s:%s", remote, path)
 end
 
 local function run_command()
@@ -20,11 +18,13 @@ local function run_command()
 		helpers.debug_log("Called run command with an empty queue, returning")
 		return
 	end
-	local command = commands_queue[1]
-	awful.spawn.easy_async_with_shell(command, function(_, stderr, _, exit_code)
+	local command_table = commands_queue[1]
+	awful.spawn.easy_async_with_shell(command_table.cmd, function(stdout, stderr, _, exit_code)
 		if exit_code == 0 then
+			if command_table.callback then
+				command_table.callback(stdout)
+			end
 			table.remove(commands_queue, 1)
-			helpers.debug_log("success running command: " .. command)
 			if #commands_queue ~= 0 then
 				run_command()
 			end
@@ -34,55 +34,15 @@ local function run_command()
 	end)
 end
 
+---Add command to the queue of commands to be executed, if a callback is passedd in the table
+---the callback is executed when the cmd returns, stdou is passed to the callback
+---@param command table must be in the form command {cmd = string, callback = function|nil}
 function rclone.add_command_to_queue(command)
+	print(string.format("addedd command %s", command.cmd))
 	table.insert(commands_queue, command)
 	if #commands_queue == 1 then
-		helpers.debug_log("running first command")
 		run_command()
-	else
-		helpers.debug_log("put in queue")
 	end
-end
-
----Use the cat command on rclone, calling the signal function on success with
----stdout as argument
----@param path string
----@param remote string
----@param callback function
-function rclone.cat_with_callback(path, remote, callback)
-	awful.spawn.easy_async_with_shell(rclone.read(path, remote), function(stdout, stderr, _, exit_code)
-		if exit_code == 0 then
-			callback(stdout)
-		else
-			naughty.notification({
-				title = "Error rclone cat",
-				message = "tryed to call "
-					.. rclone.read(path, remote)
-					.. "\nexit_code: "
-					.. exit_code
-					.. "\nerr: "
-					.. stderr,
-			})
-		end
-	end)
-end
-
-function rclone.write_with_signal(path, remote, file, widget, signal)
-	awful.spawn.easy_async_with_shell(rclone.write(path, remote, file), function(stdout, stderr, _, exit_code)
-		if exit_code == 0 then
-			widget:emit_signal(signal, stdout)
-		else
-			naughty.notification({
-				title = "Error rclone cat",
-				message = "tryed to call "
-					.. rclone.write(path, remote, file)
-					.. "\nexit_code: "
-					.. exit_code
-					.. "\nerr: "
-					.. stderr,
-			})
-		end
-	end)
 end
 
 return rclone

@@ -101,7 +101,7 @@ function Habit:is_already_checked()
 end
 
 function Habit:delete_habit()
-	self.habit_widget:emit_signal_recursive("habit::delete", self.data.title)
+	self.widget:emit_signal_recursive("habit::delete", self.data.title)
 end
 
 function Habit:reset_habit()
@@ -111,7 +111,7 @@ function Habit:reset_habit()
 	self.data.successes = 0
 	self.data.current_streak = 0
 	self.data.last_check = ""
-	self.habit_widget:emit_signal_recursive("habit::update", self.data.title)
+	self.widget:emit_signal_recursive("habit::update", self.data.title)
 end
 
 function Habit:get_right_click_menu()
@@ -258,25 +258,25 @@ function Habit:get_widget()
 		layout = wibox.layout.fixed.vertical,
 	})
 
-	self.habit_widget = wibox.widget({
+	self.widget = wibox.widget({
 		{ widget = inner },
 		widget = wibox.container.background,
 		shape = gears.shape.rectangle,
 		bg = widget_background,
 	})
 
-	self.habit_widget:connect_signal("mouse::enter", function()
-		self.habit_widget.bg = widget_background_hover
+	self.widget:connect_signal("mouse::enter", function()
+		self.widget.bg = widget_background_hover
 	end)
-	self.habit_widget:connect_signal("mouse::leave", function()
-		self.habit_widget.bg = widget_background
+	self.widget:connect_signal("mouse::leave", function()
+		self.widget.bg = widget_background
 	end)
 
-	self.habit_widget:buttons(awful.util.table.join(awful.button({}, 3, function()
+	self.widget:buttons(awful.util.table.join(awful.button({}, 3, function()
 		self.right_click_menu:toggle()
 	end)))
 
-	return self.habit_widget
+	return self.widget
 end
 
 return Habit

@@ -34,7 +34,8 @@ local function update_remote_data()
 		table.insert(data, { title = task.data.title, is_completed = task.data.is_completed })
 	end
 	local encoded_data = helpers.encode_json(data)
-	rclone.add_command_to_queue(rclone.get_rcat_commad(path, remote, encoded_data))
+	local command_table = { cmd = rclone.get_rcat_commad(path, remote, encoded_data), callback = nil }
+	rclone.add_command_to_queue(command_table)
 end
 
 ---create a new task given the title
@@ -68,7 +69,11 @@ function M.init(listener_widget)
 		create_tasks(decoded_data)
 		create_widgets()
 	end)
-	rclone.cat_with_callback(path, remote, emit_function(M.task_list))
+	local command_table = {
+		cmd = rclone.get_cat_command(path, remote),
+		callback = emit_function(M.task_list),
+	}
+	rclone.add_command_to_queue(command_table)
 end
 
 function M.get_bar_icon()
