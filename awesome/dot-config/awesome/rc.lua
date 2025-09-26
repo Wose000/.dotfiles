@@ -124,14 +124,6 @@ awful.mouse.append_global_mousebindings({
 -- }}}
 require("modules.core.keybind")
 
---
-local function screen_sel(index)
-	if is_laptop then
-		return 1
-	end
-	return index
-end
-
 -- {{{ Rules
 -- Rules to apply to new clients.
 ruled.client.connect_signal("request::rules", function()
