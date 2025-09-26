@@ -12,6 +12,7 @@ local remote = "onedrive"
 local path = ".data/habits.json"
 local init_signal = "habits::data_loaded"
 local rclone = require("modules.utils.rclone")
+local helpers = require("modules.utils.helpers")
 local M = {}
 
 M.habits = {}
@@ -38,7 +39,7 @@ end
 
 local function emit_function(widget)
 	return function(stdout)
-		widget:emit_signal_recursive(init_signal, stdout)
+		helpers.debug_log(stdout)
 	end
 end
 
