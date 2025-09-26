@@ -37,7 +37,16 @@ local function load_habits_data()
 	end
 end
 
-local function save_data(data)
+local function get_data_table()
+	local res = {}
+	for _, habit in ipairs(M.habits) do
+		table.insert(res, habit.data)
+	end
+	return res
+end
+
+local function save_data()
+	local data = get_data_table()
 	local encoded_data = helpers.encode_json(data)
 	local command_table = { cmd = rclone.get_rcat_commad(path, remote, encoded_data), callback = nil }
 	rclone.add_command_to_queue(command_table)
@@ -51,18 +60,17 @@ local function init_callback(stdout)
 		local habit_widget = habit:get_widget()
 		M.habits_list:add(habit_widget)
 		M.habits_list:connect_signal("habit::update", function(_, title)
-			local new_habit_widget = habit:get_widget()
 			M.habits_list:replace_widget(habit.widget, habit:get_widget(), true)
-			save_data(habits_data)
+			save_data()
 		end)
-		local function on_delete_habit_callback(_, title)
-			table.remove(habits_data, get_habit_index_by_title(title))
-			save_data(habits_data)
-			layout:replace_widget(habits_widgets[title], wibox.widget({}), true)
-			habits[title] = nil
-			habits_widgets[title] = nil
-		end
-		layout:connect_signal("habit::delete", on_delete_habit_callback)
+		-- 		local function on_delete_habit_callback(_, title)
+		-- 			table.remove(M.habits, habit)
+		-- 			save_data(habits_data)
+		-- 			layout:replace_widget(habits_widgets[title], wibox.widget({}), true)
+		-- 			habits[title] = nil
+		-- 			habits_widgets[title] = nil
+		-- 		end
+		-- 		layout:connect_signal("habit::delete", on_delete_habit_callback)
 	end
 end
 
