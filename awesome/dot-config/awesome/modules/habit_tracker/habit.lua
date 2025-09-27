@@ -4,6 +4,8 @@ local beautiful = require("beautiful")
 local gears = require("gears")
 local awful = require("awful")
 
+---@class Habit
+---@field data table
 local Habit = {}
 
 local button_size = 20
