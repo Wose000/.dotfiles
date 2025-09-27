@@ -18,7 +18,7 @@ M.notifications = {}
 
 M.window = wibox()
 
-local notification_list = wibox.layout.fixed.vertical()
+local notification_list = require("modules.core.scrollable_container").scrollable_layout()
 
 local bg = wibox.container.background()
 bg.bg = beautiful.bg_normal

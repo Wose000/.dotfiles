@@ -3,6 +3,7 @@ local beautiful = require("beautiful")
 local awful = require("awful")
 local rclone = require("modules.utils.rclone")
 local helpers = require("modules.utils.helpers")
+local gears = require("gears")
 
 local remote = "onedrive"
 local path = ".data/tasks.json"
@@ -76,22 +77,9 @@ function M.init(listener_widget)
 	rclone.add_command_to_queue(command_table)
 end
 
-function M.get_bar_icon()
-	local bar_icon = wibox.widget.textbox()
-	bar_icon.font = "JetBrainMono Nerd Font Mono 12"
-	bar_icon.halign = "center"
-	bar_icon.valign = "center"
-	bar_icon.forced_width = 17
-	bar_icon.markup = "<span color='" .. beautiful.accent .. "'></span>"
-
-	bar_icon:buttons(awful.button({}, 1, function()
-		M.box.visible = not M.box.visible
-	end))
-	return bar_icon
-end
-
 local promptbox = wibox.widget.textbox()
-local function create_new_task()
+
+local function ask_task_title()
 	awful.prompt.run({
 		prompt = "Title: ",
 		textbox = promptbox,
@@ -117,18 +105,46 @@ local function delete_task(_, task)
 	update_remote_data()
 end
 
+local function get_new_task_button()
+	local button_bg = wibox.container.background()
+	button_bg.bg = beautiful.bg_hover
+	button_bg.shape = gears.shape.rounded_rect
+	button_bg.forced_height = 15
+
+	local new_task_button = wibox.widget({
+		{
+			{
+				widget = wibox.widget.textbox,
+				markup = "New Task",
+				halign = "center",
+			},
+			widget = button_bg,
+		},
+		widget = wibox.container.margin,
+		top = 10,
+		bottom = 20,
+		left = 5,
+		right = 5,
+	})
+
+	new_task_button:connect_signal("mouse::enter", function()
+		button_bg.bg = beautiful.bg_minimize
+	end)
+
+	new_task_button:connect_signal("mouse::leave", function()
+		button_bg.bg = beautiful.bg_hover
+	end)
+
+	new_task_button:buttons(gears.table.join(awful.button({}, 1, function()
+		ask_task_title()
+	end)))
+	return new_task_button
+end
+
 function M.get_todo_panel()
 	local add_task_block = wibox.layout.fixed.vertical()
-	local addbutton = wibox.widget({
-		{ widget = wibox.widget.textbox, markup = "Add Taks", halign = "center" },
-		widget = wibox.container.background,
-		bg = beautiful.bg_minimize,
-		forced_height = 20,
-		forced_width = 200,
-	})
-	addbutton:add_button(awful.button({}, 1, create_new_task))
 	add_task_block:add(promptbox)
-	add_task_block:add(addbutton)
+	add_task_block:add(get_new_task_button())
 
 	M.container = wibox.widget({
 		{ { layout = M.task_list }, { layout = add_task_block }, layout = wibox.layout.fixed.vertical },

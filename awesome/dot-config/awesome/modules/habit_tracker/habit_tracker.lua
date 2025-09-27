@@ -89,39 +89,55 @@ end
 
 local promptbox = wibox.widget.textbox()
 
-local function ask_for_habit_title(callback, update_callback)
+local function ask_for_habit_title(add_habit_function)
 	awful.prompt.run({
 		prompt = "Title: ",
 		textbox = promptbox,
 		exe_callback = function(input)
 			if input and input ~= "" then
-				callback(input, update_callback)
+				add_habit_function(input)
 			end
 		end,
 		history_path = awful.util.get_cache_dir() .. "/habit_add_history",
 	})
 end
 
-local new_habit_button = wibox.widget({
-	{
-		widget = wibox.widget.textbox,
-		markup = "New Habit",
-		halign = "center",
-	},
-	widget = wibox.container.background,
-	bg = beautiful.bg_minimize,
-	shape = gears.shape.rectangle,
-	forced_height = 20,
-	forced_width = 200,
-})
+local function get_new_habit_button(add_habit_function)
+	local button_bg = wibox.container.background()
+	button_bg.bg = beautiful.bg_hover
+	button_bg.shape = gears.shape.rounded_rect
+	button_bg.forced_height = 15
 
-new_habit_button:connect_signal("mouse::enter", function()
-	new_habit_button.bg = beautiful.inactive
-end)
+	local new_habit_button = wibox.widget({
+		{
+			{
+				widget = wibox.widget.textbox,
+				markup = "New Habit",
+				halign = "center",
+			},
+			widget = button_bg,
+		},
+		widget = wibox.container.margin,
+		top = 10,
+		bottom = 20,
+		left = 5,
+		right = 5,
+	})
 
-new_habit_button:connect_signal("mouse::leave", function()
-	new_habit_button.bg = beautiful.bg_minimize
-end)
+	new_habit_button:connect_signal("mouse::enter", function()
+		button_bg.bg = beautiful.bg_minimize
+	end)
+
+	new_habit_button:connect_signal("mouse::leave", function()
+		button_bg.bg = beautiful.bg_hover
+	end)
+
+	new_habit_button:buttons(gears.table.join(awful.button({}, 1, function()
+		ask_for_habit_title(add_habit_function)
+	end)))
+
+	return new_habit_button
+end
 
 local function add_new_habit(title)
 	local habit = {
@@ -139,15 +155,11 @@ local function add_new_habit(title)
 	save_data()
 end
 
-new_habit_button:buttons(gears.table.join(awful.button({}, 1, function()
-	ask_for_habit_title(add_new_habit)
-end)))
-
 function M.create_widget()
 	local w = wibox.layout.fixed.vertical()
 	w:add(M.habits_list)
 	w:add(promptbox)
-	w:add(new_habit_button)
+	w:add(get_new_habit_button(add_new_habit))
 	M.init()
 	return w
 end
