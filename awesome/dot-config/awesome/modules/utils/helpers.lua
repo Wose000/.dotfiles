@@ -41,7 +41,7 @@ function M.encode_json(data)
 end
 
 function M.debug_log(msg)
-	naughty.notification({ title = "DEBUG", message = msg })
+	naughty.notification({ title = "DEBUG", message = msg, urgency = "normal" })
 end
 
 return M

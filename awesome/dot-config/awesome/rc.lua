@@ -261,4 +261,5 @@ end)
 -- }}}
 --
 --
-require("modules.core.scrollable_container")
+--
+require("modules.core.notification_rule")

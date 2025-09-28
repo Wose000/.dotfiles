@@ -56,11 +56,11 @@ theme.titlebar_bg_focus = theme.bg_normal
 -- notification_[bg|fg]
 -- notification_[width|height|margin]
 -- notification_[border_color|border_width|shape|opacity]
-theme.notification_border_width = 1
-theme.notification_border_color = theme.accent
-theme.notification_font = "JetBrainsMono Nerd Font Mono 9"
-theme.notification_max_width = 400
-theme.notification_icon_size = 60
+-- theme.notification_border_width = 1
+-- theme.notification_border_color = theme.accent
+-- theme.notification_font = "JetBrainsMono Nerd Font Mono 9"
+-- theme.notification_max_width = 400
+-- theme.notification_icon_size = 60
 
 -- Variables set for theming the menu:
 -- menu_[bg|fg]_[normal|focus]

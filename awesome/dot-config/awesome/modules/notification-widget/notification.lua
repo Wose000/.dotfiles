@@ -57,8 +57,9 @@ function Notification:get_widget()
 					{ widget = wibox.widget.textbox, text = self.msg },
 					{
 						{ widget = dismiss_button },
+						nil,
 						{ widget = time_text },
-						layout = wibox.layout.flex.horizontal,
+						layout = wibox.layout.align.horizontal,
 					},
 					layout = wibox.layout.fixed.vertical,
 				},
