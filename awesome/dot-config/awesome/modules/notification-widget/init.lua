@@ -6,6 +6,9 @@ local Notification = require("modules.notification-widget.notification")
 
 local M = {}
 
+M.window = wibox()
+M.notifications = {}
+
 -- Setup icon
 local bar_icon = wibox.widget.textbox()
 bar_icon.font = "JetBrainMono Nerd Font Mono 12"
@@ -14,20 +17,23 @@ bar_icon.valign = "center"
 bar_icon.forced_width = 17
 bar_icon.markup = "<span color='" .. beautiful.inactive .. "'>󰍥</span>"
 
-M.notifications = {}
-
-M.window = wibox()
+bar_icon:buttons(awful.button({}, 1, function()
+	M.window.visible = not M.window.visible
+end))
 
 local notification_list = require("modules.core.scrollable_container").scrollable_layout()
 
 local bg = wibox.container.background()
-bg.bg = beautiful.bg_normal
+bg.bg = beautiful.bg_minimize
 
 local title = wibox.widget({
 	{ widget = wibox.widget.textbox, markup = "<b>" .. "Notification Center" .. "</b>" },
-	widget = wibox.container.background,
-	bg = beautiful.bg_normal,
+	widget = bg,
 })
+
+title:add_button(awful.button({}, 1, function()
+	M.window.visible = false
+end))
 
 M.window:setup({
 	{ widget = title },
@@ -38,26 +44,23 @@ M.window:setup({
 	right = 10,
 	layout = wibox.layout.fixed.vertical,
 })
+
 local _, h = root.size()
 M.window.screen = screen[1]
 M.window.ontop = true
 M.window.width = 300
 M.window.height = h
 
-function M:display_widget()
-	M.window.visible = not M.window.visible
-end
-
-bar_icon:buttons(awful.button({}, 1, function()
-	M.window.visible = not M.window.visible
-end))
-
 naughty.connect_signal("request::display", function(notification)
+	notification.title = "<b>" .. notification.title .. "</b>"
+
 	local n = Notification.new(notification)
 	local w = n:get_widget()
 	table.insert(M.notifications, n)
 	notification_list:add(w)
+
 	bar_icon.markup = "<span color='" .. beautiful.accent .. "'>󰍥</span>"
+
 	n:set_dismiss_callback(function()
 		table.remove(M.notifications, n:get_index(M.notifications))
 		notification_list:remove_widgets(w)
