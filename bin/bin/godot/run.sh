@@ -2,7 +2,7 @@
 
 # config in editor:
 # exec path: /bin/zsh
-# exec flags: -c "source ~/.zshrc && ~/scripts/nvim-godot-remote.sh {project} ~/.cache/nvim/godot-$(basename {project}).socket {file} {line} {col}"
+# exec flags: -c "source ~/.zshrc && ~/bin/run.sh {project} ~/.cache/nvim/godot-$(basename {project}).socket {file} {line} {col}"
 
 TERM_EXEC="wezterm start --"
 
