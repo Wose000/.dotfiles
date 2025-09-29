@@ -2,8 +2,11 @@ local wibox = require("wibox")
 local beautiful = require("beautiful")
 local awful = require("awful")
 local naughty = require("naughty")
+local helpers = require("modules.utils.helpers")
 
 local M = {}
+
+local icon = ""
 
 M.control_center = wibox()
 
@@ -47,22 +50,37 @@ end)
 brightness_control.init()
 volume_control.init()
 
-local bar_icon = wibox.widget.textbox()
-bar_icon.font = "JetBrainMono Nerd Font Mono 12"
-bar_icon.halign = "center"
-bar_icon.valign = "center"
-bar_icon.forced_width = 17
-bar_icon.markup = "<span color='" .. beautiful.inactive .. "'></span>"
-
-function M:display_widget()
-	M.control_center.visible = not M.control_center.visible
-end
-
-bar_icon:buttons(awful.button({}, 1, function()
-	M.control_center.visible = not M.control_center.visible
-end))
-
 function M:get_bar_icon()
+	local bar_icon = wibox.widget.textbox()
+	bar_icon.font = beautiful.icon .. " 12"
+	bar_icon.halign = "center"
+	bar_icon.valign = "center"
+	bar_icon.forced_width = 17
+	bar_icon.markup = helpers.colorize_text(icon, beautiful.fg_normal)
+
+	bar_icon:connect_signal("mouse::enter", function()
+		bar_icon.font = beautiful.icon .. " 13"
+		bar_icon.markup = "<b>" .. helpers.colorize_text(icon, beautiful.fg_focus) .. "</b>"
+	end)
+
+	bar_icon:connect_signal("mouse::leave", function()
+		if M.control_center.visible then
+			return
+		end
+		bar_icon.font = beautiful.icon .. " 12"
+		bar_icon.markup = helpers.colorize_text(icon, beautiful.fg_normal)
+	end)
+
+	bar_icon:buttons(awful.button({}, 1, function()
+		M.control_center.visible = not M.control_center.visible
+		if M.control_center.visible then
+			bar_icon.font = beautiful.icon .. " 13"
+			bar_icon.markup = "<b>" .. helpers.colorize_text(icon, beautiful.fg_focus) .. "</b>"
+		else
+			bar_icon.font = beautiful.icon .. " 12"
+			bar_icon.markup = helpers.colorize_text(icon, beautiful.fg_normal)
+		end
+	end))
 	return bar_icon
 end
 

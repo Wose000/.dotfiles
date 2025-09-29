@@ -5,6 +5,7 @@ local awful = require("awful")
 
 local todo = require("modules.todo.todo_panel")
 local habit_tracker = require("modules.habit_tracker.habit_tracker")
+local icon = ""
 
 local M = {}
 
@@ -42,11 +43,21 @@ M.panel = create_wibox()
 
 function M.get_bar_icon()
 	local bar_icon = wibox.widget.textbox()
-	bar_icon.font = "JetBrainMono Nerd Font Mono 12"
+	bar_icon.font = beautiful.icon .. " 12"
 	bar_icon.halign = "center"
 	bar_icon.valign = "center"
 	bar_icon.forced_width = 17
-	bar_icon.markup = helpers.colorize_text("", beautiful.fg_normal)
+	bar_icon.markup = helpers.colorize_text(icon, beautiful.fg_normal)
+
+	bar_icon:connect_signal("mouse::enter", function()
+		bar_icon.font = beautiful.icon .. " 13"
+		bar_icon.markup = "<b>" .. helpers.colorize_text(icon, beautiful.fg_focus) .. "</b>"
+	end)
+
+	bar_icon:connect_signal("mouse::leave", function()
+		bar_icon.font = beautiful.icon .. " 12"
+		bar_icon.markup = helpers.colorize_text(icon, beautiful.fg_normal)
+	end)
 
 	bar_icon:buttons(awful.button({}, 1, function()
 		M.panel.visible = not M.panel.visible
