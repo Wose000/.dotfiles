@@ -13,7 +13,7 @@ if &shortmess =~ 'A'
 else
   set shortmess=aoO
 endif
-badd +119 ~/.dotfiles/awesome/dot-config/awesome/modules/habit_tracker/habit_tracker.lua
+badd +107 ~/.dotfiles/awesome/dot-config/awesome/modules/habit_tracker/habit_tracker.lua
 badd +8 ~/.dotfiles/awesome/dot-config/awesome/modules/habit_tracker/ui.lua
 badd +12 ~/.dotfiles/awesome/dot-config/awesome/modules/habit_tracker/data/habits.json
 badd +1 ~/.dotfiles/awesome/dot-config/awesome/themes/neon/theme.lua
@@ -25,6 +25,7 @@ badd +22 ~/.dotfiles/awesome/dot-config/awesome/modules/productivity_center/prod
 badd +1 ~/.dotfiles/awesome/dot-config/awesome/modules/core/topbar.lua
 badd +89 ~/.dotfiles/awesome/dot-config/awesome/modules/todo/task.lua
 badd +58 ~/.dotfiles/awesome/dot-config/awesome/modules/core/taglist.lua
+badd +54 ~/.config/nvim/lua/config/plugins/mini-base16.lua
 argglobal
 %argdel
 set stal=2
@@ -52,11 +53,11 @@ set winminheight=0
 set winheight=1
 set winminwidth=0
 set winwidth=1
-exe '1resize ' . ((&lines * 22 + 24) / 48)
-exe 'vert 1resize ' . ((&columns * 52 + 52) / 104)
-exe '2resize ' . ((&lines * 22 + 24) / 48)
-exe 'vert 2resize ' . ((&columns * 52 + 52) / 104)
-exe 'vert 3resize ' . ((&columns * 51 + 52) / 104)
+exe '1resize ' . ((&lines * 26 + 27) / 55)
+exe 'vert 1resize ' . ((&columns * 120 + 119) / 238)
+exe '2resize ' . ((&lines * 25 + 27) / 55)
+exe 'vert 2resize ' . ((&columns * 120 + 119) / 238)
+exe 'vert 3resize ' . ((&columns * 117 + 119) / 238)
 argglobal
 balt ~/.dotfiles/awesome/dot-config/awesome/modules/todo/todo_panel.lua
 setlocal foldmethod=manual
@@ -69,7 +70,7 @@ setlocal foldnestmax=20
 setlocal foldenable
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 1 - ((0 * winheight(0) + 11) / 22)
+let s:l = 1 - ((0 * winheight(0) + 13) / 26)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
@@ -92,7 +93,7 @@ setlocal foldnestmax=20
 setlocal foldenable
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 13 - ((9 * winheight(0) + 11) / 22)
+let s:l = 13 - ((10 * winheight(0) + 12) / 25)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
@@ -115,18 +116,18 @@ setlocal foldnestmax=20
 setlocal foldenable
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 97 - ((41 * winheight(0) + 22) / 45)
+let s:l = 97 - ((47 * winheight(0) + 26) / 52)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
 keepjumps 97
 normal! 03|
 wincmd w
-exe '1resize ' . ((&lines * 22 + 24) / 48)
-exe 'vert 1resize ' . ((&columns * 52 + 52) / 104)
-exe '2resize ' . ((&lines * 22 + 24) / 48)
-exe 'vert 2resize ' . ((&columns * 52 + 52) / 104)
-exe 'vert 3resize ' . ((&columns * 51 + 52) / 104)
+exe '1resize ' . ((&lines * 26 + 27) / 55)
+exe 'vert 1resize ' . ((&columns * 120 + 119) / 238)
+exe '2resize ' . ((&lines * 25 + 27) / 55)
+exe 'vert 2resize ' . ((&columns * 120 + 119) / 238)
+exe 'vert 3resize ' . ((&columns * 117 + 119) / 238)
 tabnext
 edit ~/.dotfiles/awesome/dot-config/awesome/modules/core/topbar.lua
 argglobal
@@ -141,16 +142,16 @@ setlocal foldnestmax=20
 setlocal foldenable
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 95 - ((44 * winheight(0) + 22) / 45)
+let s:l = 95 - ((51 * winheight(0) + 26) / 52)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
 keepjumps 95
 normal! 0
 tabnext
-edit ~/.dotfiles/awesome/dot-config/awesome/modules/habit_tracker/habit_tracker.lua
+edit ~/.config/nvim/lua/config/plugins/mini-base16.lua
 argglobal
-balt ~/.dotfiles/awesome/dot-config/awesome/modules/core/taglist.lua
+balt ~/.dotfiles/awesome/dot-config/awesome/modules/habit_tracker/habit_tracker.lua
 setlocal foldmethod=manual
 setlocal foldexpr=v:lua.vim.treesitter.foldexpr()
 setlocal foldmarker={{{,}}}
@@ -161,12 +162,12 @@ setlocal foldnestmax=20
 setlocal foldenable
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 118 - ((29 * winheight(0) + 22) / 45)
+let s:l = 32 - ((31 * winheight(0) + 26) / 52)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 118
-normal! 058|
+keepjumps 32
+normal! 012|
 tabnext 3
 set stal=1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'

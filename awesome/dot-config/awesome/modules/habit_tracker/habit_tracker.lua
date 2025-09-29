@@ -68,6 +68,7 @@ local function init_callback(stdout)
 		--- NOTE: this process can be sped up, the widget is being reconstructed every time
 		--- an update of the interested sub components would be faster.
 		M.habits_list:replace_widget(h.widget, h:get_widget(), true)
+		save_data()
 	end)
 
 	M.habits_list:connect_signal("habit::delete", function(_, title)
@@ -75,6 +76,7 @@ local function init_callback(stdout)
 		local index = get_index(h)
 		M.habits_list:remove_widgets(h.widget)
 		table.remove(M.habits, index)
+		save_data()
 	end)
 end
 
