@@ -6,11 +6,11 @@
 
 TERM_EXEC="wezterm start --"
 
-notify-send "PORCO DIO"
 if [ $# -ne 5 ]; then
     echo "USAGE: $0 <project dir> <socket> <file> <line> <column>"
     exit 1
 fi
+notify-send "PORCO DIO"
 PROJECT_DIR="$1"
 SOCKET="$2"
 FILE="$3"
