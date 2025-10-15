@@ -25,11 +25,11 @@ config.colors = {
 		"#25283d", -- black
 		"#f265b5", -- magenta
 		"#b1a8f9", -- red
-		"#a874ce", -- red
-		"#7481d1", -- blue
+		"#a277d1", -- red
+		"#8390e2", -- blue
 		"#36b0c1", -- cyan
 		"#459Ade", -- cyan
-		"#27d877", -- green
+		"#00eba5", -- green
 	},
 	brights = {
 		"#8c9297", -- black
