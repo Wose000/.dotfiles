@@ -1,0 +1,16 @@
+set from = "massimo.balducci@outlook.it"
+set realname = "Wose"
+set imap_authenticators = "Login"
+set imap_user = "massimo.balducci@outlook.it"
+set imap_pass = "`pass show outlook/massimo.balducci@outlook.it`"
+
+set folder = "imaps://outlook.office365.com:993"
+set spoolfile = "+INBOX"
+set record = "+Sent"
+set postponed = "+Drafts"
+
+# SMTP Configuration (Outgoing Mail)
+set smtp_authenticators = "Login" # Or "login"
+set smtp_url = "smtp://smtp-mail.outlook.com:587"
+set smtp_user = "massimo.balducci@outlook.it"
+set smtp_pass = "`pass show outlook/massimo.balducci@outlook.it`"

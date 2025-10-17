@@ -1,0 +1,51 @@
+# Gmail
+IMAPAccount gmail
+Host imap.gmail.com
+Port 993
+User jiro.due@gmail.com
+PassCmd "pass show mutt/jiro.due@gmail.com"
+TLSType IMAPS
+AuthMechs LOGIN
+CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+IMAPStore gmail-remote
+Account gmail
+
+MaildirStore gmail-local
+Path ~/.local/share/mail/gmail/
+Inbox ~/.local/share/mail/gmail/INBOX
+SubFolders Verbatim
+
+Channel gmail
+Far :gmail-remote:
+Near :gmail-local:
+Patterns "INBOX" "[Gmail]/Sent Mail" "[Gmail]/Drafts"
+Create Both
+Expunge Both
+SyncState *
+ 
+# Outlook
+IMAPAccount outlook
+Host outlook.office365.com
+Port 993
+AuthMechs LOGIN
+TLSType IMAPS
+User massimo.balducci@outlook.it
+PassCmd "pass show mutt/massimo.balducci@outlook.it"
+CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+IMAPStore outlook-remote
+Account outlook
+
+MaildirStore outlook-local
+Path ~/.local/share/mail/outlook/
+Inbox ~/.local/share/mail/outlook/INBOX
+
+Channel outlook
+Far :outlook-remote:
+Near :outlook-local:
+Patterns "INBOX" "Sent" "Drafts"
+Create Both
+Expunge Both
+SyncState *
+

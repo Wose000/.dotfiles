@@ -1,0 +1,48 @@
+# Gmail
+IMAPAccount gmail
+Host imap.gmail.com
+User jiro.due@gmail.com
+PassCmd "gpg --quiet --for-your-eyes-only --no-tty -d ~/.local/share/mail/gmail-pass.gpg"
+SSLType IMAPS
+AuthMechs LOGIN
+CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+IMAPStore gmail-remote
+Account gmail
+
+MaildirStore gmail-local
+Path ~/.local/share/mail/gmail/
+Inbox ~/.local/share/mail/gmail/INBOX
+
+Channel gmail
+Master :gmail-remote:
+Slave :gmail-local:
+Patterns "INBOX" "[Gmail]/Sent Mail" "[Gmail]/Drafts"
+Create Both
+Expunge Both
+SyncState *
+ 
+# Outlook
+IMAPAccount outlook
+Host outlook.office365.com
+User massimo.balducci@outlook.it
+PassCmd "gpg --quiet --for-your-eyes-only --no-tty -d ~/.local/share/mail/outlook-pass.gpg"
+SSLType IMAPS
+AuthMechs LOGIN
+CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+IMAPStore outlook-remote
+Account outlook
+
+MaildirStore outlook-local
+Path ~/.local/share/mail/outlook/
+Inbox ~/.local/share/mail/outlook/INBOX
+
+Channel outlook
+Master :outlook-remote:
+Slave :outlook-local:
+Patterns "INBOX" "Sent" "Drafts"
+Create Both
+Expunge Both
+SyncState *
+
