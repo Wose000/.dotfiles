@@ -55,6 +55,7 @@ do
 	end)
 end
 -- }}}
+--
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
@@ -263,3 +264,5 @@ end)
 --
 --
 require("modules.core.notification_rule")
+
+require("modules.signal.network")
