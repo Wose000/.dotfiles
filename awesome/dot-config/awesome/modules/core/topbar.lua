@@ -40,10 +40,11 @@ local function get_right_widgets(headphones, keyboard, tray, data, battery)
 			spacing = 10,
 			tray,
 			productive_panel.get_bar_icon(),
-			notify_widget:get_bar_icon(),
-			network_widget,
+			volume_widget,
 			headphones,
+			network_widget,
 			data,
+			notify_widget:get_bar_icon(),
 		}
 	end
 	return {
@@ -52,11 +53,12 @@ local function get_right_widgets(headphones, keyboard, tray, data, battery)
 		tray,
 		productive_panel.get_bar_icon(),
 		require("modules.control_center.control_center"):get_bar_icon(),
-		notify_widget:get_bar_icon(),
-		network_widget,
+		volume_widget,
 		keyboard,
 		battery(),
+		network_widget,
 		data,
+		notify_widget:get_bar_icon(),
 	}
 end
 
@@ -79,7 +81,7 @@ awful.screen.connect_for_each_screen(function(s)
 				s.mytaglist,
 				s.mypromptbox,
 			},
-			{ layout = wibox.layout.fixed.horizontal, volume_widget },
+			nil,
 			get_right_widgets(audio_widget, mykeyboardlayout, centered_systray, mytextclock, battery_widget),
 		})
 	else

@@ -23,6 +23,8 @@ BLOKED_SITES=(
 "it.youporn.com"
 "youporn.com"
 "deadshot.io"
+"www.reddit.com"
+"reddit.com"
 )
 
 # check for root permission
