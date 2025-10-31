@@ -5,6 +5,12 @@ local beautiful = require("beautiful")
 
 local M = {}
 
+local icon = {
+	empty = "",
+	occupied = "",
+	focused = "",
+}
+
 M.taglist_buttons = gears.table.join(
 	awful.button({}, 1, function(t)
 		t:view_only()
@@ -40,7 +46,7 @@ function M.get_taglist_widget(s)
 				{
 					{
 						id = "index_role",
-						font = "JetBrainMono Nerd Font Mono 14",
+						font = "JetBrainMono Nerd Font Mono 12",
 						widget = wibox.widget.textbox,
 						forced_width = 20,
 					},
@@ -52,13 +58,13 @@ function M.get_taglist_widget(s)
 			id = "background_role",
 			widget = wibox.container.background,
 			-- Add support for hover colors and an index label
-			create_callback = function(self, c3, index, objects) --luacheck: no unused args
+			create_callback = function(self, c3, _, _) --luacheck: no unused args
 				if c3.selected then
-					self:get_children_by_id("index_role")[1].markup = ""
+					self:get_children_by_id("index_role")[1].markup = icon.focused
 				elseif #c3:clients() == 0 then
-					self:get_children_by_id("index_role")[1].markup = ""
+					self:get_children_by_id("index_role")[1].markup = icon.empty
 				else
-					self:get_children_by_id("index_role")[1].markup = ""
+					self:get_children_by_id("index_role")[1].markup = icon.occupied
 				end
 				self:connect_signal("mouse::enter", function()
 					if self.bg ~= beautiful.bg_normal then
@@ -73,17 +79,17 @@ function M.get_taglist_widget(s)
 					end
 				end)
 			end,
-			update_callback = function(self, c3, index, objects) --luacheck: no unused args
+			update_callback = function(self, c3, _, _) --luacheck: no unused args
 				if c3.selected then
 					self:get_children_by_id("index_role")[1].markup = "<span color='"
 						.. beautiful.accent
 						.. "'>"
-						.. ""
+						.. icon.focused
 						.. "</span>"
 				elseif #c3:clients() == 0 then
-					self:get_children_by_id("index_role")[1].markup = ""
+					self:get_children_by_id("index_role")[1].markup = icon.empty
 				else
-					self:get_children_by_id("index_role")[1].markup = ""
+					self:get_children_by_id("index_role")[1].markup = icon.occupied
 				end
 			end,
 		},
