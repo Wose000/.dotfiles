@@ -6,7 +6,7 @@ local audio_script = "~/bin/scripts/headphones.sh"
 
 local audio_widget = wibox.widget.textbox()
 audio_widget.font = "JetBrainsMono Nerd Font Mono 14"
-audio_widget.align = "center"
+audio_widget.valign = "center"
 
 local function update_audio_icon()
 	awful.spawn.easy_async_with_shell(audio_script, function(stdout)

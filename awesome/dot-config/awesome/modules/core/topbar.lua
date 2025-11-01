@@ -6,7 +6,7 @@ local productive_panel = require("modules.productivity_center.productivity_panel
 local mykeyboardlayout = awful.widget.keyboardlayout()
 
 local mytextclock = wibox.widget.textclock()
-mytextclock.format = "%a %d %b, %H:%M "
+mytextclock.format = "%a %d %b, %H:%M"
 
 local month_calendar = awful.widget.calendar_popup.month()
 month_calendar:attach(mytextclock, "tr")
