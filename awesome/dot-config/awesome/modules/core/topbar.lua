@@ -49,7 +49,7 @@ local function get_right_widgets(headphones, keyboard, tray, data, battery)
 	end
 	return {
 		layout = wibox.layout.fixed.horizontal,
-		spacing = 5,
+		spacing = 10,
 		tray,
 		productive_panel.get_bar_icon(),
 		require("modules.control_center.control_center"):get_bar_icon(),

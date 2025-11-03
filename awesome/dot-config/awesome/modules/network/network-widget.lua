@@ -1,7 +1,6 @@
 local awful = require("awful")
 local wibox = require("wibox")
 local beautiful = require("beautiful")
-local gears = require("gears")
 local naughty = require("naughty")
 local helpers = require("modules.utils.helpers")
 
@@ -12,7 +11,7 @@ local icons = {
 
 local internet_connection_widget = wibox.widget({
 	widget = wibox.widget.textbox,
-	markup = "",
+	markup = icons.active,
 	haling = "center",
 	valign = "middle",
 	font = beautiful.icon .. " 12",
