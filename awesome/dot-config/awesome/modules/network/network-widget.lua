@@ -15,7 +15,6 @@ local internet_connection_widget = wibox.widget({
 	haling = "center",
 	valign = "middle",
 	font = beautiful.icon .. " 12",
-	forced_width = 13,
 })
 
 awesome.connect_signal("internet::connected", function()
@@ -38,7 +37,7 @@ local nw_tooltip = awful.tooltip({
 
 local function nw_status()
 	awful.spawn.easy_async(network_status_script, function(stdout, stderr, reason, exit_code)
-		nw_tooltip.text = "Newtwork info: \n" .. stdout
+		nw_tooltip.text = "Newtwork info \n" .. stdout
 	end)
 end
 
