@@ -23,8 +23,8 @@ awesome.connect_signal("internet::connected", function()
 end)
 
 awesome.connect_signal("internet::disconnected", function()
-	internet_connection_widget.markup = helpers.colorize_text(icons.active, beautiful.accent)
 	naughty.notification({ title = "Connection status", message = "Internet connection lost" })
+	internet_connection_widget.markup = helpers.colorize_text(icons.active, beautiful.accent)
 end)
 
 -- TOOLTIP
@@ -35,14 +35,37 @@ local nw_tooltip = awful.tooltip({
 	bg = beautiful.bg_normal,
 })
 
-local function nw_status()
+nw_tooltip:add_to_object(internet_connection_widget)
+
+internet_connection_widget:connect_signal("mouse::enter", function()
 	awful.spawn.easy_async(network_status_script, function(stdout, stderr, reason, exit_code)
 		nw_tooltip.text = "Newtwork info \n" .. stdout
 	end)
+end)
+local function test_menu()
+	helpers.debug_log("Click callback works")
 end
 
-internet_connection_widget:connect_signal("mouse::enter", nw_status)
+local option_menu = awful.menu({
+	items = {
+		{ "Turn off card", test_menu },
+		{
+			"second button",
+			function()
+				helpers.debug_log("In line function on second button")
+			end,
+		},
+	},
+	theme = {
+		height = 15,
+		width = 150,
+		bg_focus = beautiful.bg_hover,
+		fg_focus = beautiful.accent,
+	},
+})
 
-nw_tooltip:add_to_object(internet_connection_widget)
+internet_connection_widget:buttons(awful.button({}, 1, function()
+	option_menu:toggle()
+end))
 
 return internet_connection_widget
