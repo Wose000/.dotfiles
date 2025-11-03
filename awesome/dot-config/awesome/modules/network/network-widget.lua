@@ -3,25 +3,29 @@ local wibox = require("wibox")
 local beautiful = require("beautiful")
 local gears = require("gears")
 local naughty = require("naughty")
+local helpers = require("modules.utils.helpers")
 
 local network_status_script = "/home/wose/.dotfiles/awesome/dot-config/awesome/modules/network/get_network_status.sh"
+local icons = {
+	active = "󰞉",
+}
 
 local internet_connection_widget = wibox.widget({
 	widget = wibox.widget.textbox,
 	markup = "",
-	aling = "center",
+	haling = "center",
 	valign = "middle",
-	font = "JetBrainMono Nerd Font Mono 12",
+	font = beautiful.icon .. " 12",
 	forced_width = 13,
 })
 
 awesome.connect_signal("internet::connected", function()
 	naughty.notification({ title = "Connection status", message = "Successfully connected to the interne." })
-	internet_connection_widget.markup = "<span color='" .. beautiful.accent .. "'>󰞉</span>"
+	internet_connection_widget.markup = helpers.colorize_text(icons.active, beautiful.accent)
 end)
 
 awesome.connect_signal("internet::disconnected", function()
-	internet_connection_widget.markup = "<span color='" .. beautiful.inactive .. "'>󱞐</span>"
+	internet_connection_widget.markup = helpers.colorize_text(icons.active, beautiful.accent)
 	naughty.notification({ title = "Connection status", message = "Internet connection lost" })
 end)
 
