@@ -71,6 +71,12 @@ function M:get_bar_icon()
 		bar_icon.markup = helpers.colorize_text(icon, beautiful.fg_normal)
 	end)
 
+	title:buttons(awful.button({}, 1, function()
+		M.control_center.visible = false
+		bar_icon.font = beautiful.icon .. " 12"
+		bar_icon.markup = helpers.colorize_text(icon, beautiful.fg_normal)
+	end))
+
 	bar_icon:buttons(awful.button({}, 1, function()
 		M.control_center.visible = not M.control_center.visible
 		if M.control_center.visible then
