@@ -48,6 +48,12 @@ function volume_control.get_widget(vol)
 		widget = wibox.widget.slider,
 	})
 
+	local slider_icon = wibox.widget({
+		{ widget = wibox.widget.textbox, markup = " ", font = beautiful.icon .. " 13", valign = "center" },
+		{ widget = slider },
+		layout = wibox.layout.fixed.horizontal,
+	})
+
 	local label = wibox.widget.textbox("Volume")
 
 	slider:connect_signal("property::value", function(_, new_value)
@@ -57,7 +63,7 @@ function volume_control.get_widget(vol)
 
 	return wibox.widget({
 		{ { widget = label }, {
-			widget = slider,
+			widget = slider_icon,
 		}, layout = wibox.layout.fixed.vertical },
 		widget = wibox.container.background,
 		forced_height = 40,

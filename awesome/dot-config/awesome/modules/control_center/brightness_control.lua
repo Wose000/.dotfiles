@@ -43,6 +43,11 @@ function brightness_control.get_widget()
 		minimum = 0,
 		widget = wibox.widget.slider,
 	})
+	local slider_icon = wibox.widget({
+		{ widget = wibox.widget.textbox, font = beautiful.icon .. " 13", markup = "󰃠" },
+		{ widget = slider },
+		layout = wibox.layout.fixed.horizontal,
+	})
 
 	-- Connect to `property::value` to use the value on change
 	slider:connect_signal("property::value", function(_, new_value)
@@ -53,10 +58,10 @@ function brightness_control.get_widget()
 	local label = wibox.widget.textbox("Brightness")
 
 	return wibox.widget({
-		{ { widget = label }, { widget = slider }, layout = wibox.layout.fixed.vertical },
+		{ { widget = label }, { widget = slider_icon }, layout = wibox.layout.fixed.vertical },
 		widget = wibox.container.background,
 		bg = beautiful.inactive,
-		forced_height = 30,
+		forced_height = 40,
 	})
 end
 
