@@ -5,6 +5,7 @@ local awful = require("awful")
 
 local todo = require("modules.todo.todo_panel")
 local habit_tracker = require("modules.habit_tracker.habit_tracker")
+local date = require("date")
 local icon = ""
 
 local M = {}
