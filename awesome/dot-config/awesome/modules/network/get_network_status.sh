@@ -12,4 +12,4 @@ inet=$(regex "$inet_partial" '^enp2s0\s*UP\s*([0-9]{3}\.[0-9]{3}\.[0-9]\.[0-9]{2
 
 public=$(curl -s ipinfo.io/ip)
 
-echo -e "inet: $inet" "\npublic ip: $public"
+echo -e "$inet $public"

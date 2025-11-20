@@ -17,6 +17,25 @@ local internet_connection_widget = wibox.widget({
 	font = beautiful.icon .. " 12",
 })
 
+---comment
+---@param raw string
+---@return table
+local function get_ip(raw)
+	local ips = {}
+	for line in raw:gmatch("%d+%.%d+%.%d+%.%d+") do
+		table.insert(ips, line)
+	end
+	if #ips == 2 then
+		return { inet = ips[1], public = ips[2] }
+	elseif #ips == 1 then
+		return { inet = ips[1] }
+	else
+		helpers.debug_log("couldn't find any ip from the command")
+		error("Error running script")
+		return {}
+	end
+end
+
 awesome.connect_signal("internet::connected", function()
 	naughty.notification({ title = "Connection status", message = "Successfully connected to the interne." })
 	internet_connection_widget.markup = helpers.colorize_text(icons.active, beautiful.accent)
@@ -39,7 +58,15 @@ nw_tooltip:add_to_object(internet_connection_widget)
 
 internet_connection_widget:connect_signal("mouse::enter", function()
 	awful.spawn.easy_async(network_status_script, function(stdout, stderr, reason, exit_code)
-		nw_tooltip.text = "Newtwork info \n" .. stdout
+		local ips = get_ip(stdout)
+		local output = ""
+		if ips.inet ~= nil then
+			output = output .. "\nINET: " .. ips.inet
+		end
+		if ips.public ~= nil then
+			output = output .. "\nPublic: " .. ips.public
+		end
+		nw_tooltip.markup = "<b>NETWORK INFO:</b>" .. output
 	end)
 end)
 local function test_menu()
