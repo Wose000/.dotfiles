@@ -21,19 +21,22 @@ local internet_connection_widget = wibox.widget({
 ---@param raw string
 ---@return table
 local function get_ip(raw)
+	local wireless_inet = string.match(raw, "inet_wireless:%d+%.%d+%.%d+%.%d+")
+	local wired_inet = string.match(raw, "inet_wired:%d+%.%d+%.%d+%.%d+")
+	local public = string.match(raw, "public:%d+%.%d+%.%d+%.%d+")
 	local ips = {}
-	for line in raw:gmatch("%d+%.%d+%.%d+%.%d+") do
-		table.insert(ips, line)
+
+	if wireless_inet then
+		ips.wireless = string.match(wireless_inet, "%d+%.%d+%.%d+%.%d+")
 	end
-	if #ips == 2 then
-		return { inet = ips[1], public = ips[2] }
-	elseif #ips == 1 then
-		return { inet = ips[1] }
-	else
-		helpers.debug_log("couldn't find any ip from the command")
-		error("Error running script")
-		return {}
+	if wired_inet then
+		ips.wired = string.match(wired_inet, "%d+%.%d+%.%d+%.%d+")
 	end
+	if public then
+		ips.public = string.match(public, "%d+%.%d+%.%d+%.%d+")
+	end
+
+	return ips
 end
 
 awesome.connect_signal("internet::connected", function()
@@ -60,8 +63,11 @@ internet_connection_widget:connect_signal("mouse::enter", function()
 	awful.spawn.easy_async(network_status_script, function(stdout, stderr, reason, exit_code)
 		local ips = get_ip(stdout)
 		local output = ""
-		if ips.inet ~= nil then
-			output = output .. "\nINET: " .. ips.inet
+		if ips.wired ~= nil then
+			output = output .. "\nWired: " .. ips.wired
+		end
+		if ips.wireless ~= nil then
+			output = output .. "\nWiFi: " .. ips.wireless
 		end
 		if ips.public ~= nil then
 			output = output .. "\nPublic: " .. ips.public
