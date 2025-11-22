@@ -264,5 +264,9 @@ end)
 --
 --
 require("modules.core.notification_rule")
-
 require("modules.signal.network")
+
+---
+--- TEST ENV
+---
+require("modules.utils.test_box")

@@ -40,6 +40,10 @@ awful.keyboard.append_global_keybindings({
 		awful.spawn(terminal)
 	end, { description = "open a terminal", group = "launcher" }),
 
+	awful.key({ modkey, "Shift" }, "t", function()
+		require("modules.utils.test_box").show_box()
+	end, { description = "open test_box", group = "launcher" }),
+
 	awful.key({ modkey }, "x", function()
 		awful.prompt.run({
 			prompt = "Run Lua code: ",
