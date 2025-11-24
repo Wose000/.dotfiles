@@ -6,7 +6,6 @@
 
 TERM_EXEC="wezterm start --"
 
-notify-send "PORCO DIO"
 if [ $# -ne 5 ]; then
     echo "USAGE: $0 <project dir> <socket> <file> <line> <column>"
     exit 1
@@ -16,8 +15,10 @@ SOCKET="$2"
 FILE="$3"
 LINE="$4"
 COL="$5"
+SERVER_DIR="$PROJECT_DIR" "/server"
 
 PROJECT_NAME=$(basename "$PROJECT_DIR")
+notify-send "Opened $3" "dir: $PROJECT_DIR\nfile: $3"
 
 # Function to wait for socket to be available
 wait_for_socket() {
@@ -55,7 +56,8 @@ else
             tmux attach-session -t "$PROJECT_NAME"
         else
             # Not in terminal, open new terminal with new tmux session
-            nohup $TERM_EXEC tmux new-session -s "$PROJECT_NAME" -c "$PROJECT_DIR" "nvim --listen '$SOCKET'" >/dev/null 2>&1 &
+            nohup $TERM_EXEC tmux new-session -s "$PROJECT_NAME" -c "$PROJECT_DIR" "nvim --listen '$SOCKET'"\\
+                tmux new-window -c "$SERVER_DIR" "source ./venv/bin/activate"\; >/dev/null 2>&1 &
         fi
     fi
     # Wait for socket to be ready

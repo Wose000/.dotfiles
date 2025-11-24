@@ -10,13 +10,14 @@ if [ $# -ne 5 ]; then
     echo "USAGE: $0 <project dir> <socket> <file> <line> <column>"
     exit 1
 fi
-notify-send "PORCO DIO"
 PROJECT_DIR="$1"
 SOCKET="$2"
 FILE="$3"
 LINE="$4"
 COL="$5"
+SERVER_DIR="$PROJECT_DIR"
 
+notify-send "editing: $FILE" "Opened neovim listening to $SOCKET\n dir:$PROJECT_DIR"
 PROJECT_NAME=$(basename "$PROJECT_DIR")
 
 # Function to wait for socket to be available
