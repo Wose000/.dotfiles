@@ -1,0 +1,2 @@
+macro index <F2> "<enter-command>source ~/.config/neomutt/acc/gmail.muttrc<enter>" "Use Gmail"
+

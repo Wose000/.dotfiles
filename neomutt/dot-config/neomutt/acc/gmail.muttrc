@@ -1,0 +1,17 @@
+set from = "jiro.due@gmail.com"
+
+set folder = "~/Mail/gmail"
+set spoolfile = "+INBOX"
+set record = "+Sent"
+set postponed = "+Drafts"
+set trash = "+Trash"
+
+# SSL/TLS settings for IMAP
+set ssl_starttls = yes    # Use STARTTLS for secure connection if supported
+set ssl_force_tls = yes   # Force TLS negotiation
+set ssl_verify_host = yes # Verify the server's certificate
+
+# SMTP Configuration (Outgoing Mail)
+set smtp_url = "smtp://smtp.gmail.com:587/"
+set smtp_user = "jiro.due@gmail.com"
+set smtp_pass = "`pass show mutt/jiro.due@gmail.com`"
