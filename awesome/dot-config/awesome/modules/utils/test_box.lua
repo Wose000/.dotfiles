@@ -13,8 +13,9 @@ box.width = 300
 box.height = select(2, root.size())
 box.visible = false
 
+local button = require("modules.control_center.control_button").get_button()
 box:setup({
-	{ { widget = require("modules.control_center.control_button") }, layout = wibox.layout.fixed.horizontal },
+	{ { widget = button }, layout = wibox.layout.fixed.horizontal },
 	layout = wibox.layout.fixed.vertical,
 })
 
