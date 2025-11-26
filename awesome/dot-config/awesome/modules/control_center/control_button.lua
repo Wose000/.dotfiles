@@ -3,16 +3,17 @@ local wibox = require("wibox")
 local beautiful = require("beautiful")
 local awful = require("awful")
 local gears = require("gears")
-local M = {}
 
 local states = {
 	unselected = 0,
 	selected = 1,
 }
 
-M.icon = "󰂯"
-
-M.state = states.unselected
+local M = {
+	icon = "󰂯",
+	state = states.unselected,
+	on_select_function = nil,
+}
 
 local background = wibox.widget({
 	shape = gears.shape.squircle,
