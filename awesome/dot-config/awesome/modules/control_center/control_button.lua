@@ -13,8 +13,8 @@ local STATES = {
 ---Base class to generate control buttons
 ---@class ControlButton
 ---@field icon string icon for the button
----@field on_selected_function fun():nil | nil to be called on button selected
----@field on_released_function fun():nil | nil to be called on button deselected
+---@field on_selected_function fun()|nil to be called on button selected
+---@field on_released_function fun()|nil to be called on button deselected
 ---@field state states # button state, unselected = 0, selected = 1
 local ControlButton = {}
 
@@ -22,8 +22,8 @@ ControlButton.__index = ControlButton
 
 ---Constructor for ControlButton
 ---@param icon string Icon that's going to be displayed on the button
----@param on_selected_function fun():nil | nil callback for on_button_selected
----@param on_released_function fun():nil | nil callback for on_button_released
+---@param on_selected_function fun()|nil callback for on_button_selected
+---@param on_released_function fun()|nil callback for on_button_released
 ---@return ControlButton # returns a new istance of control button
 function ControlButton.new(icon, on_selected_function, on_released_function)
 	---@class ControlButton
