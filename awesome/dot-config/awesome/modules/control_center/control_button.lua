@@ -90,6 +90,7 @@ function ControlButton:get_button()
 		if self.state == STATES.unselected then
 			self.state = STATES.selected
 			if self.on_select_callback then
+				helpers.debug_log("on_select_called")
 				self.on_select_callback()
 			end
 			background.bg = beautiful.accent

@@ -18,8 +18,10 @@ local ControlButton = require("modules.control_center.control_button")
 local control_button = ControlButton.new("x", nil, nil)
 local button = control_button:get_button()
 
+local redshift_button = require("modules.control_center.redshift_control_button")
+
 box:setup({
-	{ { widget = button }, layout = wibox.layout.fixed.horizontal },
+	{ { widget = button }, { widget = redshift_button }, layout = wibox.layout.fixed.horizontal },
 	layout = wibox.layout.fixed.vertical,
 })
 
