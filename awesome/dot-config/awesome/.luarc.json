@@ -1,25 +1,23 @@
 {
-  "runtime": {
-    "version": "LuaJIT"
-  },
-  "diagnostics": {
-    "globals": [
-      "client",
-      "screen",
-      "awesome",
-      "root",
-      "mouse",
-      "tag",
-      "require",
-      "gears",
-      "awful",
-      "beautiful",
-      "naughty"
-    ]
-  },
-  "workspace": {
-    "library": [
-      "/usr/share/awesome/lib"
-    ]
-  }
+  "$schema": "https://raw.githubusercontent.com/sumneko/vscode-lua/master/setting/schema.json",
+  "runtime.version": [
+    "LuaJIT"
+  ],
+  "diagnostics.globals": [
+    "client",
+    "screen",
+    "awesome",
+    "root",
+    "mouse",
+    "tag",
+    "require",
+    "gears",
+    "awful",
+    "mousegrabber",
+    "beautiful",
+    "naughty"
+  ],
+  "workspace.library": [
+    "/usr/share/awesome/lib",
+  ]
 }
