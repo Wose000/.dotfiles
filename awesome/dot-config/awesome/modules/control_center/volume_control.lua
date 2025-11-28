@@ -2,7 +2,6 @@ local wibox = require("wibox")
 local beautiful = require("beautiful")
 local awful = require("awful")
 local gears = require("gears")
-local naughty = require("naughty")
 
 local pactl = require("awesome-wm-widgets.pactl-widget.pactl")
 
@@ -81,8 +80,6 @@ function volume_control.init()
 			local volume = tonumber(string.match(stdout, "%d+"))
 			volume_control.volume = percentage_of_val(volume, max_volume_value)
 			volume_control.widget:emit_signal_recursive("update::volume")
-		else
-			naughty.notification({ title = "non zero exit", message = "porco dio non zero exit " .. exit_code })
 		end
 	end)
 end

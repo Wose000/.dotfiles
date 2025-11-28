@@ -1,3 +1,4 @@
+local helpers = require("modules.utils.helpers")
 local awful = require("awful")
 local hotkeys_popup = require("awful.hotkeys_popup")
 local hyper = "Mod3"
@@ -39,7 +40,6 @@ awful.keyboard.append_global_keybindings({
 	awful.key({ modkey }, "Return", function()
 		awful.spawn(terminal)
 	end, { description = "open a terminal", group = "launcher" }),
-
 	awful.key({ modkey, "Shift" }, "t", function()
 		require("modules.utils.test_box").show_box()
 	end, { description = "open test_box", group = "launcher" }),
