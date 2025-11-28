@@ -29,4 +29,6 @@ function M.show_box()
 	box.visible = not box.visible
 end
 
+require("modules.control_center.headphones_toggle")
+
 return M
