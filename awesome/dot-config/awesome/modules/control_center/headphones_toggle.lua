@@ -3,11 +3,12 @@ local awful = require("awful")
 local helpers = require("modules.utils.helpers")
 
 local paclt_list_cmd = [[pactl -f json list sinks]]
+local default_sink = "alsa_output.pci-0000_00_1f.3.analog-stereo"
 
 local function parse_data(data)
 	local result = {}
 	for _, sink in ipairs(data) do
-		if sink.state == "RUNNING" then
+		if sink.state == "RUNNING" or sink.name == default_sink then
 			result.sink = sink.name
 			result.id = sink.index
 			result.ports = {}
@@ -24,13 +25,8 @@ local function parse_data(data)
 end
 
 local function print_data(data)
-	local output = string.format(
-		"sink: %s, ports: %d, speaker:%s, headphones: %s",
-		data.sink,
-		#data.ports,
-		data.ports.speakers,
-		data.ports.headphones
-	)
+	local output =
+		string.format("sink: %s\nspeaker:%s\nheadphones: %s", data.sink, data.ports.speakers, data.ports.headphones)
 	helpers.debug_log(output)
 	if data then
 		for key, value in pairs(data) do
