@@ -12,6 +12,7 @@ local beautiful = require("beautiful")
 local naughty = require("naughty")
 require("awful.autofocus")
 Is_desktop = os.getenv("HOSTNAME") == "arch-pc"
+
 local is_laptop = os.getenv("HOSTNAME") == "arch-laptop" or os.getenv("HOSTNAME") == "archlinux"
 
 awful.spawn.with_shell('setxkbmap -option "caps:hyper"')
@@ -64,7 +65,6 @@ terminal = "wezterm"
 editor = os.getenv("EDITOR") or "nvim"
 editor_cmd = terminal .. " -e " .. editor
 modkey = "Mod4"
-local hyper = "Mod3"
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
@@ -96,6 +96,8 @@ require("modules.core.topbar")
 screen.connect_signal("property::geometry", set_wallpaper)
 
 awful.screen.connect_for_each_screen(function(s)
+	if Is_desktop then
+	end
 	-- Wallpaper
 	set_wallpaper(s)
 

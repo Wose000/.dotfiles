@@ -113,19 +113,25 @@ local function list_files(dir)
 	return files
 end
 
+local wallpapers = list_files(wall_folder)
+
+local delta = 0
 local function select_random_wall()
-	local files = list_files(wall_folder)
+	local files = wallpapers
 	if #files == 0 then
 		return wall_folder .. "d20.jpg"
 	else
-		return wall_folder .. files[math.random(#files)]
+		math.randomseed(os.time())
+		delta = delta + 1
+		local file_index = math.random(#files) + delta
+		if file_index >= #files then
+			file_index = #files
+		end
+		return wall_folder .. files[file_index]
 	end
 end
 
-math.randomseed(os.time())
-local selected_wall = select_random_wall()
-
-theme.wallpaper = selected_wall
+theme.wallpaper = select_random_wall
 
 -- You can use your own layout icons like this:
 theme.layout_fairh = themes_path .. "neon/layouts/fairhw.png"
