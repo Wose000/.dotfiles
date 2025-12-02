@@ -1,8 +1,16 @@
 local redshift = require("modules.control_center.redshift")
-local ControlButton = require("modules.control_center.control_button")
+local ControlButton = require("modules.control_center.control_button"):new("")
 
-local control_button = ControlButton.new("󰈈", redshift.enable, redshift.disable)
+local RedshiftButton = setmetatable({}, ControlButton)
+RedshiftButton.__index = RedshiftButton
 
-local button = control_button:get_button()
+function RedshiftButton:new() end
 
-return button
+function RedshiftButton:on_select_callback()
+	redshift.enable()
+end
+function RedshiftButton:on_release_callback()
+	redshift.disable()
+end
+
+return RedshiftButton

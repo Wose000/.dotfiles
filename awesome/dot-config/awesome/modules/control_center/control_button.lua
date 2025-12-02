@@ -22,24 +22,21 @@ ControlButton.__index = ControlButton
 
 ---Constructor for ControlButton
 ---@param icon string Icon that's going to be displayed on the button
----@param on_selected_function fun()|nil callback for on_button_selected
----@param on_released_function fun()|nil callback for on_button_released
 ---@return ControlButton # returns a new istance of control button
-function ControlButton.new(icon, on_selected_function, on_released_function)
+function ControlButton:new(icon)
 	---@class ControlButton
-	local self = setmetatable({}, ControlButton)
+	self = setmetatable({}, ControlButton)
 
 	self.icon = icon
-
-	self.on_select_callback = on_selected_function
-
-	self.on_release_callback = on_released_function
 
 	self.state = STATES.unselected
 
 	return self
 end
 
+function ControlButton:on_release_callback() end
+
+function ControlButton:on_select_callback() end
 ---Return the button
 ---@this ControlButton
 function ControlButton:get_button()
@@ -61,12 +58,13 @@ function ControlButton:get_button()
 		end
 	end)
 
-	local button = wibox.widget({
+	self.button = wibox.widget({
 		{
 			{
 				{
 					{
 						markup = self.icon,
+						id = "icon",
 						widget = wibox.widget.textbox,
 						valign = "center",
 						halign = "center",
@@ -86,24 +84,23 @@ function ControlButton:get_button()
 		widget = wibox.container.margin,
 	})
 
-	button:buttons(awful.button({}, 1, function()
+	self.button:buttons(awful.button({}, 1, function()
 		if self.state == STATES.unselected then
 			self.state = STATES.selected
 			if self.on_select_callback then
-				helpers.debug_log("on_select_called")
-				self.on_select_callback()
+				self:on_select_callback()
 			end
 			background.bg = beautiful.accent
 		else
 			self.state = STATES.unselected
 			if self.on_release_callback then
-				self.on_release_callback()
+				self:on_release_callback()
 			end
 			background.bg = beautiful.inactive
 		end
 	end))
 
-	return button
+	return self.button
 end
 
 return ControlButton
