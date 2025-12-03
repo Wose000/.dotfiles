@@ -15,8 +15,10 @@ box.width = 300
 box.height = select(2, root.size())
 box.visible = false
 
+local rs_button = RedshiftButton:new()
+
 box:setup({
-	{ layout = wibox.layout.fixed.horizontal },
+	{ { widget = rs_button:get_button() }, layout = wibox.layout.fixed.horizontal },
 	layout = wibox.layout.fixed.vertical,
 })
 

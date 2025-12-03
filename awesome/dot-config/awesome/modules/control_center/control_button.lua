@@ -2,7 +2,6 @@ local helpers = require("modules.utils.helpers")
 local wibox = require("wibox")
 local beautiful = require("beautiful")
 local awful = require("awful")
-local gears = require("gears")
 
 ---@enum states
 local STATES = {
@@ -10,31 +9,41 @@ local STATES = {
 	selected = 1,
 }
 
----Base class to generate control buttons
 ---@class ControlButton
----@field icon string icon for the button
----@field on_selected_function fun()|nil to be called on button selected
----@field on_released_function fun()|nil to be called on button deselected
----@field state states # button state, unselected = 0, selected = 1
-local ControlButton = {}
+---@field icon string
+---@flied state integer
+---@field background unknown
+local ControlButton = {
+	background = wibox.container.background(),
+	icon = "",
+	state = STATES.unselected,
+}
+ControlButton.__index = ControlButton
 
+---Create new ControlButton
+---@param icon string
+---@return ControlButton
 function ControlButton:new(icon)
-	---@class ControlButton
-
-	local obj = {}
-	self.background = wibox.container.background()
-	setmetatable(obj, self)
-	self.__index = self
+	local obj = setmetatable({}, self)
 	obj.icon = icon
-	obj.state = STATES.unselected
 	return obj
 end
 
+---@param self ControlButton
+function ControlButton:on_release_callback() end
+
+---@param self ControlButton
+function ControlButton:on_select_callback()
+	helpers.debug_log("called on selected base")
+end
+
+---@param self ControlButton
 function ControlButton:selection_toggle()
 	if self.state == STATES.unselected then
 		self.state = STATES.selected
 		if self.on_select_callback then
 			self:on_select_callback()
+			helpers.debug_log("found functon on selected")
 		end
 		self.background.bg = beautiful.accent
 	else
@@ -46,13 +55,10 @@ function ControlButton:selection_toggle()
 	end
 end
 
+---@param self ControlButton
 function ControlButton:unselected() end
 
-function ControlButton:on_release_callback() end
-
-function ControlButton:on_select_callback() end
----Return the button
----@this ControlButton
+---@param self ControlButton
 function ControlButton:get_button()
 	self.background:connect_signal("mouse::enter", function()
 		self.background.bg = beautiful.fg_normal
@@ -92,7 +98,9 @@ function ControlButton:get_button()
 		widget = wibox.container.margin,
 	})
 
-	self.button:buttons(awful.button({}, 1, self.selection_toggle))
+	self.button:buttons(awful.button({}, 1, function()
+		self:selection_toggle()
+	end))
 
 	return self.button
 end
