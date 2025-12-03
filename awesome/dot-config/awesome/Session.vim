@@ -13,30 +13,22 @@ if &shortmess =~ 'A'
 else
   set shortmess=aoO
 endif
-badd +107 ~/.dotfiles/awesome/dot-config/awesome/modules/habit_tracker/habit_tracker.lua
-badd +8 ~/.dotfiles/awesome/dot-config/awesome/modules/habit_tracker/ui.lua
-badd +12 ~/.dotfiles/awesome/dot-config/awesome/modules/habit_tracker/data/habits.json
-badd +52 ~/.dotfiles/awesome/dot-config/awesome/themes/neon/theme.lua
-badd +27 ~/.dotfiles/awesome/dot-config/awesome/rc.lua
-badd +54 ~/.dotfiles/awesome/dot-config/awesome/modules/network/network-widget.lua
-badd +15 ~/.dotfiles/awesome/dot-config/awesome/modules/network/get_network_status.sh
-badd +55 ~/.dotfiles/awesome/dot-config/awesome/modules/todo/todo_panel.lua
-badd +13 ~/.dotfiles/awesome/dot-config/awesome/modules/productivity_center/productivity_panel.lua
-badd +72 ~/.dotfiles/awesome/dot-config/awesome/modules/core/topbar.lua
-badd +97 ~/.dotfiles/awesome/dot-config/awesome/modules/todo/task.lua
-badd +58 ~/.dotfiles/awesome/dot-config/awesome/modules/core/taglist.lua
-badd +32 ~/.config/nvim/lua/config/plugins/mini-base16.lua
-badd +14 ~/.dotfiles/awesome/dot-config/awesome/modules/control_center/control_button.lua
-badd +21 health://
+badd +10 ~/.dotfiles/awesome/dot-config/awesome/modules/control_center/redshift_control_button.lua
+badd +18 ~/.dotfiles/awesome/dot-config/awesome/modules/utils/test_box.lua
+badd +26 ~/.dotfiles/awesome/dot-config/awesome/modules/control_center/control_button.lua
 argglobal
 %argdel
-edit ~/.dotfiles/awesome/dot-config/awesome/modules/productivity_center/productivity_panel.lua
+edit ~/.dotfiles/awesome/dot-config/awesome/modules/control_center/redshift_control_button.lua
 let s:save_splitbelow = &splitbelow
 let s:save_splitright = &splitright
 set splitbelow splitright
 wincmd _ | wincmd |
 vsplit
 1wincmd h
+wincmd _ | wincmd |
+split
+1wincmd k
+wincmd w
 wincmd w
 let &splitbelow = s:save_splitbelow
 let &splitright = s:save_splitright
@@ -47,10 +39,12 @@ set winminheight=0
 set winheight=1
 set winminwidth=0
 set winwidth=1
+exe '1resize ' . ((&lines * 26 + 27) / 54)
 exe 'vert 1resize ' . ((&columns * 117 + 118) / 236)
-exe 'vert 2resize ' . ((&columns * 118 + 118) / 236)
+exe '2resize ' . ((&lines * 25 + 27) / 54)
+exe 'vert 2resize ' . ((&columns * 117 + 118) / 236)
+exe 'vert 3resize ' . ((&columns * 118 + 118) / 236)
 argglobal
-balt ~/.dotfiles/awesome/dot-config/awesome/modules/network/network-widget.lua
 setlocal foldmethod=manual
 setlocal foldexpr=v:lua.vim.treesitter.foldexpr()
 setlocal foldmarker={{{,}}}
@@ -61,11 +55,11 @@ setlocal foldnestmax=20
 setlocal foldenable
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 1 - ((0 * winheight(0) + 26) / 52)
+let s:l = 13 - ((6 * winheight(0) + 13) / 26)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 1
+keepjumps 13
 normal! 0
 wincmd w
 argglobal
@@ -73,6 +67,7 @@ if bufexists(fnamemodify("~/.dotfiles/awesome/dot-config/awesome/modules/control
 if &buftype ==# 'terminal'
   silent file ~/.dotfiles/awesome/dot-config/awesome/modules/control_center/control_button.lua
 endif
+balt ~/.dotfiles/awesome/dot-config/awesome/modules/control_center/redshift_control_button.lua
 setlocal foldmethod=manual
 setlocal foldexpr=v:lua.vim.treesitter.foldexpr()
 setlocal foldmarker={{{,}}}
@@ -83,16 +78,42 @@ setlocal foldnestmax=20
 setlocal foldenable
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 14 - ((13 * winheight(0) + 26) / 52)
+let s:l = 61 - ((-1 * winheight(0) + 12) / 25)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 14
-normal! 03|
+keepjumps 61
+normal! 056|
 wincmd w
-2wincmd w
+argglobal
+if bufexists(fnamemodify("~/.dotfiles/awesome/dot-config/awesome/modules/utils/test_box.lua", ":p")) | buffer ~/.dotfiles/awesome/dot-config/awesome/modules/utils/test_box.lua | else | edit ~/.dotfiles/awesome/dot-config/awesome/modules/utils/test_box.lua | endif
+if &buftype ==# 'terminal'
+  silent file ~/.dotfiles/awesome/dot-config/awesome/modules/utils/test_box.lua
+endif
+balt ~/.dotfiles/awesome/dot-config/awesome/modules/control_center/redshift_control_button.lua
+setlocal foldmethod=manual
+setlocal foldexpr=v:lua.vim.treesitter.foldexpr()
+setlocal foldmarker={{{,}}}
+setlocal foldignore=#
+setlocal foldlevel=0
+setlocal foldminlines=1
+setlocal foldnestmax=20
+setlocal foldenable
+silent! normal! zE
+let &fdl = &fdl
+let s:l = 18 - ((11 * winheight(0) + 26) / 52)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 18
+normal! 011|
+wincmd w
+3wincmd w
+exe '1resize ' . ((&lines * 26 + 27) / 54)
 exe 'vert 1resize ' . ((&columns * 117 + 118) / 236)
-exe 'vert 2resize ' . ((&columns * 118 + 118) / 236)
+exe '2resize ' . ((&lines * 25 + 27) / 54)
+exe 'vert 2resize ' . ((&columns * 117 + 118) / 236)
+exe 'vert 3resize ' . ((&columns * 118 + 118) / 236)
 tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf

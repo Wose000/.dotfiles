@@ -4,6 +4,8 @@ local beautiful = require("beautiful")
 local awful = require("awful")
 local gears = require("gears")
 
+local RedshiftButton = require("modules.control_center.redshift_control_button")
+
 local M = {}
 
 local box = wibox()

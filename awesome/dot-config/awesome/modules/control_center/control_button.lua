@@ -17,22 +17,40 @@ local STATES = {
 ---@field on_released_function fun()|nil to be called on button deselected
 ---@field state states # button state, unselected = 0, selected = 1
 local ControlButton = {}
-
 ControlButton.__index = ControlButton
 
----Constructor for ControlButton
----@param icon string Icon that's going to be displayed on the button
----@return ControlButton # returns a new istance of control button
 function ControlButton:new(icon)
 	---@class ControlButton
-	self = setmetatable({}, ControlButton)
+	local obj = setmetatable({}, self)
+	obj.icon = icon
+	obj.state = STATES.unselected
+	obj.background = wibox.widget({
+		shape = gears.shape.squircle,
+		bg = beautiful.inactive,
+		widget = wibox.container.background,
+	})
 
-	self.icon = icon
-
-	self.state = STATES.unselected
-
-	return self
+	helpers.debug_log("Called from base class!")
+	return obj
 end
+
+function ControlButton:selection_toggle()
+	if self.state == STATES.unselected then
+		self.state = STATES.selected
+		if self.on_select_callback then
+			self:on_select_callback()
+		end
+		self.background.bg = beautiful.accent
+	else
+		self.state = STATES.unselected
+		if self.on_release_callback then
+			self:on_release_callback()
+		end
+		self.background.bg = beautiful.inactive
+	end
+end
+
+function ControlButton:unselected() end
 
 function ControlButton:on_release_callback() end
 
@@ -40,21 +58,15 @@ function ControlButton:on_select_callback() end
 ---Return the button
 ---@this ControlButton
 function ControlButton:get_button()
-	local background = wibox.widget({
-		shape = gears.shape.squircle,
-		bg = beautiful.inactive,
-		widget = wibox.container.background,
-	})
-
-	background:connect_signal("mouse::enter", function()
-		background.bg = beautiful.fg_normal
+	self.background:connect_signal("mouse::enter", function()
+		self.background.bg = beautiful.fg_normal
 	end)
 
-	background:connect_signal("mouse::leave", function()
+	self.background:connect_signal("mouse::leave", function()
 		if self.state == STATES.unselected then
-			background.bg = beautiful.inactive
+			self.background.bg = beautiful.inactive
 		else
-			background.bg = beautiful.accent
+			self.background.bg = beautiful.accent
 		end
 	end)
 
@@ -73,7 +85,7 @@ function ControlButton:get_button()
 					margins = 3,
 					widget = wibox.container.margin,
 				},
-				widget = background,
+				widget = self.background,
 			},
 			strategy = "min",
 			width = 30,
@@ -84,21 +96,7 @@ function ControlButton:get_button()
 		widget = wibox.container.margin,
 	})
 
-	self.button:buttons(awful.button({}, 1, function()
-		if self.state == STATES.unselected then
-			self.state = STATES.selected
-			if self.on_select_callback then
-				self:on_select_callback()
-			end
-			background.bg = beautiful.accent
-		else
-			self.state = STATES.unselected
-			if self.on_release_callback then
-				self:on_release_callback()
-			end
-			background.bg = beautiful.inactive
-		end
-	end))
+	self.button:buttons(awful.button({}, 1, self.selection_toggle))
 
 	return self.button
 end
