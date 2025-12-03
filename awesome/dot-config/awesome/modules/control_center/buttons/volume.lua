@@ -18,6 +18,13 @@ setmetatable(VolumeButton, { __index = ControlButton })
 ---@return ControlButton|VolumeButton
 function VolumeButton:new()
 	local obj = ControlButton.new(self, icon.high)
+	if pactl.get_mute(sink) then
+		obj.state = 0
+		obj.icon_label.markup = icon.mute
+	else
+		obj.state = 1
+		obj.icon_label.markup = icon.high
+	end
 	return setmetatable(obj, VolumeButton)
 end
 

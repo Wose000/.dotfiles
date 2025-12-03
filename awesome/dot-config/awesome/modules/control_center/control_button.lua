@@ -113,6 +113,12 @@ function ControlButton:get_button()
 		self:selection_toggle()
 	end))
 
+	if self.state == STATES.selected then
+		self.background.bg = beautiful.accent
+	else
+		self.background.bg = beautiful.inactive
+	end
+
 	return self.button
 end
 
