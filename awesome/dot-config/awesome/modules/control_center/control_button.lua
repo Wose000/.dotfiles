@@ -2,6 +2,7 @@ local helpers = require("modules.utils.helpers")
 local wibox = require("wibox")
 local beautiful = require("beautiful")
 local awful = require("awful")
+local gears = require("gears")
 
 ---@enum states
 local STATES = {
@@ -13,20 +14,35 @@ local STATES = {
 ---@field icon string
 ---@flied state integer
 ---@field background unknown
-local ControlButton = {
-	background = wibox.container.background(),
-	icon = "",
-	state = STATES.unselected,
-}
+---@field icon_label unknown
+local ControlButton = {}
 ControlButton.__index = ControlButton
 
 ---Create new ControlButton
 ---@param icon string
 ---@return ControlButton
 function ControlButton:new(icon)
-	local obj = setmetatable({}, self)
+	local obj = {}
 	obj.icon = icon
-	return obj
+
+	obj.background = wibox.widget({
+		id = "bg",
+		widget = wibox.container.background,
+		shape = gears.shape.squircle,
+		bg = beautiful.inactive,
+	})
+
+	obj.icon_label = wibox.widget({
+		markup = obj.icon,
+		valign = "center",
+		halign = "center",
+		font = beautiful.icon .. " 14",
+		widget = wibox.widget.textbox,
+	})
+	obj.icon_label.markup = obj.icon
+	obj.button = nil
+	obj.state = STATES.unselected
+	return setmetatable(obj, ControlButton)
 end
 
 ---@param self ControlButton
@@ -77,12 +93,7 @@ function ControlButton:get_button()
 			{
 				{
 					{
-						markup = self.icon,
-						id = "icon",
-						widget = wibox.widget.textbox,
-						valign = "center",
-						halign = "center",
-						font = beautiful.icon .. " 14",
+						widget = self.icon_label,
 					},
 					margins = 3,
 					widget = wibox.container.margin,

@@ -1,3 +1,4 @@
+local helpers = require("modules.utils.helpers")
 local pactl = require("awesome-wm-widgets.pactl-widget.pactl")
 
 local sink = "@DEFAULT_SINK"
@@ -6,24 +7,33 @@ local icon = {
 	mute = "",
 }
 
-local Button = require("modules.control_center.control_button")
-local VolumeButton = setmetatable({}, Button)
-VolumeButton.__index = VolumeButton
+local ControlButton = require("modules.control_center.control_button")
 
+---@class VolumeButton : ControlButton
+local VolumeButton = {}
+VolumeButton.__index = VolumeButton
+setmetatable(VolumeButton, { __index = ControlButton })
+
+---Create Volume Button
+---@return ControlButton|VolumeButton
+function VolumeButton:new()
+	local obj = ControlButton.new(self, icon.high)
+	return setmetatable(obj, VolumeButton)
+end
+
+---@param self VolumeButton
 function VolumeButton:on_release_callback()
 	pactl.mute_toggle(sink)
 	if self.button then
-		local i = self.button:get_children_by_id("icon")
-		i.markup = icon.high
+		self.icon_label.markup = icon.mute
 	end
 end
 
+---@param self VolumeButton
 function VolumeButton:on_select_callback()
 	pactl.mute_toggle(sink)
-
 	if self.button then
-		local i = self.button:get_children_by_id("icon")
-		i.markup = icon.mute
+		self.icon_label.markup = icon.high
 	end
 end
 

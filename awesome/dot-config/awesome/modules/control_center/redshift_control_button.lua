@@ -4,14 +4,15 @@ local ControlButton = require("modules.control_center.control_button")
 local icon = ""
 ---
 ---@class RedshiftButton : ControlButton
-local RedshiftButton = setmetatable({}, ControlButton)
+local RedshiftButton = {}
 RedshiftButton.__index = RedshiftButton
+setmetatable(RedshiftButton, { __index = ControlButton })
 
 ---Create redshift button
 ---@return ControlButton|RedshiftButton
 function RedshiftButton:new()
 	local obj = ControlButton.new(self, icon)
-	return setmetatable(obj, self)
+	return setmetatable(obj, RedshiftButton)
 end
 
 ---@param self RedshiftButton
