@@ -22,16 +22,11 @@ function ControlButton:new(icon)
 	---@class ControlButton
 
 	local obj = {}
+	self.background = wibox.container.background()
 	setmetatable(obj, self)
 	self.__index = self
 	obj.icon = icon
 	obj.state = STATES.unselected
-	self.background = wibox.widget({
-		id = "bg",
-		shape = gears.shape.squircle,
-		bg = beautiful.inactive,
-		widget = wibox.container.background,
-	})
 	return obj
 end
 
