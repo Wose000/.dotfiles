@@ -5,6 +5,8 @@ local awful = require("awful")
 local gears = require("gears")
 
 local RedshiftButton = require("modules.control_center.redshift_control_button")
+local button = RedshiftButton:new()
+local r_button = button:get_button()
 
 local M = {}
 
@@ -16,7 +18,7 @@ box.height = select(2, root.size())
 box.visible = false
 
 box:setup({
-	{ layout = wibox.layout.fixed.horizontal },
+	{ { widget = r_button }, layout = wibox.layout.fixed.horizontal },
 	layout = wibox.layout.fixed.vertical,
 })
 

@@ -17,20 +17,21 @@ local STATES = {
 ---@field on_released_function fun()|nil to be called on button deselected
 ---@field state states # button state, unselected = 0, selected = 1
 local ControlButton = {}
-ControlButton.__index = ControlButton
 
 function ControlButton:new(icon)
 	---@class ControlButton
-	local obj = setmetatable({}, self)
+
+	local obj = {}
+	setmetatable(obj, self)
+	self.__index = self
 	obj.icon = icon
 	obj.state = STATES.unselected
-	obj.background = wibox.widget({
+	self.background = wibox.widget({
+		id = "bg",
 		shape = gears.shape.squircle,
 		bg = beautiful.inactive,
 		widget = wibox.container.background,
 	})
-
-	helpers.debug_log("Called from base class!")
 	return obj
 end
 
