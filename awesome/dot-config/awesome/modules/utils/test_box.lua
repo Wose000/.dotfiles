@@ -2,6 +2,7 @@ local wibox = require("wibox")
 
 local RedshiftButton = require("modules.control_center.redshift_control_button")
 local VolumeButton = require("modules.control_center.buttons.volume")
+local HeadphonesButton = require("modules.control_center.buttons.headphones")
 
 local M = {}
 
@@ -14,11 +15,13 @@ box.visible = false
 
 local rs_button = RedshiftButton:new()
 local vol_button = VolumeButton:new()
+local hp_button = HeadphonesButton:new()
 
 box:setup({
 	{
 		{ widget = vol_button:get_button() },
 		{ widget = rs_button:get_button() },
+		{ widget = hp_button:get_button() },
 		layout = wibox.layout.fixed.horizontal,
 	},
 	layout = wibox.layout.fixed.vertical,
