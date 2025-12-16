@@ -6,6 +6,10 @@ local paclt_list_cmd = [[pactl -f json list sinks]]
 local default_sink = "alsa_output.pci-0000_00_1f.3.analog-stereo"
 local default_sink_def = "alsa_output.pci-0000_00_1f.3.analog-stereo"
 
+local headphones_profile = "HiFi (HDMI1, HDMI2, HDMI3, Headphones, Mic1, Mic2)"
+local speakers_profile = "HiFi (HDMI1, HDMI2, HDMI3, Mic1, Mic2, Speaker)"
+local card_name = "alsa_card.pci-0000_00_1f.3-platform-skl_hda_dsp_generic"
+
 local M = {
 	enable = function() end,
 	disable = function() end,
@@ -28,9 +32,6 @@ end
 local function parse_data(data)
 	local result = {}
 	for _, sink in ipairs(data) do
-		helpers.debug_log(string.format("string1len = %d \n string2len = %d", #sink.name, #default_sink))
-		helpers.debug_log(string.format("%q", normalize(sink.name)))
-		helpers.debug_log(string.format("%q", default_sink_def))
 		if normalize(sink.name) == default_sink_def then
 			result.sink = sink.name
 			result.id = sink.index
@@ -57,7 +58,7 @@ local function fetch_data()
 	end)
 end
 
-function M.init()
+local function port_init()
 	local get_default_sink_cmd = [[pactl get-default-sink]]
 	awful.spawn.easy_async(get_default_sink_cmd, function(stdout, stderr, _, exitcode)
 		if exitcode == 0 then
@@ -68,5 +69,25 @@ function M.init()
 		end
 	end)
 end
+
+local function set_profiles_functios()
+	function M.enable()
+		awful.spawn(string.format("pactl set-card-profile", card_name, headphones_profile))
+	end
+
+	function M.disable()
+		awful.spawn(string.format("pactl set-card-profile", card_name, speakers_profile))
+	end
+end
+
+function M.init()
+	if Config.audio.output_switch == "port" then
+		port_init()
+	elseif Config.audio.output_switch == "profile" then
+		set_profiles_functios()
+	end
+end
+
+M.init()
 
 return M

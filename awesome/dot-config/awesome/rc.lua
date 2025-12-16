@@ -11,10 +11,8 @@ local ruled = require("ruled")
 local beautiful = require("beautiful")
 local naughty = require("naughty")
 require("awful.autofocus")
+require("config")
 Is_desktop = os.getenv("HOSTNAME") == "arch-pc"
-
-local is_laptop = os.getenv("HOSTNAME") == "arch-laptop" or os.getenv("HOSTNAME") == "archlinux"
-
 awful.spawn.with_shell('setxkbmap -option "caps:hyper"')
 awful.spawn.with_shell(' setxkbmap -option "compose:ralt" ')
 -- launch starting applications
@@ -96,8 +94,6 @@ require("modules.core.topbar")
 screen.connect_signal("property::geometry", set_wallpaper)
 
 awful.screen.connect_for_each_screen(function(s)
-	if Is_desktop then
-	end
 	-- Wallpaper
 	set_wallpaper(s)
 

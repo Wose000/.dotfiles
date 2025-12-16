@@ -1,6 +1,5 @@
 local ControlButton = require("modules.control_center.control_button")
 local headphones = require("modules.control_center.headphones_toggle")
-headphones.init()
 local helpers = require("modules.utils.helpers")
 
 local icon = "󰋋"
