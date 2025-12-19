@@ -33,6 +33,9 @@ local function get_active_port()
 	awful.spawn.easy_async(paclt_list_cmd, function(stdout, stderr, reason, exitcode)
 		if stdout then
 			local decoded_data = json.decode(stdout)
+			if type(decoded_data) ~= "table" then
+				return
+			end
 			for _, sink in ipairs(decoded_data) do
 				if sink.name == default_sink_def then
 					local active_port = sink.active_port
@@ -103,5 +106,6 @@ function M.init()
 end
 
 M.init()
+get_active_port()
 
 return M
