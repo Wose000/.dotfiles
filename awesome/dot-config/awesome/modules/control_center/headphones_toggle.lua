@@ -29,6 +29,20 @@ local function set_functions(data)
 	end
 end
 
+local function get_active_port()
+	awful.spawn.easy_async(paclt_list_cmd, function(stdout, stderr, reason, exitcode)
+		if stdout then
+			local decoded_data = json.decode(stdout)
+			for _, sink in ipairs(decoded_data) do
+				if sink.name == default_sink_def then
+					local active_port = sink.active_port
+					helpers.debug_log(string.format("Active port: %s", active_port))
+				end
+			end
+		end
+	end)
+end
+
 local function parse_data(data)
 	local result = {}
 	for _, sink in ipairs(data) do
