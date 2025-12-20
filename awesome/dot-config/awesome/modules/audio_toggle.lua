@@ -23,7 +23,7 @@ audio_widget:buttons(gears.table.join(awful.button({}, 1, function()
 end)))
 
 gears.timer({
-	timeout = 4,
+	timeout = 100000,
 	autostart = true,
 	callback = update_audio_icon,
 })

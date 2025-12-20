@@ -165,7 +165,7 @@ local function worker(user_args)
 
 	local mixer_cmd = args.mixer_cmd or "pavucontrol"
 	local widget_type = args.widget_type
-	local refresh_rate = args.refresh_rate or 1
+	local refresh_rate = args.refresh_rate or 100000
 	local step = args.step or 5
 	local device = args.device or "@DEFAULT_SINK@"
 	local tooltip = args.tooltip or false

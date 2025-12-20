@@ -17,6 +17,8 @@ local volume_widget = require("awesome-wm-widgets.pactl-widget.volume")({
 	tooltip = true,
 })
 
+local audio_icon = require("modules.core.topbar.audio_icon")
+
 local network_widget = require("modules.network.network-widget")
 
 local notify_widget = require("modules.notification-widget")
@@ -52,6 +54,7 @@ local function get_right_widgets(headphones, keyboard, tray, data, battery)
 		spacing = 10,
 		tray,
 		productive_panel.get_bar_icon(),
+		audio_icon,
 		require("modules.control_center.control_center"):get_bar_icon(),
 		volume_widget,
 		keyboard,

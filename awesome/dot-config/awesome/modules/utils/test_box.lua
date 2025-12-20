@@ -4,6 +4,8 @@ local RedshiftButton = require("modules.control_center.redshift_control_button")
 local VolumeButton = require("modules.control_center.buttons.volume")
 local HeadphonesButton = require("modules.control_center.buttons.headphones")
 
+local audio = require("modules.core.audio_manager")
+
 local M = {}
 
 local box = wibox()
