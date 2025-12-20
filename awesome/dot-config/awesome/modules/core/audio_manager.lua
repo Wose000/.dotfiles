@@ -13,6 +13,13 @@ local subjects = {
 local kill_cmd = [[pkill -f "pactl subscribe"]]
 local cmd = [[pactl subscribe]]
 local get_volume_cmd = [[wpctl get-volume @DEFAULT_SINK@]]
+local get_default_sink_cmd = [[pactl get-default-sink]]
+
+local function init()
+	awful.spawn.easy_async(get_default_sink_cmd, function(stdout, stderr, reason, exit_code)
+		helpers.debug_log(stdout)
+	end)
+end
 
 local function handle_volume_change()
 	awful.spawn.easy_async(get_volume_cmd, function(stdout, _, _, _, _)
@@ -34,8 +41,7 @@ local function parse_event(event)
 	end
 end
 
-local function test_sub()
-	helpers.debug_log("called")
+local function listen()
 	local _ = awful.spawn.with_line_callback(cmd, {
 		stdout = function(line)
 			parse_event(line)
@@ -47,7 +53,9 @@ local function test_sub()
 end
 
 awful.spawn.easy_async(kill_cmd, function(stdout, stderr, reason, exit_code)
-	test_sub()
+	listen()
 end)
+
+init()
 
 return M
