@@ -5,11 +5,23 @@ local beutiful = require("beautiful")
 rnotif.connect_signal("request::rules", function()
 	rnotif.append_rule({
 		rule = { urgency = "normal" },
-		properties = { bg = beutiful.bg_normal, fg = beutiful.fg_normal, border_color = beutiful.accent },
+		properties = {
+			bg = beutiful.bg_normal,
+			fg = beutiful.fg_normal,
+			border_color = beutiful.accent,
+			width = 300,
+			max_width = 300,
+		},
 	})
 
 	rnotif.append_rule({
 		rule = { urgency = "critical" },
-		properties = { bg = beutiful.bg_normal, fg = beutiful.fg_normal, border_color = beutiful.bg_urgent },
+		properties = {
+			bg = beutiful.bg_normal,
+			fg = beutiful.fg_normal,
+			border_color = beutiful.bg_urgent,
+			width = 300,
+			max_width = 300,
+		},
 	})
 end)
