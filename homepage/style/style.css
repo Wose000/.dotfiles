@@ -1,0 +1,56 @@
+/* COLORS
+	base00 = "#17151f",
+	base01 = "#101010",
+	base02 = "#101010",
+	base03 = "#5d5d5d",
+	base04 = "#aeb9ff",
+	base05 = "#00eba5",
+	base06 = "#efb296",
+	base07 = "#35c6f2",
+	base08 = "#67ffe1",
+	base09 = "#9493fa",
+	base0A = "#42a3e3",
+	base0B = "#aaf18c",
+	base0C = "#a99efa",
+	base0D = "#c884f3",
+	base0E = "#fa93ea",
+	base0F = "#00ecbe",
+
+	extra00 = "#459Ade",
+	extra01 = "#5dc9ff",
+	extra02 = "#9adadd",
+	extra03 = "#bcbae8",
+	extra04 = "#a4a4a4",
+	extra05 = "#cafba6",
+* */
+
+:root {
+  --bg-color: #17151f;
+  --fg-color: #aeb9ff;
+  --accent: #00ecbe;
+  --purp: #c884f3;
+}
+
+body {
+  font-family: 'JetBrains Mono Nerd Font Mono';
+  background-color: var(--bg-color);
+  color: var(--fg-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+h1 {
+  color: var(--accent);
+}
+
+.container {
+  text-align: center;
+}
+
+#clock {
+  font-size: 20pt;
+  color: var(--purp);
+}
