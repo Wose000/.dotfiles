@@ -15,12 +15,20 @@ else
 endif
 badd +15 ~/.dotfiles/awesome/dot-config/awesome/modules/control_center/redshift_control_button.lua
 badd +16 ~/.dotfiles/awesome/dot-config/awesome/modules/utils/test_box.lua
-badd +26 ~/.dotfiles/awesome/dot-config/awesome/modules/control_center/control_button.lua
+badd +6 ~/.dotfiles/awesome/dot-config/awesome/modules/control_center/control_button.lua
+badd +34 ~/.dotfiles/awesome/dot-config/awesome/modules/core/audio_manager.lua
 argglobal
 %argdel
-edit ~/.dotfiles/awesome/dot-config/awesome/modules/control_center/control_button.lua
+edit ~/.dotfiles/awesome/dot-config/awesome/modules/core/audio_manager.lua
+wincmd t
+let s:save_winminheight = &winminheight
+let s:save_winminwidth = &winminwidth
+set winminheight=0
+set winheight=1
+set winminwidth=0
+set winwidth=1
 argglobal
-balt ~/.dotfiles/awesome/dot-config/awesome/modules/control_center/redshift_control_button.lua
+balt ~/.dotfiles/awesome/dot-config/awesome/modules/control_center/control_button.lua
 setlocal foldmethod=manual
 setlocal foldexpr=v:lua.vim.treesitter.foldexpr()
 setlocal foldmarker={{{,}}}
@@ -31,11 +39,11 @@ setlocal foldnestmax=20
 setlocal foldenable
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 6 - ((5 * winheight(0) + 26) / 52)
+let s:l = 26 - ((25 * winheight(0) + 26) / 52)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 6
+keepjumps 26
 normal! 0
 tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
@@ -44,6 +52,8 @@ endif
 unlet! s:wipebuf
 set winheight=1 winwidth=20
 let &shortmess = s:shortmess_save
+let &winminheight = s:save_winminheight
+let &winminwidth = s:save_winminwidth
 let s:sx = expand("<sfile>:p:r")."x.vim"
 if filereadable(s:sx)
   exe "source " . fnameescape(s:sx)
