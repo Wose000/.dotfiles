@@ -10,8 +10,12 @@ git add .
 git commit -m "fast update"
 git push origin main
 
-cd $HOME/.dotfiles
+cd  $HOME/.dotfiles/awesome/dot-config/awesome/
+git add .
+git commit -m "fast update"
+git push origin main
 
+cd $HOME/.dotfiles
 git add .
 git commit -m "fast update"
 git push origin main

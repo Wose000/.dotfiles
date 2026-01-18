@@ -3,10 +3,15 @@
 note_path=$HOME/m/doc/note/
 dot_path=$HOME/.dotfiles/
 nvim_path=$HOME/.dotfiles/nvim/dot-config/nvim/
+awesome_path=$HOME/.dotfiles/awesome/dot-config/awesome/
 
 cd "$note_path"
 git pull origin main
-cd "$nvim_path"
-git pull origin main
+echo "Updated: note repository"
+
 cd "$dot_path"
 git pull origin main
+echo "Updated: dotfiles repository"
+git submodule update --init --recursive
+echo "Updated: dotfiles submodules"
+
