@@ -42,12 +42,30 @@ body {
   margin: 0;
 }
 
+ul {
+  list-style-type: none;
+}
+
 h1 {
   color: var(--accent);
 }
 
 .container {
   text-align: center;
+}
+
+nav {
+  text-align: left;
+}
+
+nav a {
+  color: var(--purp);
+  text-decoration: none;
+}
+
+nav a:hover {
+  color: var(--accent);
+  text-decoration: none;
 }
 
 #clock {
