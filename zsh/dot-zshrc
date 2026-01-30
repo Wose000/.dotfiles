@@ -1,8 +1,7 @@
 # To customize prompt.
-export PATH="$HOME/.local/bin/:$PATH"
 eval "$(oh-my-posh init zsh --config $HOME/.config/ohmyposh/base.json)"
-
 export EDITOR=nvim
+export PATH="$HOME/.local/bin/:$PATH"
 export PATH="$HOME/bin:$PATH"
 export PATH="/bin:$PATH"
 export PATH="/usr/lib/node_modules:$PATH"
@@ -35,6 +34,7 @@ source $HOME/.config/zsh/fzf-tab/fzf-tab.plugin.zsh
 source $HOME/.config/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 source $HOME/.config/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
+
 # Functions
 source $HOME/bin/fun.sh
 bindkey -v
@@ -59,6 +59,7 @@ setopt hist_save_no_dups
 setopt hist_find_no_dups
 
 # completition styling
+zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 zstyle ':completion:*' menu no
