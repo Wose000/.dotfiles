@@ -17,19 +17,19 @@ config.font = wezterm.font("JetBrains Mono")
 config.font_size = 10
 
 -- colors
+l = "#a48cf2"
 config.colors = {
 	foreground = "#abc3d7",
 	background = "#101213",
-
 	ansi = {
-		"#25283d", -- black
+		"#161616", -- black
 		"#f265b5", -- red
 		"#a277d1", -- green
 		"#b1a8f9", -- yellow
-		"#8390e2", -- blue
-		"#36b0c1", -- magenta
-		"#459Ade", -- cyan
-		"#00eba5", -- white
+		"#8aa7ff", -- blue
+		"#33fa99", -- magenta
+		"#42a3e3", -- cyan
+		"#00d1b1", -- white
 	},
 	brights = {
 		"#8c9297", -- black
@@ -37,7 +37,7 @@ config.colors = {
 		"#b1a8f9", -- green
 		"#7481d1", -- yellow
 		"#a874ce", -- blue
-		"#36b0c1", -- magenta
+		"#00d1b1", -- magenta
 		"#27d877", -- cyan
 		"#459Ade", -- white
 	},
