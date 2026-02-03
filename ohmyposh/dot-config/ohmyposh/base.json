@@ -20,7 +20,7 @@
     "background": "transparent"
   },
   "transient_prompt": {
-    "template": " {{.Folder}}   ",
+    "template": "{{.Folder}}/",
     "foreground": "p:yellow",
     "background": "transparent"
   },
@@ -37,7 +37,7 @@
       "alignment": "left",
       "segments": [
         {
-          "template": " {{ if .SSHSession }} {{ end }}󰣇 <p:red> <b>{{ .UserName }}</b></> ",
+          "template": "{{ if .SSHSession }} {{ end }}",
           "foreground": "p:blue",
           "background": "trasparent",
           "type": "session",
@@ -91,7 +91,7 @@
           "type": "text",
           "newline": true,
           "style": "plain",
-          "template": "\n<f> _</f>",
+          "template": "\n<f>wose:</f>",
           "foreground": "p:white"
         }
       ]
@@ -103,7 +103,7 @@
           "properties": {
             "always_enabled": true
           },
-          "template": " {{ if gt .Code 0 }}err: {{ .Code }}{{ else }}{{ end }}",
+          "template": "{{.Code}}",
           "foreground": "p:yellow",
           "background": "trasparent",
           "type": "status",
