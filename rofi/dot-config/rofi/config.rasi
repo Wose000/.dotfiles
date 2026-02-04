@@ -9,17 +9,17 @@ show-icons: true;
 terminal: "wezterm";
 /*	ssh-client: "ssh";*/
 /*	ssh-command: "{terminal} -e {ssh-client} {host} [-p {port}]";*/
-/*	run-command: "{cmd}";*/
+run-command: "{cmd}";
 /*	run-list-command: "";*/
-/*	run-shell-command: "{terminal} -e {cmd}";*/
+run-shell-command: "{terminal} start -e {cmd}";
 /*	window-command: "wmctrl -i -R {window}";*/
 /*	window-match-fields: "all";*/
 /*	icon-theme: ;*/
-/*	drun-match-fields: "name,generic,exec,categories,keywords";*/
+drun-match-fields: "name,generic,exec,categories,keywords";
 /*	drun-categories: ;*/
 /*	drun-show-actions: false;*/
 /*	drun-display-format: "{name} [<span weight='light' size='small'><i>({generic})</i></span>]";*/
-/*	drun-url-launcher: "xdg-open";*/
+drun-url-launcher: "xdg-open";
 /*	disable-history: false;*/
 /*	ignored-prefixes: "";*/
 /*	sort: false;*/
@@ -32,7 +32,7 @@ terminal: "wezterm";
 /*	auto-select: false;*/
 /*	parse-hosts: false;*/
 /*	parse-known-hosts: true;*/
-/*	combi-modes: "window,run";*/
+combi-modes: "drun,run";
 /*	matching: "normal";*/
 /*	tokenize: true;*/
 /*	m: "-5";*/
@@ -149,5 +149,4 @@ terminal: "wezterm";
       sorting-method:    "name";
   }
 }
-//@theme "/usr/share/rofi/themes/purple.rasi"
 @theme "./themes/squared-everforest.rasi"

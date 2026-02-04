@@ -2,15 +2,15 @@
 /* Author: Newman Sanchez (https://github.com/newmanls) */
 
 * {
-    font:   "JetBrainsMono Nerd Font Mono 12";
+    font:   "JetBrainsMono Nerd Font Mono 10";
 
     bg0:     #2f2f2f;
     bg1:     #161616;
     bg2:     #161616;
-    fg0:     #36b0c1;
+    fg0:     #7f7f7f;
 
-    accent-color:     #f265b5;
-    urgent-color:     #a277d1;
+    accent-color:            #36b0c1;
+    urgent-color:     #f265b5;
 
     background-color:   @bg1;
     text-color:         @fg0;
@@ -20,36 +20,58 @@
     spacing:    0;
 }
 
+
 window {
     location:   center;
     width:      500;
     background-color:   @bg1;
 }
 
-inputbar {
-    spacing:    8px;
-    padding:    5px;
-    background-color:   @bg2;
+mainbox {
+  enabled :true;
+  margin:0px;
+  padding:15px;
+  children: ["inputbar", "listview"];
 }
 
-prompt, entry, element-icon, element-text {
-    vertical-align: 0.5;
+inputbar {
+    enabled:          true;
+    spacing:          5px;
+    margin:           0px;
+    padding:          5px;
+    text-color:       @accent-color;
+    background-color: inherit;
+    children:         ["textbox-prompt-colon", "entry"];
 }
 
 prompt {
-    text-color: @accent-color;
+    enabled :true;
+    background-color : inherit;
+    text-color: inherit;
 }
 
-textbox {
-    padding:            8px;
-    background-color:   @bg1;
+textbox-prompt-colon {
+  enabled: true;
+  padding:-5px 0px;
+  expand:false;
+  font: "JetBrainsMono Nerd Font Mono 15";
+  str: "";
+  background-color:inherit;
+  text-color: inherit;
+}
+
+entry {
+  enabled:true;
+  padding:0px 0px;
+  background-color:inherit;
+  text-color: inherit;
+  cursor:text;
 }
 
 listview {
     padding:    4px 0;
-    lines:      8;
+    lines:      10;
     columns:    1;
-
     fixed-height:   false;
 }
 
@@ -63,7 +85,7 @@ element normal normal {
 }
 
 element normal urgent {
-    text-color: @urgent-color;
+    text-color: @accent-color;
 }
 
 element normal active {
@@ -71,26 +93,28 @@ element normal active {
 }
 
 element alternate active {
-    text-color: @accent-color;
+    text-color: @fg0;
 }
 
 element selected {
     text-color: @accent-color;
-		text-style: bold;
 }
 
-element selected normal, element selected active {
-    background-color:   @bg0;
-		border: 1px;
-		border-color: @accent-color;
+element selected normal {
+    text-color: @urgent-color;
+    background-color: inherit;
+}
+element selected active {
+    text-color: @urgent-color;
+    background-color: inherit;
 }
 
 element selected urgent {
-    background-color:   @urgent-color;
+    background-color:   @accent-color;
 }
 
 element-icon {
-    size:   0.8em;
+    size:   15px;
 }
 
 element-text {
