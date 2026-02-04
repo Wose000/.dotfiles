@@ -8,7 +8,7 @@ local config = wezterm.config_builder()
 config.enable_tab_bar = false
 
 -- background
-config.window_background_opacity = 0.85
+config.window_background_opacity = 1
 
 config.warn_about_missing_glyphs = false
 
@@ -17,10 +17,9 @@ config.font = wezterm.font("JetBrains Mono")
 config.font_size = 10
 
 -- colors
-l = "#a48cf2"
 config.colors = {
 	foreground = "#abc3d7",
-	background = "#101213",
+	background = "#161616",
 	ansi = {
 		"#161616", -- black
 		"#f265b5", -- red

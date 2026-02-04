@@ -91,27 +91,14 @@
           "type": "text",
           "newline": true,
           "style": "plain",
-          "template": "\n<f>wose:</f>",
-          "foreground": "p:white"
+          "template": "\n<b><f>wose:</f></b>",
+          "foreground": "p:red"
         }
       ]
     },
     {
       "type": "rprompt",
       "segments": [
-        {
-          "properties": {
-            "always_enabled": true
-          },
-          "template": "{{.Code}}",
-          "foreground": "p:yellow",
-          "background": "trasparent",
-          "type": "status",
-          "style": "plain",
-          "foreground_templates": [
-            "{{ if gt .Code 0 }}p:orange{{ end }}"
-          ]
-        },
         {
           "properties": {
             "display_mode": "files",
@@ -147,6 +134,13 @@
           "style": "plain"
         },
         {
+          "template": " - {{ .CurrentDate | date \"Mon Jan _2 15:04:05 MST 2006\" }}",
+          "foreground": "p:white",
+          "background": "transparent",
+          "type": "time",
+          "style": "plain"
+        },
+        {
           "template": " <p:blue><b>{{ .Name }}</b></> ",
           "foreground": "p:white",
           "background": "transparent",
@@ -154,11 +148,17 @@
           "style": "plain"
         },
         {
-          "template": "<p:blue><b>{{ .CurrentDate | date \"15:04:05\" }}</b></>",
-          "foreground": "p:white",
-          "background": "transparent",
-          "type": "time",
-          "style": "plain"
+          "properties": {
+            "always_enabled": true
+          },
+          "template": "{{ if gt .Code 0 }} {{ .Code }}{{ else }}<p:yellow>{{ .Code }}</>{{ end }}",
+          "foreground": "p:yellow",
+          "background": "trasparent",
+          "type": "status",
+          "style": "plain",
+          "foreground_templates": [
+            "{{ if gt .Code 0 }}p:orange{{ end }}"
+          ]
         }
       ]
     }
