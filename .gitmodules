@@ -1,6 +1,8 @@
 [submodule "nvim/dot-config/nvim"]
 	path = nvim/dot-config/nvim
 	url = https://github.com/Wose000/nvim.git
+	branch = main
 [submodule "awesome/dot-config/awesome"]
 	path = awesome/dot-config/awesome
 	url = https://github.com/Wose000/awesome.git
+	branch = main
