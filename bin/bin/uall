@@ -9,8 +9,13 @@ cd "$note_path"
 git pull origin main
 echo "Updated: note repository"
 
-cd "$dot_path"
+cd "$awesome_path"
 git pull origin main
 
+cd "$nvim_path"
+git pull origin main
+
+cd "$dot_path"
+git pull origin main
 git submodule update --init --recursive
 
