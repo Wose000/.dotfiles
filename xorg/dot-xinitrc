@@ -23,8 +23,5 @@ fi
 [ -f /etc/xprfile ] && . /etc/xprofile
 [ -f ~/.xprofile ] && . ~/.xprofile
 
-setxkbmap -option caps:hyper
-setxkbmap -option "compose:ralt"
-
 exec awesome
 
