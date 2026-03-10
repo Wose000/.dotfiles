@@ -47,7 +47,7 @@ all_paths+=("${sessions_path[@]}")
 selected_folder="$(printf '%s\n' "${all_paths[@]}" | fzf)"
 
 if [[ -z $selected_folder ]]; then
-    echo "No solection"
+    echo "Nothing selected..."
     exit 0
 fi
 
