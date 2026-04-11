@@ -26,3 +26,5 @@ c.fonts.web.family.fixed = "JetBrainMono Nerd Font Mono"
 c.fonts.web.family.sans_serif = "JetBrainMono Nerd Font Mono"
 c.fonts.web.family.serif = "JetBrainMono Nerd Font Mono"
 c.fonts.web.family.standard = "JetBrainMono Nerd Font Mono"
+
+c.qt.args = ["disable-vulkan"]
