@@ -41,8 +41,8 @@ source $HOME/bin/fun.sh
 bindkey -v
 # navigating prompt history
 bindkey '^o' clear-screen
-bindkey '^p' history-search-backward
-bindkey '^n' history-search-forward
+bindkey '^p' history-beginning-search-backward
+bindkey '^n' history-beginning-search-forward
 # Tmux sessions finder
 bindkey -s '^f' "tmux_session_launcher.sh\n"
 
