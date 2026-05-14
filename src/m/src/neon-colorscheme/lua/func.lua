@@ -16,5 +16,3 @@ function M.test()
 	print("does this even try to work")
 	M.apply_hi(get_hl_groups(get_colors.get(), {}))
 end
-
-M.test()
