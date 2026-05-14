@@ -38,23 +38,23 @@ M.colors = {
 	pink = "#ff61c8",
 	peach = "#ff668e",
 	yellow = "#ddd66e",
-	ui = {
-		bg_popup = M.colors.black_blue,
-		fg = M.colors.white_blue,
-		fg_hi = M.colors.white,
-		bg = M.colors.black,
-		bg_visual = M.colors.pink,
-		border = M.colors.grey,
-		border_hi = M.colors.violet,
-		none = "NONE",
-	},
-	diagnostic = {
-		hint = M.colors.blue,
-		info = M.colors.purple,
-		warn = M.color.yellow,
-		error = M.colors.peach,
-		success = M.colors.green,
-	},
+}
+M.colors.ui = {
+	bg_popup = M.colors.black_blue,
+	fg = M.colors.white_blue,
+	fg_hi = M.colors.white,
+	bg = M.colors.black,
+	bg_visual = M.colors.pink,
+	border = M.colors.grey,
+	border_hi = M.colors.violet,
+	none = "NONE",
+}
+M.colors.diagnostic = {
+	hint = M.colors.blue,
+	info = M.colors.purple,
+	warn = M.color.yellow,
+	error = M.colors.peach,
+	success = M.colors.green,
 }
 
 return M

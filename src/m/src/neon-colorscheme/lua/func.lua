@@ -1,7 +1,9 @@
 local M = {}
 
-local c = require("colors.colors")
+local c = require("colors.base")
 local get_hl_groups = require("groups.base").get
+
+print(type(c))
 
 function M.apply_hi(groups)
 	for group, style in pairs(groups) do
@@ -10,5 +12,5 @@ function M.apply_hi(groups)
 end
 
 function M.test()
-	M.apply_hi(get_hl_groups(c.colors))
+	M.apply_hi(get_hl_groups(c))
 end

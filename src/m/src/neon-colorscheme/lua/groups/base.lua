@@ -145,4 +145,5 @@ function M.get(c, opts)
  --   helpExample                 = { fg = c.comment },
   }
 end
+
 return M

@@ -1,3 +1,4 @@
+vim.opt.rtp:prepend("/home/wose/.dotfiles/src/m/src/neon-colorscheme")
 local M = {
 	module = "neon-colorscheme",
 }
