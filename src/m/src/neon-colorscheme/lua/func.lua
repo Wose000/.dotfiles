@@ -1,12 +1,10 @@
 local M = {}
 
-local c = require("colors.base").colors
+local get_colors = require("colors.base")
 local get_hl_groups = require("groups.base").get
 
 function M.apply_hi(groups)
-	if vim.g.colors_name then
-		vim.cmd("hi clear")
-	end
+	vim.cmd("hi clear")
 	for group, style in pairs(groups) do
 		if type(style) ~= "string" then
 			vim.api.nvim_set_hl(0, group, style)
@@ -15,8 +13,8 @@ function M.apply_hi(groups)
 end
 
 function M.test()
-	M.apply_hi(get_hl_groups(c, {}))
 	print("does this even try to work")
+	M.apply_hi(get_hl_groups(get_colors.get(), {}))
 end
 
 M.test()

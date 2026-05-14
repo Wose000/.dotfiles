@@ -35,10 +35,10 @@ function M.get(c, opts)
     LineNrAbove                 = { fg = c.ui.fg },
     LineNrBelow                 = { fg = c.ui.fg },
     MatchParen                  = { fg = c.peach, bold = true }, -- The character under the cursor or just before it, if it is a paired bracket, and its match. |pi_paren.txt|
-    ModeMsg                     = { fg = c.black, bold = true }, -- 'showmode' message (e.g., "-- INSERT -- ")
-    MsgArea                     = { fg = c.black }, -- Area for messages and cmdline
+    ModeMsg                     = { fg = c.white, bold = true }, -- 'showmode' message (e.g., "-- INSERT -- ")
+    MsgArea                     = { fg = c.white }, -- Area for messages and cmdline
     MoreMsg                     = { fg = c.blue }, -- |more-prompt|
-    NonText                     = { fg = c.bright_black }, -- '@' at the end of the window, characters from 'showbreak' and other characters that do not really exist in the text (e.g., ">" displayed when a double-wide character doesn't fit at the end of the line). See also |hl-EndOfBuffer|.
+    NonText                     = { fg = c.white_blue }, -- '@' at the end of the window, characters from 'showbreak' and other characters that do not really exist in the text (e.g., ">" displayed when a double-wide character doesn't fit at the end of the line). See also |hl-EndOfBuffer|.
     Normal                      = { fg = c.ui.fg, bg = opts.transparent and c.ui.none or c.ui.bg }, -- normal text
     NormalNC                    = { fg = c.ui.fg, bg = opts.transparent and c.ui.none or opts.dim_inactive and c.black or c.ui.bg }, -- normal text in non-current windows
     NormalSB                    = { fg = c.ui.fg, bg = c.bright_black }, -- normal text in sidebar
@@ -56,7 +56,7 @@ function M.get(c, opts)
     Search                      = { bg = c.ui.bg, fg = c.ui.fg }, -- Last search pattern highlighting (see 'hlsearch').  Also used for similar items that need to stand out.
     IncSearch                   = { bg = c.peach, fg = c.black }, -- 'incsearch' highlighting; also used for the text replaced with ":s///c"
     CurSearch                   =  "IncSearch",
-    SpecialKey                  = { fg = c.black }, -- Unprintable characters: text displayed differently from what it really is.  But not 'listchars' whitespace. |hl-Whitespace|
+    SpecialKey                  = { fg = c.white }, -- Unprintable characters: text displayed differently from what it really is.  But not 'listchars' whitespace. |hl-Whitespace|
     SpellBad                    = { sp = c.diagnostic.error, undercurl = true }, -- Word that is not recognized by the spellchecker. |spell| Combined with the highlighting used otherwise.
     SpellCap                    = { sp = c.diagnostic.warning, undercurl = true }, -- Word that should start with a capital. |spell| Combined with the highlighting used otherwise.
     SpellLocal                  = { sp = c.diagnostic.info, undercurl = true }, -- Word that is recognized by the spellchecker as one that is used in another region. |spell| Combined with the highlighting used otherwise.
@@ -67,7 +67,7 @@ function M.get(c, opts)
     TabLineFill                 = { bg = opts.transparent and c.ui.none or c.black }, -- tab pages line, where there are no labels
     TabLineSel                  = { fg = c.black, bg = c.blue }, -- tab pages line, active tab page label
     Title                       = { fg = c.blue, bold = true }, -- titles for output from ":set all", ":autocmd" etc.
-    Visual                      = { bg = c.ui.bg_visual }, -- Visual mode selection
+    Visual                      = { fg = c.bright_black, bg = c.ui.bg_visual }, -- Visual mode selection
     VisualNOS                   = { bg = c.ui.bg_visual }, -- Visual mode selection when vim is "Not Owning the Selection".
     WarningMsg                  = { fg = c.diagnostic.warning }, -- warning messages
     Whitespace                  = { fg = c.grey }, -- "nbsp", "space", "tab" and "trail" in 'listchars'
@@ -81,17 +81,17 @@ function M.get(c, opts)
     Debug                       = { fg = c.peach }, --    debugging statements
     Delimiter                   =  "Special", --  character that needs attention
     Error                       = { fg = c.diagnostic.error }, -- (preferred) any erroneous construct
-    Function                    = { fg = c.blue}, -- function name (also: methods for classes)
+    Function                    = { fg = c.purple, italic=true}, -- function name (also: methods for classes)
     Identifier                  = { fg = c.magenta}, -- (preferred) any variable name
     Italic                      = { italic = true, fg = c.yellow }, -- (preferred) any italic text
     Keyword                     = { fg = c.violet }, --  any other keyword
-    Operator                    = { fg = c.blue }, -- "sizeof", "+", "*", etc.
+    Operator                    = { fg = c.peach }, -- "sizeof", "+", "*", etc.
     PreProc                     = { fg = c.dark_blue }, -- (preferred) generic Preprocessor
     Special                     = { fg = c.blue }, -- (preferred) any special symbol
     Statement                   = { fg = c.magenta }, -- (preferred) any statement
-    String                      = { fg = c.green }, --   a string constant: "this is a string"
+    String                      = { fg = c.yellow }, --   a string constant: "this is a string"
     Todo                        = { bg = c.yellow, fg = c.black_blue }, -- (preferred) anything that needs extra attention; mostly the keywords TODO FIXME and XXX
-    Type                        = { fg = c.dark_blue }, -- (preferred) int, long, char, etc.
+    Type                        = { fg = c.teal }, -- (preferred) int, long, char, etc.
     Underlined                  = { underline = true }, -- (preferred) text that stands out, HTML links
     -- debugBreakpoint             = { bg = Util.blend_bg(c.info, 0.1), fg = c.info }, -- used for breakpoint colors in terminal-debug
     debugPC                     = { bg = c.black }, -- used for highlighting the current line in terminal-debug
@@ -104,9 +104,9 @@ function M.get(c, opts)
 
     -- These groups are for the native LSP client. Some other LSP clients may
     -- use these groups, or use their own.
-    LspReferenceText            = { bg = c.ui.fg_hi }, -- used for highlighting "text" references
-    LspReferenceRead            = { bg = c.ui.fg_hi }, -- used for highlighting "read" references
-    LspReferenceWrite           = { bg = c.ui.fg_hi }, -- used for highlighting "write" references
+    LspReferenceText            = { bg = c.violet }, -- used for highlighting "text" references
+    LspReferenceRead            = { bg = c.green }, -- used for highlighting "read" references
+    LspReferenceWrite           = { bg = c.peach }, -- used for highlighting "write" references
 --    LspSignatureActiveParameter = { bg = Util.blend_bg(c.bg_visual, 0.4), bold = true },
     LspCodeLens                 = { fg = c.grey },
 --    LspInlayHint                = { bg = Util.blend_bg(c.blue7, 0.1), fg = c.dark3 },
