@@ -52,7 +52,7 @@ M.colors.ui = {
 M.colors.diagnostic = {
 	hint = M.colors.blue,
 	info = M.colors.purple,
-	warn = M.color.yellow,
+	warn = M.colors.yellow,
 	error = M.colors.peach,
 	success = M.colors.green,
 }
