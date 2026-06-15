@@ -1,6 +1,6 @@
 #!/bin/env bash
 
-DEVICE_NAME="Tablet Monitor Pen"
+DEVICE_NAME="Tablet Monitor Pen Pen"
 
 OUTPUT="DP-3"
 
@@ -8,8 +8,8 @@ export DISPLAY=:0
 export XAUTHORITY=/home/wose/.Xauthority
 
 if [[ $HOSTNAME != "arch-pc" ]]; then
-  notify-send "this aint the desktop"
-  exit 1
+    notify-send "this aint the desktop"
+    exit 1
 fi
 
 while true; do
