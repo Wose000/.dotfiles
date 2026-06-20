@@ -26,7 +26,8 @@ declare -A folder_depths=(
 # array of paths to add singularly without the need of fd
 sessions_path=(
     "$HOME"
-    "$HOME/m/doc/note/"
+    "$HOME/m/doc/note/note/"
+    "$HOME/m/doc/note/wrk/"
     "$HOME/.dotfiles/"
     "$HOME/m/pathfinder/pathfinder_vault/"
 )
