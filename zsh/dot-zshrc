@@ -18,6 +18,7 @@ export PATH="$DOTNET_ROOT/sdk:$PATH"
 export PATH="$HOME/.dotnet/tools:$PATH"
 # Run this if you ever run into errors while doing a `dotnet restore`
 alias nugetclean="dotnet nuget locals --clear all"
+alias rg="~/m/media/games/game_build/reality_wars.sh"
 
 # Java environment
 JAVA_HOME="/usr/lib/jvm/java-21-openjdk"
