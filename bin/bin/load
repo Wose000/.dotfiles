@@ -1,0 +1,5 @@
+#!/bin/env bash
+
+sudo mount /dev/"$1" ~/mnt/usb-drive/
+sudo yazi ~/mnt/usb-drive/
+
