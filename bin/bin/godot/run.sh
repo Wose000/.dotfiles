@@ -4,7 +4,7 @@
 # exec path: /bin/zsh
 # exec flags: -c "source ~/.zshrc && ~/bin/run.sh {project} ~/.cache/nvim/godot-$(basename {project}).socket {file} {line} {col}"
 
-TERM_EXEC="wezterm start --"
+TERM_EXEC=" kitty -e "
 
 if [ $# -ne 5 ]; then
     echo "USAGE: $0 <project dir> <socket> <file> <line> <column>"
